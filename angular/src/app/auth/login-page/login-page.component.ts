@@ -5,6 +5,7 @@ import {ActivatedRoute} from "@angular/router";
 import {Observable} from "rxjs";
 import {map} from "rxjs/operators";
 import {AuthenticationRoutingService} from "../authentication-routing.service";
+import {FormBuilder, FormGroup, Validators} from "@angular/forms";
 
 @Component({
   selector: 'app-login-page',
@@ -17,13 +18,20 @@ export class LoginPageComponent implements OnInit {
 
   sessionExpired$: Observable<boolean>;
 
+  readonly formGroup: FormGroup;
 
   constructor(
     private readonly authClient: AuthenticationClient,
     private readonly session: SessionService,
     private readonly routing: AuthenticationRoutingService,
     private readonly route: ActivatedRoute,
+    fb: FormBuilder
   ) {
+
+    this.formGroup = fb.group({
+      'username': [null, Validators.required],
+      'password': [null, Validators.required],
+    });
 
     this.sessionExpired$ = route.queryParamMap.pipe(
       map(p => p.get('expired') === 'true')
@@ -38,11 +46,11 @@ export class LoginPageComponent implements OnInit {
   }
 
 
-  login() {
+  onSubmit(): void {
 
     this.authClient.login({
-      username: 'max',
-      password: 'muster'
+      username: this.formGroup.value.username,
+      password: this.formGroup.value.password
     }).subscribe(
       val => {
         this.session.acceptSession(val);
@@ -52,5 +60,6 @@ export class LoginPageComponent implements OnInit {
     );
 
   }
+
 
 }

@@ -5,6 +5,23 @@
 </p>
 
 
-<p>TODO form</p>
+<form [formGroup]="formGroup" (ngSubmit)="onSubmit()" >
 
-<button (click)="login()">login</button>
+    <mat-form-field appearance="fill">
+      <mat-label>Username</mat-label>
+      <input matInput formControlName="username">
+    </mat-form-field>
+
+    <br>
+
+    <mat-form-field appearance="fill">
+      <mat-label>Password</mat-label>
+      <input type="password" matInput formControlName="password">
+    </mat-form-field>
+
+    <div>
+      <button mat-raised-button color="primary" type="submit" class="button" [disabled]="!formGroup.valid">Login</button>
+    </div>
+
+</form>
+

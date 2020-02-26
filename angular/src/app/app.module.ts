@@ -16,6 +16,10 @@ import {AuthenticationInterceptor} from "./auth/authentication.interceptor";
 import { NotFoundPageComponent } from './not-found-page/not-found-page.component';
 import { HomePageComponent } from './home-page/home-page.component';
 import { LuckyNumberComponent } from './lucky-number/lucky-number.component';
+import {MatFormFieldModule} from "@angular/material/form-field";
+import {MatSelectModule} from "@angular/material/select";
+import {MatInputModule} from "@angular/material/input";
+import {ReactiveFormsModule} from "@angular/forms";
 
 
 @NgModule({
@@ -23,10 +27,14 @@ import { LuckyNumberComponent } from './lucky-number/lucky-number.component';
     BrowserModule,
     HttpClientModule,
     BrowserAnimationsModule,
+    ReactiveFormsModule,
     AppRoutingModule,
     MatSliderModule,
     MatToolbarModule,
     MatButtonModule,
+    MatFormFieldModule,
+    MatSelectModule,
+    MatInputModule,
   ],
   declarations: [
     AppComponent,
