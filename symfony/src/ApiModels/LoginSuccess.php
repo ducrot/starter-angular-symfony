@@ -43,7 +43,7 @@ class LoginSuccess implements JsonSerializable
     {
         return [
             'token' => $this->getToken(),
-            'tokenExpiresAt' => $this->getTokenExpiresAt(),
+            'tokenExpiresAt' => $this->getTokenExpiresAt()->format(DATE_RFC3339_EXTENDED),
             'user' => $this->getUser()->jsonSerialize(),
         ];
     }

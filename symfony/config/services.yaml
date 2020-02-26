@@ -27,9 +27,20 @@ services:
     # please note that last definitions always *replace* previous ones
 
 
+    # everything in Entity/ is excluded from services by default, have to add our
+    # user provider manually
     App\Entity\UserRepository:
 
 
+    # we have to pass settings for user tokens
+    App\Security\UserTokenAuthenticator:
+        arguments:
+            $tokenIssuer: '%env(string:USER_TOKEN_ISSUER)%'
+            $tokenLifetime: '%env(string:USER_TOKEN_LIFETIME)%'
+            $tokenSecret: '%env(string:APP_SECRET)%'
+
+
+    # we have to pass the path to the frontend directory to the frontend controller
     App\Controller\FrontendController:
         tags: ['controller.service_arguments']
         arguments:

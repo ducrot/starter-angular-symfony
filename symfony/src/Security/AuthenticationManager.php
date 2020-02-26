@@ -7,7 +7,7 @@ namespace App\Security;
 use App\ApiModels\LoginCredentials;
 use App\ApiModels\LoginSuccess;
 use App\Entity\User;
-use DateTime;
+use Exception;
 use LogicException;
 use Psr\Log\LoggerInterface;
 use Symfony\Component\Security\Core\Encoder\EncoderFactoryInterface;
@@ -20,6 +20,9 @@ class AuthenticationManager
     /** @var UserProviderInterface */
     private $userProvider;
 
+    /** @var UserTokenAuthenticator */
+    private $authenticator;
+
     /** @var EncoderFactoryInterface */
     private $encoderFactory;
 
@@ -29,12 +32,14 @@ class AuthenticationManager
     /**
      * AuthenticationManager constructor.
      * @param UserProviderInterface $userProvider
+     * @param UserTokenAuthenticator $authenticator
      * @param EncoderFactoryInterface $encoderFactory
      * @param LoggerInterface $logger
      */
-    public function __construct(UserProviderInterface $userProvider, EncoderFactoryInterface $encoderFactory, LoggerInterface $logger)
+    public function __construct(UserProviderInterface $userProvider, UserTokenAuthenticator $authenticator, EncoderFactoryInterface $encoderFactory, LoggerInterface $logger)
     {
         $this->userProvider = $userProvider;
+        $this->authenticator = $authenticator;
         $this->encoderFactory = $encoderFactory;
         $this->logger = $logger;
     }
@@ -46,7 +51,17 @@ class AuthenticationManager
         if (!$user) {
             return null;
         }
-        return new LoginSuccess('xxx', new DateTime(), $user);
+
+        try {
+            $token = $this->authenticator->generateToken($user);
+        } catch (Exception $e) {
+            $this->logger->error('Failed to generate token: ' . $e->getMessage());
+            throw new LogicException('Failed to generate token');
+        }
+
+        $expiresAt = date_create_immutable()->add($this->authenticator->getTokenLifetime());
+
+        return new LoginSuccess($token, $expiresAt, $user);
     }
 
 
