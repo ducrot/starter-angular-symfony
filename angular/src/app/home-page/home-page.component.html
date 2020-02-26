@@ -1,0 +1,15 @@
+<mat-toolbar color="primary">
+
+  <mat-toolbar-row>
+    <span>Starter Application</span>
+    <span class="example-spacer"></span>
+    <a routerLink="/">First</a>
+    <span class="small-spacer"></span>
+    <a routerLink="/second">Second</a>
+    <span class="small-spacer"></span>
+    <a (click)="onLogoutClick($event)" href="/logout">Logout</a>
+  </mat-toolbar-row>
+
+</mat-toolbar>
+
+<router-outlet></router-outlet>
