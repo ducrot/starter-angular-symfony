@@ -1,4 +1,7 @@
-import {ChangeDetectionStrategy, Component, OnInit} from '@angular/core';
+import {ChangeDetectionStrategy, Component} from '@angular/core';
+import {Observable} from "rxjs";
+import {User} from "../../lib/api/user";
+import {SessionService} from "../auth/session.service";
 
 @Component({
   selector: 'app-second-page',
@@ -6,11 +9,12 @@ import {ChangeDetectionStrategy, Component, OnInit} from '@angular/core';
   styleUrls: ['./second-page.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class SecondPageComponent implements OnInit {
+export class SecondPageComponent {
 
-  constructor() { }
+  readonly user$: Observable<User>;
 
-  ngOnInit(): void {
+  constructor(session: SessionService) {
+    this.user$ = session.user$;
   }
 
 }

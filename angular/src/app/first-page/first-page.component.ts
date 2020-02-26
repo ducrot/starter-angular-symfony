@@ -1,4 +1,8 @@
-import {ChangeDetectionStrategy, Component, OnInit} from '@angular/core';
+import {ChangeDetectionStrategy, Component} from '@angular/core';
+import {SessionService} from "../auth/session.service";
+import {Observable} from "rxjs";
+import {User} from "../../lib/api/user";
+
 
 @Component({
   selector: 'app-first-page',
@@ -6,11 +10,14 @@ import {ChangeDetectionStrategy, Component, OnInit} from '@angular/core';
   styleUrls: ['./first-page.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class FirstPageComponent implements OnInit {
+export class FirstPageComponent {
 
-  constructor() { }
 
-  ngOnInit(): void {
+  readonly user$: Observable<User>;
+
+  constructor(session: SessionService) {
+    this.user$ = session.user$;
   }
+
 
 }
