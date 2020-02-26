@@ -16,11 +16,7 @@ export class AuthenticationClient {
 
 
   login(credentials: LoginCredentials): Observable<LoginSuccess> {
-    // clear authorization header to make sure no expired token is sent
-    const options = {
-      // headers: {'Authorization': ''}
-    };
-    return this.http.post<LoginSuccess>(`${environment.apiEndpoint}/auth/login`, credentials, options);
+    return this.http.post<LoginSuccess>(`${environment.apiEndpoint}/auth/login`, credentials);
   }
 
 
