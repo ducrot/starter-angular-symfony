@@ -40,3 +40,15 @@ node_modules/.bin/ng serve
 ```
 
 If your have the angular CLI globally installed, you can simply run `ng serve`.
+
+
+
+# production builds
+
+Make angular production build: 
+
+```shell script
+node_modules/.bin/ng build --prod --deleteOutputPath=false
+```
+
+Production builds are automatically delivered by symfony. See FrontendController.php.

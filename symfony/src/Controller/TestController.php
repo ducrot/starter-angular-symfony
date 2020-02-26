@@ -11,7 +11,7 @@ class TestController
 {
 
     /**
-     * @Route("/lucky/number")
+     * @Route("/api/lucky-number")
      *
      * @return Response
      * @throws \Exception
