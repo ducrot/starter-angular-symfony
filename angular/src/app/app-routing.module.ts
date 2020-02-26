@@ -5,6 +5,9 @@ import {SecondPageComponent} from "./second-page/second-page.component";
 import {LoginPageComponent} from "./auth/login-page/login-page.component";
 import {SessionRequired} from "./auth/session-required.service";
 import {NotFoundPageComponent} from "./not-found-page/not-found-page.component";
+import {HomePageComponent} from "./home-page/home-page.component";
+import {DelayResolverService} from "./delay-resolver.service";
+import {LogoutPageComponent} from "./auth/logout-page/logout-page.component";
 
 
 const config: ExtraOptions = {
@@ -12,36 +15,41 @@ const config: ExtraOptions = {
 };
 
 const routes: Routes = [
-
-  // redirect to the start page
-  { path: '',
-    redirectTo: '/first-page',
-    pathMatch: 'full'
-  },
-
   {
-    path: 'login',
-    component: LoginPageComponent,
-  },
-  {
-    path: 'first-page',
-    component: FirstPageComponent,
+    path: '',
+    component: HomePageComponent,
     canActivate: [SessionRequired],
-  },
-  {
-    path: 'second-page',
-    component: SecondPageComponent,
+    canActivateChild: [SessionRequired],
+    resolve: {
+      delay: DelayResolverService
+    },
+    children: [
+      {
+        path: '',
+        pathMatch: 'full',
+        component: FirstPageComponent,
+      },
+      {
+        path: 'first',
+        pathMatch: 'full',
+        component: FirstPageComponent,
+      },
+      {
+        path: 'second',
+        pathMatch: 'full',
+        component: SecondPageComponent
+      },
+    ]
   },
 
-  // fallback page
-  {
-    path: '**',
-    component: NotFoundPageComponent
-  }
+  {path: 'login', component: LoginPageComponent},
+  {path: 'logout', component: LogoutPageComponent},
+  {path: '**', component: NotFoundPageComponent},
 ];
 
 @NgModule({
   imports: [RouterModule.forRoot(routes, config)],
   exports: [RouterModule]
 })
-export class AppRoutingModule { }
+export class AppRoutingModule {
+}

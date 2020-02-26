@@ -14,6 +14,8 @@ import {LoginPageComponent} from './auth/login-page/login-page.component';
 import {HTTP_INTERCEPTORS, HttpClientModule} from "@angular/common/http";
 import {AuthenticationInterceptor} from "./auth/authentication.interceptor";
 import { NotFoundPageComponent } from './not-found-page/not-found-page.component';
+import { HomePageComponent } from './home-page/home-page.component';
+import { LuckyNumberComponent } from './lucky-number/lucky-number.component';
 
 
 @NgModule({
@@ -33,6 +35,8 @@ import { NotFoundPageComponent } from './not-found-page/not-found-page.component
     LogoutPageComponent,
     LoginPageComponent,
     NotFoundPageComponent,
+    HomePageComponent,
+    LuckyNumberComponent,
   ],
   providers: [
     {
