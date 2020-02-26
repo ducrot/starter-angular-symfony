@@ -14,6 +14,7 @@ import {LoginPageComponent} from './auth/login-page/login-page.component';
 import {AuthenticationService} from "./auth/authentication.service";
 import {AuthenticationClient} from "../api-models/authentication-client.service";
 import {HttpClientModule} from "@angular/common/http";
+import {TestClient} from "../api-models/test-client.service";
 
 
 @NgModule({
@@ -36,6 +37,7 @@ import {HttpClientModule} from "@angular/common/http";
   providers: [
     AuthenticationService,
     AuthenticationClient,
+    TestClient,
   ],
   bootstrap: [AppComponent]
 })
