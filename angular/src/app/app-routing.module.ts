@@ -1,9 +1,14 @@
 import { NgModule } from '@angular/core';
-import { Routes, RouterModule } from '@angular/router';
+import {Routes, RouterModule, ExtraOptions} from '@angular/router';
 import {FirstPageComponent} from "./first-page/first-page.component";
 import {SecondPageComponent} from "./second-page/second-page.component";
 import {LoginPageComponent} from "./auth/login-page/login-page.component";
+import {SessionRequired} from "./auth/session-required.service";
 
+
+const config: ExtraOptions = {
+  scrollPositionRestoration: "top",
+};
 
 const routes: Routes = [
   {
@@ -13,6 +18,7 @@ const routes: Routes = [
   {
     path: 'first-page',
     component: FirstPageComponent,
+    canActivate: [SessionRequired],
   },
   {
     path: 'second-page',
@@ -25,7 +31,7 @@ const routes: Routes = [
 ];
 
 @NgModule({
-  imports: [RouterModule.forRoot(routes)],
+  imports: [RouterModule.forRoot(routes, config)],
   exports: [RouterModule]
 })
 export class AppRoutingModule { }

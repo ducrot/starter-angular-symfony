@@ -1,3 +1,10 @@
-<p>login-page works!</p>
+
+
+<p *ngIf="sessionExpired$ | async"  style="color: red;">
+  Your session has expired. Please login again.
+</p>
+
+
+<p>TODO form</p>
 
 <button (click)="login()">login</button>
