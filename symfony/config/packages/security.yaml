@@ -1,0 +1,39 @@
+security:
+
+    # make sure access decision manager is configured in a sane way
+    access_decision_manager:
+        strategy: unanimous
+        allow_if_all_abstain: false
+
+
+    # set the password encoder for our user type
+    encoders:
+        App\Entity\User:
+            algorithm: bcrypt
+
+
+    # https://symfony.com/doc/current/security.html#where-do-users-come-from-user-providers
+    providers:
+        #users_in_memory: { memory: null }
+        default:
+            id: App\Entity\UserRepository
+
+    firewalls:
+        dev:
+            pattern: ^/(_(profiler|wdt)|css|images|js)/
+            security: false
+        main:
+            anonymous: lazy
+            provider: default
+
+            # activate different ways to authenticate
+            # https://symfony.com/doc/current/security.html#firewalls-authentication
+
+            # https://symfony.com/doc/current/security/impersonating_user.html
+            # switch_user: true
+
+    # Easy way to control access for large sections of your site
+    # Note: Only the *first* access control that matches will be used
+    access_control:
+        # - { path: ^/admin, roles: ROLE_ADMIN }
+        # - { path: ^/profile, roles: ROLE_USER }

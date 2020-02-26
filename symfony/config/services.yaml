@@ -27,6 +27,9 @@ services:
     # please note that last definitions always *replace* previous ones
 
 
+    App\Entity\UserRepository:
+
+
     App\Controller\FrontendController:
         tags: ['controller.service_arguments']
         arguments:
