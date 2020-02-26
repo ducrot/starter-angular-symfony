@@ -38,7 +38,8 @@ export class SessionService {
   }
 
 
-  private readonly sessionExpirationLeewaySeconds = 5;
+  // we want to prevent the user from entering a route *before* his token expires
+  private readonly sessionEagerExpirationSeconds = 10;
   private readonly sessionKey = 'user_session';
   private readonly userSubject = new ReplaySubject<User>(1);
 
@@ -66,7 +67,7 @@ export class SessionService {
   private willSessionExpireSoon(session: LoginSuccess): boolean {
     const nowTs = Date.now();
     const expirationTs = jsonDateParse(session.tokenExpiresAt).getTime();
-    return (expirationTs - 1000 * this.sessionExpirationLeewaySeconds) < nowTs;
+    return (expirationTs - 1000 * this.sessionEagerExpirationSeconds) < nowTs;
   }
 
 
