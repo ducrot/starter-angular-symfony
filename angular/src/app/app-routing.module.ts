@@ -1,9 +1,10 @@
-import { NgModule } from '@angular/core';
-import {Routes, RouterModule, ExtraOptions} from '@angular/router';
+import {NgModule} from '@angular/core';
+import {ExtraOptions, RouterModule, Routes} from '@angular/router';
 import {FirstPageComponent} from "./first-page/first-page.component";
 import {SecondPageComponent} from "./second-page/second-page.component";
 import {LoginPageComponent} from "./auth/login-page/login-page.component";
 import {SessionRequired} from "./auth/session-required.service";
+import {NotFoundPageComponent} from "./not-found-page/not-found-page.component";
 
 
 const config: ExtraOptions = {
@@ -11,6 +12,13 @@ const config: ExtraOptions = {
 };
 
 const routes: Routes = [
+
+  // redirect to the start page
+  { path: '',
+    redirectTo: '/first-page',
+    pathMatch: 'full'
+  },
+
   {
     path: 'login',
     component: LoginPageComponent,
@@ -24,10 +32,12 @@ const routes: Routes = [
     path: 'second-page',
     component: SecondPageComponent,
   },
-  { path: '',
-    redirectTo: '/first-page',
-    pathMatch: 'full'
-  },
+
+  // fallback page
+  {
+    path: '**',
+    component: NotFoundPageComponent
+  }
 ];
 
 @NgModule({

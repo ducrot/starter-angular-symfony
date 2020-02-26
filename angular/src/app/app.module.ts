@@ -13,6 +13,7 @@ import {LogoutPageComponent} from './auth/logout-page/logout-page.component';
 import {LoginPageComponent} from './auth/login-page/login-page.component';
 import {HTTP_INTERCEPTORS, HttpClientModule} from "@angular/common/http";
 import {AuthenticationInterceptor} from "./auth/authentication.interceptor";
+import { NotFoundPageComponent } from './not-found-page/not-found-page.component';
 
 
 @NgModule({
@@ -31,6 +32,7 @@ import {AuthenticationInterceptor} from "./auth/authentication.interceptor";
     SecondPageComponent,
     LogoutPageComponent,
     LoginPageComponent,
+    NotFoundPageComponent,
   ],
   providers: [
     {
