@@ -46,10 +46,13 @@ export class AuthenticationRoutingService {
 
 
   private encodeBackUrl(url: string): string | undefined {
-    if (url === '') {
+    if (url === this.homeUrl) {
       return undefined;
     }
-    if (url === this.homeUrl) {
+    if (url.startsWith('/login')) {
+      return undefined;
+    }
+    if (url === '') {
       return undefined;
     }
     if (url.startsWith('/')) {
