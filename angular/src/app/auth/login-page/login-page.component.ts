@@ -1,10 +1,10 @@
 import {ChangeDetectionStrategy, Component, OnInit} from '@angular/core';
 import {AuthenticationClient} from "../../../lib/api/authentication-client.service";
-import {TestClient} from "../../../lib/api/test-client.service";
 import {SessionService} from "../session.service";
-import {ActivatedRoute, Router} from "@angular/router";
+import {ActivatedRoute} from "@angular/router";
 import {Observable} from "rxjs";
 import {map} from "rxjs/operators";
+import {AuthenticationRoutingService} from "../authentication-routing.service";
 
 @Component({
   selector: 'app-login-page',
@@ -21,11 +21,9 @@ export class LoginPageComponent implements OnInit {
   constructor(
     private readonly authClient: AuthenticationClient,
     private readonly session: SessionService,
-    private readonly testClient: TestClient,
-    private readonly router: Router,
-    private readonly route: ActivatedRoute
+    private readonly routing: AuthenticationRoutingService,
+    private readonly route: ActivatedRoute,
   ) {
-
 
     this.sessionExpired$ = route.queryParamMap.pipe(
       map(p => p.get('expired') === 'true')
@@ -35,7 +33,7 @@ export class LoginPageComponent implements OnInit {
 
 
   ngOnInit(): void {
-    // always destroy session when the login page is opened
+    // always destroy session when the page is opened
     this.session.destroySession();
   }
 
@@ -47,14 +45,8 @@ export class LoginPageComponent implements OnInit {
       password: 'muster'
     }).subscribe(
       val => {
-
         this.session.acceptSession(val);
-
-        const backUrl = '/' + (this.route.snapshot.queryParamMap.get('backUrl') ?? '');
-        this.router.navigate([backUrl]).catch(e => console.error(e));
-
-        this.testClient.luckyNumber().subscribe(v => console.log(v))
-
+        this.routing.afterLoginSuccess(this.route);
       },
       error => console.error(error)
     );
