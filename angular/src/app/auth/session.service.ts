@@ -1,5 +1,5 @@
 import {Injectable} from '@angular/core';
-import {Observable} from "rxjs";
+import {Observable, ReplaySubject} from "rxjs";
 import {User} from "../../lib/api/user";
 import {LoginSuccess} from "../../lib/api/login-success";
 import {jsonDateParse} from "../../lib/json-date";
@@ -11,7 +11,6 @@ import {jsonDateParse} from "../../lib/json-date";
 export class SessionService {
 
 
-  // TODO
   readonly user$: Observable<User>;
 
 
@@ -40,19 +39,27 @@ export class SessionService {
 
 
   private readonly sessionExpirationLeewaySeconds = 5;
+  private readonly sessionKey = 'user_session';
+  private readonly userSubject = new ReplaySubject<User>(1);
 
 
   constructor() {
+    this.user$ = this.userSubject;
+    const sess = this.readSession();
+    if (sess) {
+      this.userSubject.next(sess.user);
+    }
   }
 
 
   acceptSession(session: LoginSuccess): void {
-    localStorage.setItem('user_session', JSON.stringify(session));
+    localStorage.setItem(this.sessionKey, JSON.stringify(session));
+    this.userSubject.next(session.user);
   }
 
 
   destroySession(): void {
-    localStorage.removeItem('user_session');
+    localStorage.removeItem(this.sessionKey);
   }
 
 
@@ -64,7 +71,7 @@ export class SessionService {
 
 
   private readSession(): LoginSuccess | undefined {
-    const json = localStorage.getItem('user_session');
+    const json = localStorage.getItem(this.sessionKey);
     if (typeof json === 'string') {
       return JSON.parse(json) as LoginSuccess;
     }
