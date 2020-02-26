@@ -1,4 +1,5 @@
 import {ChangeDetectionStrategy, Component, OnInit} from '@angular/core';
+import {SessionService} from "../session.service";
 
 @Component({
   selector: 'app-logout-page',
@@ -8,9 +9,14 @@ import {ChangeDetectionStrategy, Component, OnInit} from '@angular/core';
 })
 export class LogoutPageComponent implements OnInit {
 
-  constructor() { }
+  constructor(
+    private readonly session: SessionService,
+  ) {
+  }
 
   ngOnInit(): void {
+    // always destroy session when the page is opened
+    this.session.destroySession();
   }
 
 }
