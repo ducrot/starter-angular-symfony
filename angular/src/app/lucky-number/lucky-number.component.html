@@ -1,0 +1,22 @@
+<h4>&lt;app-lucky-number&gt;</h4>
+
+<button (click)="drawNumber()">Draw lucky number</button>
+
+<ng-container *ngIf="draw$ | async as draw">
+
+  <p *ngIf="draw.loading">
+    loading...
+  </p>
+
+  <p *ngIf="draw.number !== null">
+    Your lucky number: {{ draw.number }}
+  </p>
+
+  <ng-container *ngIf="draw.error !== null">
+    <p style="color: red;">
+      Request failed.
+    </p>
+    <pre>{{draw.error | json}}</pre>
+  </ng-container>
+
+</ng-container>
