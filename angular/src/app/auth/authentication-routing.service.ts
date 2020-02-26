@@ -1,5 +1,5 @@
 import {Injectable} from '@angular/core';
-import {Params, Router} from "@angular/router";
+import {ActivatedRoute, Params, Router} from "@angular/router";
 
 @Injectable({
   providedIn: 'root'
@@ -8,6 +8,9 @@ export class AuthenticationRoutingService {
 
   constructor(private router: Router) {
   }
+
+
+  private readonly homeUrl = '/';
 
 
   login(backUrl?: string): void {
@@ -30,11 +33,29 @@ export class AuthenticationRoutingService {
   }
 
 
-  private encodeBackUrl(url:string): string {
+  afterLoginSuccess(route: ActivatedRoute): void {
+    let next: string;
+    const b = route.snapshot.queryParamMap.get('b');
+    if (typeof b === 'string') {
+      next = b.startsWith('/') ? b : `/${b}`;
+    } else {
+      next = this.homeUrl;
+    }
+    this.router.navigate([next]).catch(e => console.error(e));
+  }
+
+
+  private encodeBackUrl(url: string): string | undefined {
+    if (url === '') {
+      return undefined;
+    }
+    if (url === this.homeUrl) {
+      return undefined;
+    }
     if (url.startsWith('/')) {
       return url.substr(1);
     }
-    return;
+    return url;
   }
 
 
