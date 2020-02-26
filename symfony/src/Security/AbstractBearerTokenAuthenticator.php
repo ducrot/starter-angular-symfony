@@ -94,12 +94,8 @@ abstract class AbstractBearerTokenAuthenticator extends AbstractGuardAuthenticat
      */
     public function start(Request $request = null, AuthenticationException $authException = null)
     {
+        $msg = $authException ? $this->provideMessageForAuthenticationException($authException) : 'Authentication Required';
         $wwwAuthenticate = sprintf('Bearer scope="%s"', $this->getTokenName());
-        if ($authException) {
-            $msg = $this->provideMessageForAuthenticationException($authException);
-        } else {
-            $msg = 'Authentication Required';
-        }
         throw new UnauthorizedHttpException($wwwAuthenticate, $msg);
     }
 

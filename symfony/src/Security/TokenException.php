@@ -9,11 +9,11 @@ use Exception;
 use Firebase\JWT\BeforeValidException;
 use Firebase\JWT\ExpiredException;
 use Firebase\JWT\SignatureInvalidException;
-use Symfony\Component\Security\Core\Exception\AuthenticationException;
+use RuntimeException;
 use Throwable;
 use UnexpectedValueException;
 
-class TokenException extends AuthenticationException
+class TokenException extends RuntimeException
 {
 
     public static function wrapJWTDecode(Exception $exception, string $tokenName = ""): TokenException
