@@ -31,6 +31,8 @@ class TestController
      */
     public function badRequestError(): void
     {
+        // throwing any kind of HttpException will show the message to the user
+
         throw new BadRequestHttpException('Your request does not look so good....');
         // alternatively: throw new HttpException(Response::HTTP_BAD_REQUEST, '...')
     }
@@ -50,6 +52,8 @@ class TestController
      */
     public function unexpectedError(): void
     {
+        // throwing any other exception will show a generic message to the user
+
         throw new Exception("Something went really wrong, don't know what :/");
     }
 
