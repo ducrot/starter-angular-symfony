@@ -55,3 +55,8 @@ services:
                 - '@App\EventSubscriber\JsonExceptionFormatter'
                 - '@App\EventSubscriber\PlaintextExceptionFormatter'
 #                - '@App\EventSubscriber\HtmlExceptionFormatter'
+
+
+    # tag request tagger as monolog processor (no auto configure available as of symfony 4)
+    App\EventSubscriber\RequestTagger:
+        tags: [monolog.processor]
