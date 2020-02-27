@@ -2,6 +2,13 @@ starter-angular-symfony
 =======================
 
 
+# features
+
+- authentication via JWT, login, logout, session expiration support
+- angular production builds delivered by symfony (with proper caching)
+- automatic JSON formatting of exceptions for angular client (stack traces if symfony debug = true)
+- each request is tagged with a unique id, id is logged with every log record, delivered to client 
+
 
 # symfony
 
@@ -52,3 +59,4 @@ node_modules/.bin/ng build --prod --deleteOutputPath=false
 ```
 
 Production builds are automatically delivered by symfony. See FrontendController.php.
+
