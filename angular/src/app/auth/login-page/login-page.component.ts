@@ -6,6 +6,7 @@ import {Observable} from "rxjs";
 import {map} from "rxjs/operators";
 import {AuthenticationRoutingService} from "../authentication-routing.service";
 import {FormBuilder, FormGroup, Validators} from "@angular/forms";
+import {ServiceError} from "../../../lib/service-error.interceptor";
 
 @Component({
   selector: 'app-login-page',
@@ -56,11 +57,13 @@ export class LoginPageComponent implements OnInit {
         this.routing.onLoginSuccess(this.route);
       },
       error => {
-        // we don't have a standard way to handle error responses.
-        // at the moment, symfony renders a HTML error page, which is useless for angular.
-        // for better error messages, a symfony event listener could be used to render
-        // exceptions as json, and provide a stack trace in debug mode.
-        alert('Login failed');
+        if (error instanceof ServiceError && error.requestId) {
+          alert(`${error.message} (${error.requestId})`);
+        } else if (error instanceof ServiceError) {
+          alert(error.message);
+        } else {
+          alert('Unknown error: ' + error);
+        }
         console.error(error);
       }
     );
