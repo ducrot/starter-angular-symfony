@@ -5,6 +5,8 @@ namespace App\Controller;
 
 use Exception;
 use Symfony\Component\HttpFoundation\JsonResponse;
+use Symfony\Component\HttpKernel\Exception\BadRequestHttpException;
+use Symfony\Component\HttpKernel\Exception\UnprocessableEntityHttpException;
 use Symfony\Component\Routing\Annotation\Route;
 
 
@@ -21,6 +23,34 @@ class TestController
     {
         $number = random_int(0, 100);
         return new JsonResponse($number);
+    }
+
+
+    /**
+     * @Route("/api/bad-request")
+     */
+    public function badRequestError(): void
+    {
+        throw new BadRequestHttpException('Your request does not look so good....');
+        // alternatively: throw new HttpException(Response::HTTP_BAD_REQUEST, '...')
+    }
+
+    /**
+     * @Route("/api/processing-error")
+     */
+    public function processingError(): void
+    {
+        throw new UnprocessableEntityHttpException("I'm afraid I can't do that, Dave.");
+        // alternatively: throw new HttpException(Response::HTTP_UNPROCESSABLE_ENTITY, '...')
+    }
+
+    /**
+     * @Route("/api/unexpected-error")
+     * @throws Exception
+     */
+    public function unexpectedError(): void
+    {
+        throw new Exception("Something went really wrong, don't know what :/");
     }
 
 }

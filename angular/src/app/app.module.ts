@@ -13,13 +13,14 @@ import {LogoutPageComponent} from './auth/logout-page/logout-page.component';
 import {LoginPageComponent} from './auth/login-page/login-page.component';
 import {HTTP_INTERCEPTORS, HttpClientModule} from "@angular/common/http";
 import {AuthenticationInterceptor} from "./auth/authentication.interceptor";
-import { NotFoundPageComponent } from './not-found-page/not-found-page.component';
-import { HomePageComponent } from './home-page/home-page.component';
-import { LuckyNumberComponent } from './lucky-number/lucky-number.component';
+import {NotFoundPageComponent} from './not-found-page/not-found-page.component';
+import {HomePageComponent} from './home-page/home-page.component';
+import {LuckyNumberComponent} from './lucky-number/lucky-number.component';
 import {MatFormFieldModule} from "@angular/material/form-field";
 import {MatSelectModule} from "@angular/material/select";
 import {MatInputModule} from "@angular/material/input";
 import {ReactiveFormsModule} from "@angular/forms";
+import {ErrorDonkeyComponent} from './error-donkey/error-donkey.component';
 
 
 @NgModule({
@@ -45,6 +46,7 @@ import {ReactiveFormsModule} from "@angular/forms";
     NotFoundPageComponent,
     HomePageComponent,
     LuckyNumberComponent,
+    ErrorDonkeyComponent,
   ],
   providers: [
     {

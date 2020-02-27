@@ -18,4 +18,19 @@ export class TestClient {
   }
 
 
+  badRequest(): Observable<unknown> {
+    return this.http.get<unknown>(`${environment.apiEndpoint}/bad-request`);
+  }
+
+
+  processingError(): Observable<unknown> {
+    return this.http.get<unknown>(`${environment.apiEndpoint}/processing-error`);
+  }
+
+
+  unexpectedError(): Observable<unknown> {
+    return this.http.get<unknown>(`${environment.apiEndpoint}/unexpected-error`);
+  }
+
+
 }
