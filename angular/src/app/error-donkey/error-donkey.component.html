@@ -5,3 +5,7 @@
 <button (click)="processingError()">processing error</button>
 
 <button (click)="unexpectedError()">unexpected error</button>
+
+<pre *ngIf="error$ | async as err">
+{{err}}
+</pre>

@@ -39,7 +39,7 @@ class JsonExceptionFormatter extends ExceptionFormatter
             $data['request_id'] = $requestId;
         }
         if ($includeDetails) {
-            $data['details'] = $exception->__toString();
+            $data['stack'] = $exception->__toString();
         }
         return new JsonResponse($data);
     }
@@ -54,7 +54,7 @@ class JsonExceptionFormatter extends ExceptionFormatter
             $data['request_id'] = $requestId;
         }
         if ($includeDetails) {
-            $data['details'] = get_class($exception) . ': ' . $exception->getMessage() . PHP_EOL . $exception->__toString();
+            $data['stack'] = $exception->__toString();
         }
         return new JsonResponse($data);
     }

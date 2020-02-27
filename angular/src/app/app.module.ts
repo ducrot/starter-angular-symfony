@@ -21,6 +21,7 @@ import {MatSelectModule} from "@angular/material/select";
 import {MatInputModule} from "@angular/material/input";
 import {ReactiveFormsModule} from "@angular/forms";
 import {ErrorDonkeyComponent} from './error-donkey/error-donkey.component';
+import {ServiceErrorInterceptor} from "../lib/service-error.interceptor";
 
 
 @NgModule({
@@ -52,6 +53,11 @@ import {ErrorDonkeyComponent} from './error-donkey/error-donkey.component';
     {
       provide: HTTP_INTERCEPTORS,
       useClass: AuthenticationInterceptor,
+      multi: true
+    },
+    {
+      provide: HTTP_INTERCEPTORS,
+      useClass: ServiceErrorInterceptor,
       multi: true
     },
   ],

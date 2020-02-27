@@ -90,7 +90,7 @@ class RequestTagger implements EventSubscriberInterface
         if ($forSubRequest) {
             return strval(count($this->currentRequestTag));
         }
-        $length = 18;
+        $length = 10;
         $chars = '0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ';
         $max = mb_strlen($chars, '8bit') - 1;
         $str = '';
