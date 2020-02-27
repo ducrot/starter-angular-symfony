@@ -9,8 +9,9 @@ use App\Security\AuthenticationManager;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpKernel\Exception\BadRequestHttpException;
-use Symfony\Component\HttpKernel\Exception\UnauthorizedHttpException;
+use Symfony\Component\HttpKernel\Exception\HttpException;
 use Symfony\Component\Routing\Annotation\Route;
 
 
@@ -46,7 +47,7 @@ class AuthenticationController extends AbstractController
         // check credentials
         $success = $manager->validateLogin($credentials);
         if (!$success) {
-            throw new UnauthorizedHttpException('Login failed');
+            throw new HttpException(Response::HTTP_UNAUTHORIZED, 'Login failed');
         }
         return new JsonResponse($success);
     }
