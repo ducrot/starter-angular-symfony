@@ -1,6 +1,6 @@
 import {Injectable} from '@angular/core';
 import {HttpErrorResponse, HttpEvent, HttpHandler, HttpInterceptor, HttpRequest} from '@angular/common/http';
-import {EMPTY, Observable, throwError} from 'rxjs';
+import {Observable, throwError} from 'rxjs';
 import {SessionService} from "./session.service";
 import {environment} from "../../environments/environment";
 import {bearerTokenParse} from "../../lib/bearer-token";
@@ -29,13 +29,11 @@ export class AuthenticationInterceptor implements HttpInterceptor {
           if (this.isExpiredTokenResponse(response)) {
             // session expired
             this.session.destroySession();
-            this.routing.sessionExpired(this.router.url);
-            return EMPTY;
+            this.routing.onSessionExpired(this.router.url);
           } else {
             // token missing or other token error
             this.session.destroySession();
-            this.routing.login(this.router.url);
-            return EMPTY;
+            this.routing.onNotAuthenticated(this.router.url);
           }
         }
         return throwError(response);

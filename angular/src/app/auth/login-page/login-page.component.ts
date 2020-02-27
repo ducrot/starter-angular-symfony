@@ -47,18 +47,23 @@ export class LoginPageComponent implements OnInit {
 
 
   onSubmit(): void {
-
     this.authClient.login({
       username: this.formGroup.value.username,
       password: this.formGroup.value.password
     }).subscribe(
       val => {
         this.session.acceptSession(val);
-        this.routing.afterLoginSuccess(this.route);
+        this.routing.onLoginSuccess(this.route);
       },
-      error => console.error(error)
+      error => {
+        // we don't have a standard way to handle error responses.
+        // at the moment, symfony renders a HTML error page, which is useless for angular.
+        // for better error messages, a symfony event listener could be used to render
+        // exceptions as json, and provide a stack trace in debug mode.
+        alert('Login failed');
+        console.error(error);
+      }
     );
-
   }
 
 
