@@ -9,6 +9,7 @@
         "ext-json": "*",
         "firebase/php-jwt": "^5.0",
         "nelmio/cors-bundle": "^2.0",
+        "rollerworks/password-strength-bundle": "^2.2",
         "sensio/framework-extra-bundle": "^5.5",
         "symfony/console": "*",
         "symfony/dotenv": "*",
@@ -16,6 +17,8 @@
         "symfony/framework-bundle": "*",
         "symfony/orm-pack": "^1.0",
         "symfony/security-bundle": "5.0.*",
+        "symfony/translation": "5.0.*",
+        "symfony/validator": "5.0.*",
         "symfony/yaml": "*"
     },
     "require-dev": {
