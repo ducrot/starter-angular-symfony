@@ -5,7 +5,7 @@ namespace App\Security;
 
 
 use App\Entity\User;
-use App\Entity\UserRepository;
+use App\Repository\UserRepository;
 use DateInterval;
 use Exception;
 use Symfony\Component\HttpFoundation\Request;
