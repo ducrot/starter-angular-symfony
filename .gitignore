@@ -1,1 +1,4 @@
-/.idea
+.DS_Store
+.idea
+.php_cs.cache
+http-client/http-client.private.env.json
