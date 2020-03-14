@@ -1,79 +1,347 @@
 <?php
-
+declare(strict_types=1);
 
 namespace App\Entity;
 
-
+use Doctrine\ORM\Event\PreUpdateEventArgs;
+use Doctrine\ORM\Mapping as ORM;
 use JsonSerializable;
+use Rollerworks\Component\PasswordStrength\Validator\Constraints as RollerworksPassword;
+use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 use Symfony\Component\Security\Core\User\UserInterface;
+use Symfony\Component\Validator\Constraints as Assert;
 
+/**
+ * @ORM\Entity(repositoryClass="App\Repository\UserRepository")
+ * @UniqueEntity(fields={"username"}, repositoryMethod="checkUniqueEmail", message="Die E-Mail-Adresse ist schon vergeben.")
+ * @ORM\HasLifecycleCallbacks()
+ */
 class User implements UserInterface, JsonSerializable
 {
+    const
+        GENDER_NONE = 0,
+        GENDER_MALE = 1,
+        GENDER_FEMALE = 2,
+        GENDER_MISC = 3;
 
-    /** @var int */
+    /**
+     * @ORM\Id
+     * @ORM\GeneratedValue(strategy="UUID")
+     * @ORM\Column(type="guid")
+     */
     private $id;
 
-    /** @var string */
+    /**
+     * @var string
+     * @ORM\Column(type="string", length=255, unique=true)
+     * @Assert\NotBlank(message="Eine gültige E-Mail-Adresse muss eingegeben werden.")
+     * @Assert\Email(message="Eine gültige E-Mail-Adresse muss eingegeben werden.")
+     */
     private $username;
 
-    /** @var string */
-    private $passwordHash;
+    /**
+     * @var array
+     * @ORM\Column(type="array")
+     */
+    private $roles = ['ROLE_USER'];
+
+    /**
+     * @var string
+     * @ORM\Column(type="string", length=100)
+     * @Assert\NotBlank(message="Kennwort mit mindestens 10 Zeichen muss eingegeben werden.")
+     * @Assert\Length(max=4096)
+     * @RollerworksPassword\PasswordRequirements(minLength=10, requireLetters=true, requireNumbers=true, requireSpecialCharacter=true)
+     */
+    private $password;
+
+    /**
+     * @var string
+     * @ORM\Column(type="string", length=50, nullable=true)
+     * @Assert\Length(max=50)
+     */
+    private $firstName;
+
+    /**
+     * @var string
+     * @ORM\Column(type="string", length=50, nullable=true)
+     * @Assert\Length(max=50)
+     */
+    private $lastName;
+
+    /**
+     * @var integer
+     * @ORM\Column(type="smallint", options={"unsigned"=true, "default"=0})
+     * @Assert\Choice(callback={"App\Entity\User", "getGenders"})
+     *
+     * 0: none
+     * 1: male
+     * 2: female
+     * 3: misc
+     */
+    private $gender = self::GENDER_NONE;
+
+    /**
+     * @var int
+     * @ORM\Column(type="boolean")
+     */
+    private $disabled = false;
+
+    /**
+     * @var int
+     * @ORM\Column(type="boolean")
+     */
+    private $deleted = false;
+
+    /**
+     * @var \DateTime
+     * @ORM\Column(type="datetime")
+     */
+    private $created;
+
+    /**
+     * @var \DateTime
+     * @ORM\Column(type="datetime")
+     */
+    private $updated;
+
+    /**
+     * @var \DateTime
+     *
+     * @ORM\Column(type="datetime", nullable=true)
+     */
+    private $passwordChanged;
+
+    /**
+     * @var \DateTime
+     *
+     * @ORM\Column(type="datetime", nullable=true)
+     */
+    private $lastLogin;
 
 
     /**
-     * PlaceholderUser constructor.
-     * @param int $id
-     * @param string $username
-     * @param string $passwordHash
+     * New record (INSERT)
+     *
+     * @ORM\PrePersist
      */
-    public function __construct(int $id, string $username, string $passwordHash)
+    public function onPrePersist()
     {
-        $this->id = $id;
-        $this->username = $username;
-        $this->passwordHash = $passwordHash;
+        $this->created = new \DateTime();
+        $this->updated = $this->created;
     }
 
-
-    public function getId(): int
+    /**
+     * Update record (UPDATE)
+     *
+     * @ORM\PreUpdate
+     */
+    public function onPreUpdate(PreUpdateEventArgs $event)
     {
-        return $this->id;
+        if (!$event->hasChangedField('lastlogin')) {
+            $this->updated = new \DateTime();
+        }
+
+        if ($event->hasChangedField('password')) {
+            $this->passwordChanged = new \DateTime();
+        }
     }
 
-
-    public function getRoles()
-    {
-        return [
-            'ROLE_PLACEHOLDER_USER'
-        ];
-    }
-
-    public function getPassword()
-    {
-        return $this->passwordHash;
-    }
-
-
-    public function getSalt()
-    {
-        return null;
-    }
-
-    public function getUsername()
+    public function __toString(): string
     {
         return $this->username;
     }
 
-    public function eraseCredentials()
+    /**
+     * Roles helper function.
+     *
+     * @return array
+     */
+    public static function getGenders(): array
     {
+        return [self::GENDER_NONE,self::GENDER_MALE,self::GENDER_FEMALE, self::GENDER_MISC];
     }
 
+    /** @see UserInterface */
+    public function getSalt()
+    {
+        // not needed when using the "bcrypt" algorithm in security.yaml
+    }
+
+    /** @see UserInterface */
+    public function eraseCredentials()
+    {
+        // If you store any temporary, sensitive data on the user, clear it here
+        // $this->plainPassword = null;
+    }
+
+    /** @see \Serializable::serialize() */
     public function jsonSerialize()
     {
         return [
             'id' => $this->getId(),
             'username' => $this->getUsername(),
+            'roles' => $this->getRoles(),
+            'firstName' => $this->getFirstName(),
+            'lastName' => $this->getLastName(),
+            'gender' => $this->getGender(),
         ];
     }
 
+    /******************************************************************************************
+     * auto generated:
+     */
+
+    public function getId(): ?string
+    {
+        return $this->id;
+    }
+
+    public function getUsername(): ?string
+    {
+        return $this->username;
+    }
+
+    public function setUsername(string $username): self
+    {
+        $this->username = $username;
+
+        return $this;
+    }
+
+    public function getRoles(): array
+    {
+        $roles = $this->roles;
+        // guarantee every user at least has ROLE_USER
+        $roles[] = 'ROLE_USER';
+
+        return array_unique($roles);
+    }
+
+    public function setRoles(array $roles): self
+    {
+        $this->roles = $roles;
+
+        return $this;
+    }
+
+    public function getPassword(): ?string
+    {
+        return $this->password;
+    }
+
+    public function setPassword(string $password): self
+    {
+        $this->password = $password;
+
+        return $this;
+    }
+
+    public function getFirstName(): ?string
+    {
+        return $this->firstName;
+    }
+
+    public function setFirstName(string $firstName): self
+    {
+        $this->firstName = $firstName;
+
+        return $this;
+    }
+
+    public function getLastName(): ?string
+    {
+        return $this->lastName;
+    }
+
+    public function setLastName(string $lastName): self
+    {
+        $this->lastName = $lastName;
+
+        return $this;
+    }
+
+    public function getGender(): ?int
+    {
+        return $this->gender;
+    }
+
+    public function setGender(int $gender): self
+    {
+        $this->gender = $gender;
+
+        return $this;
+    }
+
+    public function getDisabled(): ?int
+    {
+        return $this->disabled;
+    }
+
+    public function setDisabled(int $disabled): self
+    {
+        $this->disabled = $disabled;
+
+        return $this;
+    }
+
+    public function getDeleted(): ?int
+    {
+        return $this->deleted;
+    }
+
+    public function setDeleted(int $deleted): self
+    {
+        $this->deleted = $deleted;
+
+        return $this;
+    }
+
+    public function getCreated(): ?\DateTimeInterface
+    {
+        return $this->created;
+    }
+
+    public function setCreated(\DateTimeInterface $created): self
+    {
+        $this->created = $created;
+
+        return $this;
+    }
+
+    public function getUpdated(): ?\DateTimeInterface
+    {
+        return $this->updated;
+    }
+
+    public function setUpdated(\DateTimeInterface $updated): self
+    {
+        $this->updated = $updated;
+
+        return $this;
+    }
+
+    public function getPasswordChanged(): ?\DateTimeInterface
+    {
+        return $this->passwordChanged;
+    }
+
+    public function setPasswordChanged(\DateTimeInterface $passwordChanged): self
+    {
+        $this->passwordChanged = $passwordChanged;
+
+        return $this;
+    }
+
+    public function getLastLogin(): ?\DateTimeInterface
+    {
+        return $this->lastLogin;
+    }
+
+    public function setLastLogin(\DateTimeInterface $lastLogin): self
+    {
+        $this->lastLogin = $lastLogin;
+
+        return $this;
+    }
 
 }
