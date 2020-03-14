@@ -30,6 +30,19 @@ cd symfony
 symfony server:start
 ```
 
+Set database credentials in `.env.local` and create database tables/schema:
+
+```shell script
+symfony console doctrine:database:create
+symfony console doctrine:schema:update --force
+```
+
+Create a first admin account. Additional users can be created in the application.
+
+```shell script
+symfony console backend:createadmin testuser@domain.tld testpassword
+```
+
 
 # angular
 
@@ -60,3 +73,16 @@ node_modules/.bin/ng build --prod --deleteOutputPath=false
 
 Production builds are automatically delivered by symfony. See FrontendController.php.
 
+
+# testing
+
+```shell script
+# run all tests of the application
+php bin/phpunit
+
+# Run all tests in the Foo/ directory
+php bin/phpunit tests/Foo
+
+# Run all tests in the Foo class 
+php bin/phpunit tests/Foo/FooTest.php
+```
