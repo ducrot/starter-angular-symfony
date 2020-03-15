@@ -10,9 +10,9 @@ use Symfony\Component\Security\Core\Encoder\UserPasswordEncoderInterface;
 /**
  * Class AppFixtures
  *
- * !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
- * !!! Fixtures are only use for tests !!!
- * !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+ * !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+ * !!! Fixtures are only used for tests !!!
+ * !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
  *
  * If there are other fixture classes, they must be registered in \App\Tests\ORM\DatabaseSetupTrait.
  *
