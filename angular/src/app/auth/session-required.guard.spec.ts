@@ -1,12 +1,15 @@
 import { TestBed } from '@angular/core/testing';
 
 import { SessionRequired } from './session-required.service';
+import { RouterTestingModule } from '@angular/router/testing';
 
 describe('SessionRequired', () => {
   let guard: SessionRequired;
 
   beforeEach(() => {
-    TestBed.configureTestingModule({});
+    TestBed.configureTestingModule({
+      imports: [ RouterTestingModule ]
+    });
     guard = TestBed.inject(SessionRequired);
   });
 

@@ -1,6 +1,7 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { ErrorDonkeyComponent } from './error-donkey.component';
+import { HttpClientModule } from '@angular/common/http';
 
 describe('ErrorDonkeyComponent', () => {
   let component: ErrorDonkeyComponent;
@@ -8,7 +9,8 @@ describe('ErrorDonkeyComponent', () => {
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ ErrorDonkeyComponent ]
+      declarations: [ ErrorDonkeyComponent ],
+      imports: [ HttpClientModule ]
     })
     .compileComponents();
   }));

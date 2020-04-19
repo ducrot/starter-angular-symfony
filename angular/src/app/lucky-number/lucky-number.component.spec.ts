@@ -1,6 +1,7 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { LuckyNumberComponent } from './lucky-number.component';
+import { HttpClientModule } from '@angular/common/http';
 
 describe('LuckyNumberComponent', () => {
   let component: LuckyNumberComponent;
@@ -8,7 +9,8 @@ describe('LuckyNumberComponent', () => {
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ LuckyNumberComponent ]
+      declarations: [ LuckyNumberComponent ],
+      imports: [ HttpClientModule ]
     })
     .compileComponents();
   }));
