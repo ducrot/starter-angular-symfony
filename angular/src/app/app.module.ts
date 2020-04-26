@@ -19,6 +19,7 @@ import {LuckyNumberComponent} from './lucky-number/lucky-number.component';
 import {MatFormFieldModule} from "@angular/material/form-field";
 import {MatSelectModule} from "@angular/material/select";
 import {MatInputModule} from "@angular/material/input";
+import {MatCardModule} from "@angular/material/card";
 import {ReactiveFormsModule} from "@angular/forms";
 import {ErrorDonkeyComponent} from './error-donkey/error-donkey.component';
 import {ServiceErrorInterceptor} from "../lib/service-error.interceptor";

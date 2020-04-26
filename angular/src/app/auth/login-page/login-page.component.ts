@@ -1,12 +1,11 @@
-import {ChangeDetectionStrategy, Component, OnInit} from '@angular/core';
-import {AuthenticationClient} from "../../../lib/api/authentication-client.service";
-import {SessionService} from "../session.service";
-import {ActivatedRoute} from "@angular/router";
-import {Observable} from "rxjs";
-import {map} from "rxjs/operators";
-import {AuthenticationRoutingService} from "../authentication-routing.service";
-import {FormBuilder, FormGroup, Validators} from "@angular/forms";
-import {ServiceError} from "../../../lib/service-error.interceptor";
+import {AfterViewInit, ChangeDetectionStrategy, ChangeDetectorRef, Component, OnInit} from '@angular/core';
+import {AuthenticationClient} from '../../../lib/api/authentication-client.service';
+import {SessionService} from '../session.service';
+import {ActivatedRoute} from '@angular/router';
+import {AuthenticationRoutingService} from '../authentication-routing.service';
+import {FormBuilder, FormGroup, Validators} from '@angular/forms';
+import {ServiceError} from '../../../lib/service-error.interceptor';
+import {AlertService} from '../../shared/service/alert.service';
 
 @Component({
   selector: 'app-login-page',
@@ -14,10 +13,7 @@ import {ServiceError} from "../../../lib/service-error.interceptor";
   styleUrls: ['./login-page.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class LoginPageComponent implements OnInit {
-
-
-  sessionExpired$: Observable<boolean>;
+export class LoginPageComponent implements OnInit, AfterViewInit {
 
   readonly formGroup: FormGroup;
 
@@ -26,18 +22,14 @@ export class LoginPageComponent implements OnInit {
     private readonly session: SessionService,
     private readonly routing: AuthenticationRoutingService,
     private readonly route: ActivatedRoute,
-    fb: FormBuilder
+    fb: FormBuilder,
+    private alertService: AlertService,
+    private cdr: ChangeDetectorRef
   ) {
-
     this.formGroup = fb.group({
-      'username': [null, Validators.required],
-      'password': [null, Validators.required],
+      username: [null, Validators.required],
+      password: [null, Validators.required],
     });
-
-    this.sessionExpired$ = route.queryParamMap.pipe(
-      map(p => p.get('expired') === 'true')
-    );
-
   }
 
 
@@ -47,27 +39,36 @@ export class LoginPageComponent implements OnInit {
   }
 
 
+  ngAfterViewInit(): void {
+    if (this.route.snapshot.queryParamMap.get('expired') === 'true') {
+      this.alertService.warning('Your session has expired. Please login again.');
+      this.cdr.detectChanges();
+    }
+  }
+
+
   onSubmit(): void {
+    // reset alerts on submit
+    this.alertService.clear();
+
     this.authClient.login({
       username: this.formGroup.value.username,
       password: this.formGroup.value.password
-    }).subscribe(
-      val => {
-        this.session.acceptSession(val);
-        this.routing.onLoginSuccess(this.route);
-      },
-      error => {
-        if (error instanceof ServiceError && error.requestId) {
-          alert(`${error.message} (${error.requestId})`);
-        } else if (error instanceof ServiceError) {
-          alert(error.message);
-        } else {
-          alert('Unknown error: ' + error);
+    })
+      .subscribe(
+        val => {
+          this.session.acceptSession(val);
+          this.routing.onLoginSuccess(this.route);
+        },
+        error => {
+          if (error instanceof ServiceError) {
+            this.alertService.error(error.message);
+          } else {
+            this.alertService.error('Unknown error: ' + error);
+          }
+          this.cdr.detectChanges();
         }
-        console.error(error);
-      }
-    );
+      );
   }
-
 
 }
