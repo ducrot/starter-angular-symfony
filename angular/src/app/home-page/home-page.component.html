@@ -1,15 +1,29 @@
 <mat-toolbar color="primary">
-
   <mat-toolbar-row>
     <span>Starter Application</span>
-    <span class="example-spacer"></span>
-    <a routerLink="/">First</a>
-    <span class="small-spacer"></span>
-    <a routerLink="/second">Second</a>
-    <span class="small-spacer"></span>
-    <a (click)="onLogoutClick($event)" href="/logout">Logout</a>
+    <span class="menu-spacer"></span>
+    <button mat-icon-button (click)="sidenav.toggle()" fxShow="true" fxHide.gt-sm>
+      <mat-icon>menu</mat-icon>
+    </button>
+    <div fxShow="true" fxHide.lt-md>
+      <a routerLink="/" mat-button>First</a>
+      <a routerLink="/second" mat-button>Second</a>
+      <a (click)="onLogoutClick($event)" href="/logout" mat-button>Logout</a>
+    </div>
   </mat-toolbar-row>
-
 </mat-toolbar>
 
-<router-outlet></router-outlet>
+<mat-sidenav-container fxFlexFill>
+  <mat-sidenav #sidenav position="end">
+    <mat-nav-list>
+      <a routerLink="/" mat-list-item>First</a>
+      <a routerLink="/second" mat-list-item>Second</a>
+      <a (click)="onLogoutClick($event)" href="/logout" mat-list-item>Logout</a>
+    </mat-nav-list>
+  </mat-sidenav>
+  <mat-sidenav-content fxFlexFill>
+    <div id="content">
+      <router-outlet></router-outlet>
+    </div>
+  </mat-sidenav-content>
+</mat-sidenav-container>

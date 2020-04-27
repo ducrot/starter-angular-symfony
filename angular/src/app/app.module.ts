@@ -1,5 +1,6 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { FlexLayoutModule } from "@angular/flex-layout";
 import { NgModule } from '@angular/core';
 
 import { CoreModule } from '@app/core.module';
@@ -24,6 +25,7 @@ import {ErrorDonkeyComponent} from './error-donkey/error-donkey.component';
     // Angular
     BrowserModule,
     BrowserAnimationsModule,
+    FlexLayoutModule,
 
     // Core, Data & Shared
     CoreModule,
