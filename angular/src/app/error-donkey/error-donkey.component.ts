@@ -1,5 +1,5 @@
 import {ChangeDetectionStrategy, Component} from '@angular/core';
-import {TestClient} from "../../lib/api/test-client.service";
+import {TestClient} from "@data/service/test-client.service";
 import {Subject} from "rxjs";
 
 @Component({

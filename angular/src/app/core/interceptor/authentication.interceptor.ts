@@ -1,11 +1,11 @@
 import {Injectable} from '@angular/core';
 import {HttpErrorResponse, HttpEvent, HttpHandler, HttpInterceptor, HttpRequest} from '@angular/common/http';
 import {Observable, throwError} from 'rxjs';
-import {SessionService} from "./session.service";
-import {environment} from "../../environments/environment";
-import {bearerTokenParse} from "../../lib/bearer-token";
+import {SessionService} from "@app/service/session.service";
+import {environment} from '@env';
+import {bearerTokenParse} from "@app/lib/bearer-token";
 import {catchError} from "rxjs/operators";
-import {AuthenticationRoutingService} from "./authentication-routing.service";
+import {AuthenticationRoutingService} from "@app/service/authentication-routing.service";
 import {ActivatedRoute, Router} from "@angular/router";
 
 @Injectable()

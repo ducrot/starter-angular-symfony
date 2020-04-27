@@ -1,6 +1,6 @@
 import {Component} from '@angular/core';
 import {Subject} from "rxjs";
-import {TestClient} from "../../lib/api/test-client.service";
+import {TestClient} from "@data/service/test-client.service";
 
 
 interface Draw {

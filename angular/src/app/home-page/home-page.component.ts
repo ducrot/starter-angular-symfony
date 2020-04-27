@@ -1,5 +1,5 @@
 import {ChangeDetectionStrategy, Component} from '@angular/core';
-import {SessionService} from "../auth/session.service";
+import {SessionService} from "@app/service/session.service";
 
 @Component({
   selector: 'app-home-page',

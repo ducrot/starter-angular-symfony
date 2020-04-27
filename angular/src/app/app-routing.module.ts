@@ -3,7 +3,7 @@ import {ExtraOptions, RouterModule, Routes} from '@angular/router';
 import {FirstPageComponent} from "./first-page/first-page.component";
 import {SecondPageComponent} from "./second-page/second-page.component";
 import {LoginPageComponent} from "./auth/login-page/login-page.component";
-import {SessionRequired} from "./auth/session-required.service";
+import {SessionRequired} from "@app/service/session-required.service";
 import {NotFoundPageComponent} from "./not-found-page/not-found-page.component";
 import {HomePageComponent} from "./home-page/home-page.component";
 import {DelayResolverService} from "./delay-resolver.service";

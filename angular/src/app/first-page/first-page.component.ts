@@ -1,7 +1,7 @@
 import {ChangeDetectionStrategy, Component} from '@angular/core';
-import {SessionService} from "../auth/session.service";
+import {SessionService} from "@app/service/session.service";
 import {Observable} from "rxjs";
-import {User} from "../../lib/api/user";
+import {User} from "@data/schema/user";
 
 
 @Component({

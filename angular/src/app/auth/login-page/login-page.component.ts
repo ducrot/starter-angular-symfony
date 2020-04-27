@@ -1,11 +1,11 @@
 import {AfterViewInit, ChangeDetectionStrategy, ChangeDetectorRef, Component, OnInit} from '@angular/core';
-import {AuthenticationClient} from '../../../lib/api/authentication-client.service';
-import {SessionService} from '../session.service';
+import {AuthenticationClient} from '@app/service/authentication-client.service';
+import {SessionService} from '@app/service/session.service';
 import {ActivatedRoute} from '@angular/router';
-import {AuthenticationRoutingService} from '../authentication-routing.service';
+import {AuthenticationRoutingService} from '@app/service/authentication-routing.service';
 import {FormBuilder, FormGroup, Validators} from '@angular/forms';
-import {ServiceError} from '../../../lib/service-error.interceptor';
-import {AlertService} from '../../shared/service/alert.service';
+import {ServiceError} from '@app/interceptor/service-error.interceptor';
+import {AlertService} from '@shared/service/alert.service';
 
 @Component({
   selector: 'app-login-page',
