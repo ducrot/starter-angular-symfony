@@ -1,19 +1,18 @@
-import { BrowserModule } from '@angular/platform-browser';
-import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import { FlexLayoutModule } from '@angular/flex-layout';
-import { NgModule } from '@angular/core';
+import {BrowserModule} from '@angular/platform-browser';
+import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
+import {FlexLayoutModule} from '@angular/flex-layout';
+import {NgModule} from '@angular/core';
 
-import { CoreModule } from '@app/core.module';
-import { DataModule } from '@data/data.module';
-import { SharedModule } from '@shared/shared.module';
+import {CoreModule} from '@app/core.module';
+import {DataModule} from '@data/data.module';
+import {SharedModule} from '@shared/shared.module';
 
-import { AppComponent } from './app.component';
-import { AppRoutingModule } from './app-routing.module';
-
-import {NotFoundPageComponent} from './not-found-page/not-found-page.component';
+import {AppComponent} from './app.component';
+import {AppRoutingModule} from './app-routing.module';
 
 import {AuthLayoutComponent} from './layout/auth-layout/auth-layout.component';
 import {ContentLayoutComponent} from './layout/content-layout/content-layout.component';
+import {ErrorPageLayoutComponent} from './layout/error-page-layout/error-page-layout.component';
 
 
 @NgModule({
@@ -33,11 +32,12 @@ import {ContentLayoutComponent} from './layout/content-layout/content-layout.com
   ],
   declarations: [
     AppComponent,
-    NotFoundPageComponent,
     AuthLayoutComponent,
     ContentLayoutComponent,
+    ErrorPageLayoutComponent,
   ],
   providers: [],
   bootstrap: [AppComponent]
 })
-export class AppModule { }
+export class AppModule {
+}
