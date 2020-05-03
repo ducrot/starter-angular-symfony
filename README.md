@@ -40,7 +40,7 @@ symfony console doctrine:schema:update --force
 Create a first admin account. Additional users can be created in the application.
 
 ```shell script
-symfony console backend:createadmin testuser@domain.tld testpassword
+symfony console backend:createadmin testuser@domain.tld 'A#Very$ecretPwd'
 ```
 
 
