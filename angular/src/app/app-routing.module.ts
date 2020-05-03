@@ -1,17 +1,15 @@
 import {NgModule} from '@angular/core';
 import {ExtraOptions, RouterModule, Routes} from '@angular/router';
-import {FirstPageComponent} from "./first-page/first-page.component";
-import {SecondPageComponent} from "./second-page/second-page.component";
-import {LoginPageComponent} from "./auth/login-page/login-page.component";
-import {SessionRequired} from "@app/service/session-required.service";
-import {NotFoundPageComponent} from "./not-found-page/not-found-page.component";
-import {HomePageComponent} from "./home-page/home-page.component";
-import {DelayResolverService} from "./delay-resolver.service";
-import {LogoutPageComponent} from "./auth/logout-page/logout-page.component";
-
+import {FirstPageComponent} from './first-page/first-page.component';
+import {SecondPageComponent} from './second-page/second-page.component';
+import {SessionRequired} from '@app/service/session-required.service';
+import {NotFoundPageComponent} from './not-found-page/not-found-page.component';
+import {HomePageComponent} from './home-page/home-page.component';
+import {DelayResolverService} from './delay-resolver.service';
+import { AuthLayoutComponent } from './layout/auth-layout/auth-layout.component';
 
 const config: ExtraOptions = {
-  scrollPositionRestoration: "top",
+  scrollPositionRestoration: 'top',
 };
 
 const routes: Routes = [
@@ -42,8 +40,13 @@ const routes: Routes = [
     ]
   },
 
-  {path: 'login', component: LoginPageComponent},
-  {path: 'logout', component: LogoutPageComponent},
+  {
+    path: 'auth',
+    component: AuthLayoutComponent,
+    loadChildren: () =>
+      import('@modules/auth/auth.module').then(m => m.AuthModule)
+  },
+
   {path: '**', component: NotFoundPageComponent},
 ];
 

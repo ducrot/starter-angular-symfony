@@ -11,7 +11,7 @@ export class AuthenticationRoutingService {
 
 
   private readonly homeUrl = '/';
-  private readonly loginUrl = '/login';
+  private readonly loginUrl = '/auth/login';
 
 
   onNotAuthenticated(backUrl?: string): void {

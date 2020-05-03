@@ -8,7 +8,7 @@
     <div fxShow="true" fxHide.lt-md>
       <a routerLink="/" mat-button>First</a>
       <a routerLink="/second" mat-button>Second</a>
-      <a (click)="onLogoutClick($event)" href="/logout" mat-button>Logout</a>
+      <a (click)="onLogoutClick($event)" href="/auth/logout" mat-button>Logout</a>
     </div>
   </mat-toolbar-row>
 </mat-toolbar>
@@ -18,7 +18,7 @@
     <mat-nav-list>
       <a routerLink="/" mat-list-item>First</a>
       <a routerLink="/second" mat-list-item>Second</a>
-      <a (click)="onLogoutClick($event)" href="/logout" mat-list-item>Logout</a>
+      <a (click)="onLogoutClick($event)" href="/auth/logout" mat-list-item>Logout</a>
     </mat-nav-list>
   </mat-sidenav>
   <mat-sidenav-content fxFlexFill>

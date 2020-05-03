@@ -1,0 +1,21 @@
+<div class="hint">
+  Username: testuser@domain.tld<br>
+  Password: A#Very$ecretPwd
+</div>
+<form [formGroup]="formGroup" (ngSubmit)="onSubmit()">
+  <p>
+    <mat-form-field appearance="fill">
+      <mat-label>Username</mat-label>
+      <input matInput formControlName="username">
+    </mat-form-field>
+  </p>
+  <p>
+    <mat-form-field appearance="fill">
+      <mat-label>Password</mat-label>
+      <input type="password" matInput formControlName="password">
+    </mat-form-field>
+  </p>
+  <div>
+    <button mat-raised-button color="primary" type="submit" class="button" [disabled]="!formGroup.valid">Login</button>
+  </div>
+</form>

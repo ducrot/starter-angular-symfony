@@ -12,12 +12,13 @@ import { AppRoutingModule } from './app-routing.module';
 
 import {FirstPageComponent} from './first-page/first-page.component';
 import {SecondPageComponent} from './second-page/second-page.component';
-import {LogoutPageComponent} from './auth/logout-page/logout-page.component';
-import {LoginPageComponent} from './auth/login-page/login-page.component';
 import {NotFoundPageComponent} from './not-found-page/not-found-page.component';
 import {HomePageComponent} from './home-page/home-page.component';
 import {LuckyNumberComponent} from './lucky-number/lucky-number.component';
 import {ErrorDonkeyComponent} from './error-donkey/error-donkey.component';
+
+import {AuthLayoutComponent} from './layout/auth-layout/auth-layout.component';
+
 
 
 @NgModule({
@@ -39,12 +40,12 @@ import {ErrorDonkeyComponent} from './error-donkey/error-donkey.component';
     AppComponent,
     FirstPageComponent,
     SecondPageComponent,
-    LogoutPageComponent,
-    LoginPageComponent,
     NotFoundPageComponent,
     HomePageComponent,
     LuckyNumberComponent,
     ErrorDonkeyComponent,
+
+    AuthLayoutComponent
   ],
   providers: [],
   bootstrap: [AppComponent]

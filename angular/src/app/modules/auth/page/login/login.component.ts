@@ -1,4 +1,4 @@
-import {AfterViewInit, ChangeDetectionStrategy, ChangeDetectorRef, Component, OnInit} from '@angular/core';
+import {ChangeDetectionStrategy, ChangeDetectorRef, Component, OnInit} from '@angular/core';
 import {AuthenticationClient} from '@app/service/authentication-client.service';
 import {SessionService} from '@app/service/session.service';
 import {ActivatedRoute} from '@angular/router';
@@ -6,14 +6,15 @@ import {AuthenticationRoutingService} from '@app/service/authentication-routing.
 import {FormBuilder, FormGroup, Validators} from '@angular/forms';
 import {ServiceError} from '@app/interceptor/service-error.interceptor';
 import {AlertService} from '@shared/service/alert.service';
+import {HeaderService} from '@shared/service/header.service';
 
 @Component({
-  selector: 'app-login-page',
-  templateUrl: './login-page.component.html',
-  styleUrls: ['./login-page.component.scss'],
+  selector: 'app-login',
+  templateUrl: './login.component.html',
+  styleUrls: ['./login.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class LoginPageComponent implements OnInit, AfterViewInit {
+export class LoginComponent implements OnInit {
 
   readonly formGroup: FormGroup;
 
@@ -24,8 +25,11 @@ export class LoginPageComponent implements OnInit, AfterViewInit {
     private readonly route: ActivatedRoute,
     fb: FormBuilder,
     private alertService: AlertService,
+    private headerService: HeaderService,
     private cdr: ChangeDetectorRef
   ) {
+    this.headerService.setTitle('Login');
+
     this.formGroup = fb.group({
       username: [null, Validators.required],
       password: [null, Validators.required],
@@ -36,13 +40,10 @@ export class LoginPageComponent implements OnInit, AfterViewInit {
   ngOnInit(): void {
     // always destroy session when the page is opened
     this.session.destroySession();
-  }
 
-
-  ngAfterViewInit(): void {
+    // Show alert if session is expired
     if (this.route.snapshot.queryParamMap.get('expired') === 'true') {
       this.alertService.warning('Your session has expired. Please login again.');
-      this.cdr.detectChanges();
     }
   }
 
