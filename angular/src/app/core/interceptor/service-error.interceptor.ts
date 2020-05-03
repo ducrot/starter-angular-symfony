@@ -1,7 +1,7 @@
-import {Injectable} from "@angular/core";
-import {HttpErrorResponse, HttpEvent, HttpHandler, HttpInterceptor, HttpRequest} from "@angular/common/http";
-import {Observable, throwError} from "rxjs";
-import {catchError} from "rxjs/operators";
+import {Injectable} from '@angular/core';
+import {HttpErrorResponse, HttpEvent, HttpHandler, HttpInterceptor, HttpRequest} from '@angular/common/http';
+import {Observable, throwError} from 'rxjs';
+import {catchError} from 'rxjs/operators';
 
 export class ServiceError implements Error {
 
@@ -22,7 +22,7 @@ export class ServiceError implements Error {
     const l = [this.name + ': ' + this.message];
     if (typeof this.requestId === 'string') {
       l.push('');
-      l.push('Request-ID: ' + this.requestId)
+      l.push('Request-ID: ' + this.requestId);
     }
     if (typeof this.stack === 'string') {
       l.push('');

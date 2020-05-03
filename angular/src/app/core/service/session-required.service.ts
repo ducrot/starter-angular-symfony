@@ -1,8 +1,8 @@
 import {Injectable} from '@angular/core';
 import {ActivatedRouteSnapshot, CanActivate, CanActivateChild, RouterStateSnapshot, UrlTree} from '@angular/router';
 import {Observable} from 'rxjs';
-import {SessionService} from "@app/service/session.service";
-import {AuthenticationRoutingService} from "./authentication-routing.service";
+import {SessionService} from '@app/service/session.service';
+import {AuthenticationRoutingService} from './authentication-routing.service';
 
 @Injectable({
   providedIn: 'root'
@@ -19,19 +19,19 @@ export class SessionRequired implements CanActivate, CanActivateChild {
     state: RouterStateSnapshot): Observable<boolean | UrlTree> | Promise<boolean | UrlTree> | boolean | UrlTree {
 
     switch (this.session.state) {
-      case "empty":
+      case 'empty':
         console.error(`Not authenticated. Cannot navigate to "${state.url}".`);
         this.session.destroySession();
         this.routing.onNotAuthenticated(state.url);
         return false;
 
-      case "expired":
+      case 'expired':
         console.error(`Session expired. Cannot navigate to "${state.url}".`);
         this.session.destroySession();
         this.routing.onSessionExpired(state.url);
         return false;
 
-      case "valid":
+      case 'valid':
         return true;
     }
   }

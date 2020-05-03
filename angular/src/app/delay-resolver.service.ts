@@ -20,7 +20,7 @@ export class DelayResolverService implements Resolve<string> {
   }
 
   resolve(route: ActivatedRouteSnapshot, state: RouterStateSnapshot): Observable<string> | Observable<never> {
-    return of("xxx").pipe(
+    return of('xxx').pipe(
       delay(700)
     );
   }

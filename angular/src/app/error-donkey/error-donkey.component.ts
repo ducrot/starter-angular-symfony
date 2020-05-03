@@ -1,6 +1,6 @@
 import {ChangeDetectionStrategy, Component} from '@angular/core';
-import {TestClient} from "@data/service/test-client.service";
-import {Subject} from "rxjs";
+import {TestClient} from '@data/service/test-client.service';
+import {Subject} from 'rxjs';
 
 @Component({
   selector: 'app-error-donkey',
@@ -19,7 +19,7 @@ export class ErrorDonkeyComponent {
 
   badRequest(): void {
     this.client.badRequest().subscribe(
-      v => console.log("badRequest", v),
+      v => console.log('badRequest', v),
       error => this.errorSubject.next(error.toString())
     );
   }
@@ -27,7 +27,7 @@ export class ErrorDonkeyComponent {
 
   processingError(): void {
     this.client.processingError().subscribe(
-      v => console.log("processingError", v),
+      v => console.log('processingError', v),
       error => this.errorSubject.next(error.toString())
     );
   }
@@ -35,7 +35,7 @@ export class ErrorDonkeyComponent {
 
   unexpectedError(): void {
     this.client.unexpectedError().subscribe(
-      v => console.log("unexpectedError", v),
+      v => console.log('unexpectedError', v),
       error => this.errorSubject.next(error.toString())
     );
   }

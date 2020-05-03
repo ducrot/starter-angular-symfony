@@ -1,5 +1,5 @@
 import {ChangeDetectionStrategy, Component} from '@angular/core';
-import {SessionService} from "@app/service/session.service";
+import {SessionService} from '@app/service/session.service';
 
 @Component({
   selector: 'app-home-page',
@@ -12,7 +12,7 @@ export class HomePageComponent {
   constructor(private readonly session: SessionService) {
   }
 
-  onLogoutClick(event:Event): void {
+  onLogoutClick(event: Event): void {
     this.session.destroySession();
   }
 

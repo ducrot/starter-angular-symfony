@@ -1,8 +1,8 @@
 import {Injectable} from '@angular/core';
-import {Observable, ReplaySubject} from "rxjs";
-import {User} from "@data/schema/user";
-import {LoginSuccess} from "@data/schema/login-success";
-import {jsonDateParse} from "@app/lib/json-date";
+import {Observable, ReplaySubject} from 'rxjs';
+import {User} from '@data/schema/user';
+import {LoginSuccess} from '@data/schema/login-success';
+import {jsonDateParse} from '@app/lib/json-date';
 
 
 @Injectable({

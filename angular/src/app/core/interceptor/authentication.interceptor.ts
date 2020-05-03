@@ -1,12 +1,12 @@
 import {Injectable} from '@angular/core';
 import {HttpErrorResponse, HttpEvent, HttpHandler, HttpInterceptor, HttpRequest} from '@angular/common/http';
 import {Observable, throwError} from 'rxjs';
-import {SessionService} from "@app/service/session.service";
+import {SessionService} from '@app/service/session.service';
 import {environment} from '@env';
-import {bearerTokenParse} from "@app/lib/bearer-token";
-import {catchError} from "rxjs/operators";
-import {AuthenticationRoutingService} from "@app/service/authentication-routing.service";
-import {ActivatedRoute, Router} from "@angular/router";
+import {bearerTokenParse} from '@app/lib/bearer-token';
+import {catchError} from 'rxjs/operators';
+import {AuthenticationRoutingService} from '@app/service/authentication-routing.service';
+import {ActivatedRoute, Router} from '@angular/router';
 
 @Injectable()
 export class AuthenticationInterceptor implements HttpInterceptor {
@@ -43,8 +43,8 @@ export class AuthenticationInterceptor implements HttpInterceptor {
 
 
   private isExpiredTokenResponse(response: HttpErrorResponse): boolean {
-    let wwwAuthenticate = bearerTokenParse(response.headers.get('WWW-Authenticate'));
-    return wwwAuthenticate && wwwAuthenticate.error_description == 'Expired token';
+    const wwwAuthenticate = bearerTokenParse(response.headers.get('WWW-Authenticate'));
+    return wwwAuthenticate && wwwAuthenticate.error_description === 'Expired token';
   }
 
 
@@ -52,7 +52,7 @@ export class AuthenticationInterceptor implements HttpInterceptor {
     if (req.headers.has('Authorization')) {
       if (req.headers.get('Authorization') === '') {
         return req.clone({
-          headers: req.headers.delete("Authorization")
+          headers: req.headers.delete('Authorization')
         });
       }
       return req;
@@ -65,7 +65,7 @@ export class AuthenticationInterceptor implements HttpInterceptor {
       return req;
     }
     return req.clone({
-      headers: req.headers.set("Authorization", "Bearer " + token)
+      headers: req.headers.set('Authorization', 'Bearer ' + token)
     });
   }
 

@@ -15,7 +15,7 @@ export function bearerTokenParse(header: string | null): BearerToken | null {
   };
 }
 
-type BearerToken = {
+interface BearerToken {
   token: string;
   error: string | null;
   error_description: string | null;

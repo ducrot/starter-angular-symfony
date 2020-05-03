@@ -1,10 +1,10 @@
 import {Component} from '@angular/core';
-import {Subject} from "rxjs";
-import {TestClient} from "@data/service/test-client.service";
+import {Subject} from 'rxjs';
+import {TestClient} from '@data/service/test-client.service';
 
 
 interface Draw {
-  loading: boolean,
+  loading: boolean;
   number: number | null;
   error: any | null;
 }
@@ -36,7 +36,7 @@ export class LuckyNumberComponent {
       .luckyNumber()
       .subscribe(
         value => this.draw.next({loading: false, number: value, error: null}),
-        error => this.draw.next({loading: false, number: null, error: error})
+        error => this.draw.next({loading: false, number: null, error})
       );
   }
 

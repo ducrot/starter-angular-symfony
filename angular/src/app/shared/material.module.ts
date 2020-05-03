@@ -4,7 +4,7 @@ import { NgModule } from '@angular/core';
 import {MatAutocompleteModule} from '@angular/material/autocomplete';
 import {MatCheckboxModule} from '@angular/material/checkbox';
 import {MatDatepickerModule} from '@angular/material/datepicker';
-import {MatNativeDateModule} from '@angular/material/core'             //FROM ANGULAR CORE
+import {MatNativeDateModule} from '@angular/material/core';             // FROM ANGULAR CORE
 import {MatFormFieldModule} from '@angular/material/form-field';
 import {MatInputModule} from '@angular/material/input';
 import {MatRadioModule} from '@angular/material/radio';
@@ -48,7 +48,7 @@ import {MatPaginatorModule} from '@angular/material/paginator';
 import {MatSortModule} from '@angular/material/sort';
 import {MatTableModule} from '@angular/material/table';
 
-const AllMaterialModules=[
+const AllMaterialModules = [
   MatAutocompleteModule,
   MatCheckboxModule,
   MatDatepickerModule,
