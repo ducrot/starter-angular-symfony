@@ -1,12 +1,9 @@
 import {NgModule} from '@angular/core';
 import {ExtraOptions, RouterModule, Routes} from '@angular/router';
-import {FirstPageComponent} from './first-page/first-page.component';
-import {SecondPageComponent} from './second-page/second-page.component';
 import {SessionRequired} from '@app/service/session-required.service';
 import {NotFoundPageComponent} from './not-found-page/not-found-page.component';
-import {HomePageComponent} from './home-page/home-page.component';
-import {DelayResolverService} from './delay-resolver.service';
-import { AuthLayoutComponent } from './layout/auth-layout/auth-layout.component';
+import {ContentLayoutComponent} from './layout/content-layout/content-layout.component';
+import {AuthLayoutComponent} from './layout/auth-layout/auth-layout.component';
 
 const config: ExtraOptions = {
   scrollPositionRestoration: 'top',
@@ -15,38 +12,18 @@ const config: ExtraOptions = {
 const routes: Routes = [
   {
     path: '',
-    component: HomePageComponent,
+    component: ContentLayoutComponent,
     canActivate: [SessionRequired],
     canActivateChild: [SessionRequired],
-    resolve: {
-      delay: DelayResolverService
-    },
-    children: [
-      {
-        path: '',
-        pathMatch: 'full',
-        component: FirstPageComponent,
-      },
-      {
-        path: 'first',
-        pathMatch: 'full',
-        component: FirstPageComponent,
-      },
-      {
-        path: 'second',
-        pathMatch: 'full',
-        component: SecondPageComponent
-      },
-    ]
+    loadChildren: () =>
+      import('@modules/home/home.module').then(m => m.HomeModule)
   },
-
   {
     path: 'auth',
     component: AuthLayoutComponent,
     loadChildren: () =>
       import('@modules/auth/auth.module').then(m => m.AuthModule)
   },
-
   {path: '**', component: NotFoundPageComponent},
 ];
 

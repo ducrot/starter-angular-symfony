@@ -10,15 +10,10 @@ import { SharedModule } from '@shared/shared.module';
 import { AppComponent } from './app.component';
 import { AppRoutingModule } from './app-routing.module';
 
-import {FirstPageComponent} from './first-page/first-page.component';
-import {SecondPageComponent} from './second-page/second-page.component';
 import {NotFoundPageComponent} from './not-found-page/not-found-page.component';
-import {HomePageComponent} from './home-page/home-page.component';
-import {LuckyNumberComponent} from './lucky-number/lucky-number.component';
-import {ErrorDonkeyComponent} from './error-donkey/error-donkey.component';
 
 import {AuthLayoutComponent} from './layout/auth-layout/auth-layout.component';
-
+import {ContentLayoutComponent} from './layout/content-layout/content-layout.component';
 
 
 @NgModule({
@@ -38,14 +33,9 @@ import {AuthLayoutComponent} from './layout/auth-layout/auth-layout.component';
   ],
   declarations: [
     AppComponent,
-    FirstPageComponent,
-    SecondPageComponent,
     NotFoundPageComponent,
-    HomePageComponent,
-    LuckyNumberComponent,
-    ErrorDonkeyComponent,
-
-    AuthLayoutComponent
+    AuthLayoutComponent,
+    ContentLayoutComponent,
   ],
   providers: [],
   bootstrap: [AppComponent]

@@ -12,12 +12,10 @@ import {User} from '@data/schema/user';
 })
 export class FirstPageComponent {
 
-
   readonly user$: Observable<User>;
 
   constructor(session: SessionService) {
     this.user$ = session.user$;
   }
-
 
 }

@@ -6,7 +6,8 @@
       <mat-icon>menu</mat-icon>
     </button>
     <div fxShow="true" fxHide.lt-md>
-      <a routerLink="/" mat-button>First</a>
+      <a routerLink="/" mat-button>Home</a>
+      <a routerLink="/first" mat-button>First</a>
       <a routerLink="/second" mat-button>Second</a>
       <a (click)="onLogoutClick($event)" href="/auth/logout" mat-button>Logout</a>
     </div>
@@ -16,7 +17,8 @@
 <mat-sidenav-container fxFlexFill>
   <mat-sidenav #sidenav position="end">
     <mat-nav-list>
-      <a routerLink="/" mat-list-item>First</a>
+      <a routerLink="/" mat-list-item>Home</a>
+      <a routerLink="/first" mat-list-item>First</a>
       <a routerLink="/second" mat-list-item>Second</a>
       <a (click)="onLogoutClick($event)" href="/auth/logout" mat-list-item>Logout</a>
     </mat-nav-list>

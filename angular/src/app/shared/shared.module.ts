@@ -6,6 +6,8 @@ import { RouterModule } from '@angular/router';
 import { MaterialModule } from '@shared/material.module';
 
 import { AlertComponent } from '@shared/component/alert/alert.component';
+import {LuckyNumberComponent} from '@shared/component/lucky-number/lucky-number.component';
+import {ErrorDonkeyComponent} from '@shared/component/error-donkey/error-donkey.component';
 
 @NgModule({
   imports: [
@@ -16,6 +18,8 @@ import { AlertComponent } from '@shared/component/alert/alert.component';
   ],
   declarations: [
     AlertComponent,
+    ErrorDonkeyComponent,
+    LuckyNumberComponent,
   ],
   exports: [
     CommonModule,
@@ -25,7 +29,9 @@ import { AlertComponent } from '@shared/component/alert/alert.component';
 
     MaterialModule,
 
-    AlertComponent
+    AlertComponent,
+    ErrorDonkeyComponent,
+    LuckyNumberComponent
   ]
 })
 export class SharedModule { }
