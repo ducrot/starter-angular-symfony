@@ -66,7 +66,7 @@ export class LoginPageComponent implements OnInit, AfterViewInit {
           } else {
             this.alertService.error('Unknown error: ' + error);
           }
-          this.cdr.detectChanges();
+          this.cdr.markForCheck();
         }
       );
   }
