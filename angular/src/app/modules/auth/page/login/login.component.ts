@@ -7,6 +7,7 @@ import {FormBuilder, FormGroup, Validators} from '@angular/forms';
 import {ServiceError} from '@app/interceptor/service-error.interceptor';
 import {AlertService} from '@shared/service/alert.service';
 import {HeaderService} from '@shared/service/header.service';
+import {HttpErrorResponse} from '@angular/common/http';
 
 @Component({
   selector: 'app-login',
@@ -62,10 +63,11 @@ export class LoginComponent implements OnInit {
           this.routing.onLoginSuccess(this.route);
         },
         error => {
-          if (error instanceof ServiceError) {
+          if (error instanceof ServiceError || error instanceof HttpErrorResponse) {
             this.alertService.error(error.message);
           } else {
             this.alertService.error('Unknown error: ' + error);
+            console.log(error);
           }
           this.cdr.markForCheck();
         }
