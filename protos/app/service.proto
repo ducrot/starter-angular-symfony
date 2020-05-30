@@ -1,0 +1,50 @@
+syntax = "proto3";
+
+package app;
+option php_generic_services = true;
+
+import "google/protobuf/empty.proto";
+
+
+service TestService {
+
+    rpc TestCall (TestCallRequest) returns (TestCallResponse);
+
+    rpc LuckyNumber (LuckyNumberRequest) returns (LuckyNumberResponse);
+
+    rpc BadRequestError (google.protobuf.Empty) returns (google.protobuf.Empty);
+
+    rpc ProcessingError (google.protobuf.Empty) returns (google.protobuf.Empty);
+
+    rpc UnexpectedError (google.protobuf.Empty) returns (google.protobuf.Empty);
+
+}
+
+
+message LuckyNumberRequest {
+
+}
+
+
+message LuckyNumberResponse {
+
+    int32 number = 1;
+
+}
+
+
+message TestCallRequest {
+
+    string search_text = 1;
+    int32 amount = 2;
+
+}
+
+
+message TestCallResponse {
+
+    bool ok = 1;
+    string result = 2;
+
+}
+

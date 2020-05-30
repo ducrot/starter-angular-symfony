@@ -38,7 +38,7 @@ class FrontendController
 
 
     /**
-     * Delivery the frontend index.html and assets.
+     * Deliver the frontend index.html and assets.
      *
      * Unless the requested path starts with one of the exceptions
      * in the "requirements" expression, any request will be caught
@@ -51,7 +51,7 @@ class FrontendController
      *
      * @Route(
      *     path="/{path}",
-     *     requirements={"path" = "^(?!api|_profiler).*$"},
+     *     requirements={"path" = "^(?!api|api-pb|_profiler).*$"},
      *     methods={"GET"},
      *     name="frontend-asset"
      * )

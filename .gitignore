@@ -2,3 +2,4 @@
 .idea
 .php_cs.cache
 http-client/http-client.private.env.json
+/node_modules

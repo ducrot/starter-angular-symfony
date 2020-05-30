@@ -93,6 +93,9 @@
     "firebase/php-jwt": {
         "version": "v5.0.0"
     },
+    "google/protobuf": {
+        "version": "v3.12.2"
+    },
     "jdorn/sql-formatter": {
         "version": "v1.2.17"
     },
@@ -297,6 +300,9 @@
     "symfony/property-access": {
         "version": "v5.0.4"
     },
+    "symfony/property-info": {
+        "version": "v5.0.8"
+    },
     "symfony/routing": {
         "version": "4.2",
         "recipe": {
@@ -381,6 +387,9 @@
     },
     "symfony/yaml": {
         "version": "v5.0.4"
+    },
+    "timostamm/protoc-h1-php-server": {
+        "version": "v1.0.4"
     },
     "webimpress/safe-writer": {
         "version": "2.0.0"
