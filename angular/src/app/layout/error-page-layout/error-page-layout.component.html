@@ -1,11 +1,15 @@
-<div fxLayout="column" fxLayoutAlign="space-around center">
-  <div class="container">
-    <mat-card>
-      <mat-card-title>{{ title }}</mat-card-title>
-      <mat-card-content>
-        <app-alert></app-alert>
-        <router-outlet></router-outlet>
-      </mat-card-content>
-    </mat-card>
-  </div>
+<mat-toolbar color="primary">
+  <mat-toolbar-row>
+    <span>Starter Application</span>
+  </mat-toolbar-row>
+</mat-toolbar>
+
+<div class="container" fxLayout="column" fxLayoutAlign="center center">
+  <mat-card>
+    <mat-card-title>{{ title }}</mat-card-title>
+    <mat-card-content>
+      <app-alert></app-alert>
+      <router-outlet></router-outlet>
+    </mat-card-content>
+  </mat-card>
 </div>
