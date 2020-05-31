@@ -4,6 +4,7 @@ import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { AuthenticationInterceptor } from '@app/interceptor/authentication.interceptor';
 import { ServiceErrorInterceptor } from '@app/interceptor/service-error.interceptor';
 import { throwIfAlreadyLoaded } from '@app/guard/module-import.guard';
+import { ConstantsService } from "@app/service/constants.service";
 
 
 @NgModule({
@@ -11,6 +12,7 @@ import { throwIfAlreadyLoaded } from '@app/guard/module-import.guard';
     HttpClientModule,
   ],
   providers: [
+    ConstantsService,
     {
       provide: HTTP_INTERCEPTORS,
       useClass: AuthenticationInterceptor,

@@ -1,5 +1,6 @@
 import {Component} from '@angular/core';
 import {SessionService} from '@app/service/session.service';
+import {ConstantsService} from "@app/service/constants.service";
 
 @Component({
   selector: 'app-home-page',
@@ -8,7 +9,11 @@ import {SessionService} from '@app/service/session.service';
 })
 export class ContentLayoutComponent {
 
-  constructor(private readonly session: SessionService) {}
+  appName: string;
+
+  constructor(private readonly constants: ConstantsService, private readonly session: SessionService) {
+    this.appName = this.constants.appName;
+  }
 
   onLogoutClick(event: Event): void {
     this.session.destroySession();
