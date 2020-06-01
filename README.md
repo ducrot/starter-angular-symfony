@@ -71,6 +71,10 @@ directory for the message and service definitions.
 After adding or changing a .proto file, run `make generate` to generate 
 Typescript and PHP code.
 
+You need the protobuf compiler `protoc` for that. Run `brew install protobuf` or 
+download a release for your OS [here](https://github.com/protocolbuffers/protobuf/releases) 
+and follow the installation instructions.
+
 This will write PHP files to `symfony/src-pb` and typescript files to `angular/src/pb`.   
 
 To add a new service: 
