@@ -6,6 +6,7 @@ import {ServiceErrorInterceptor} from '@app/interceptor/service-error.intercepto
 import {throwIfAlreadyLoaded} from '@app/guard/module-import.guard';
 import {PROTOBUF_RPC_ENDPOINT, ProtobufRpcHandler} from "@app/service/protobuf-rpc-handler.service";
 import {environment} from "@env";
+import { ConstantsService } from "@app/service/constants.service";
 
 
 @NgModule({
@@ -13,6 +14,7 @@ import {environment} from "@env";
     HttpClientModule,
   ],
   providers: [
+    ConstantsService,
     {
       provide: HTTP_INTERCEPTORS,
       useClass: AuthenticationInterceptor,
