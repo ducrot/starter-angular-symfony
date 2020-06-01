@@ -1,0 +1,13 @@
+syntax = "proto3";
+
+package app;
+
+
+// This message is used by the JsonExceptionFormatter.php to
+// encode an exception for a protobuf request as a protobuf response.
+message ServiceError {
+    string message = 1;
+    string request_id = 2;
+    string stack = 3;
+}
+

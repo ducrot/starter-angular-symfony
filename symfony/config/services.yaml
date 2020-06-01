@@ -53,6 +53,7 @@ services:
         arguments:
             $debug: '%kernel.debug%'
             $formatters:
+                - '@App\EventSubscriber\ProtobufExceptionFormatter'
                 - '@App\EventSubscriber\JsonExceptionFormatter'
                 - '@App\EventSubscriber\PlaintextExceptionFormatter'
 #                - '@App\EventSubscriber\HtmlExceptionFormatter'
