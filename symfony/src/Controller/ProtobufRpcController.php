@@ -4,6 +4,8 @@
 namespace App\Controller;
 
 
+use App\AuthenticationServiceInterface;
+use App\Services\AuthenticationService;
 use App\Services\TestService;
 use App\TestServiceInterface;
 use Psr\Container\ContainerInterface;
@@ -15,7 +17,7 @@ use Symfony\Contracts\Service\ServiceSubscriberInterface;
 use TS\Protobuf\HttpHandler;
 use TS\Protobuf\ServiceResolver;
 
-class PbController implements ServiceSubscriberInterface
+class ProtobufRpcController implements ServiceSubscriberInterface
 {
 
     /**
@@ -25,6 +27,7 @@ class PbController implements ServiceSubscriberInterface
      */
     private const MAPPINGS = [
         TestService::class => TestServiceInterface::class,
+        AuthenticationService::class => AuthenticationServiceInterface::class,
     ];
 
 

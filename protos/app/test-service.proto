@@ -4,6 +4,10 @@ package app;
 option php_generic_services = true;
 
 import "google/protobuf/empty.proto";
+import "google/protobuf/timestamp.proto";
+import "google/protobuf/duration.proto";
+import "google/protobuf/any.proto";
+import "google/protobuf/struct.proto";
 
 
 service TestService {
@@ -45,6 +49,13 @@ message TestCallResponse {
 
     bool ok = 1;
     string result = 2;
+
+    google.protobuf.Timestamp timestamp = 3;
+    google.protobuf.Duration duration = 4;
+    bytes bytes_field = 5;
+    TestCallResponse x = 77;
+    google.protobuf.Any any = 99;
+    google.protobuf.Struct str = 111;
 
 }
 
