@@ -3,9 +3,10 @@ declare(strict_types=1);
 
 namespace App\Entity;
 
+use App\Gender;
 use Doctrine\ORM\Event\PreUpdateEventArgs;
 use Doctrine\ORM\Mapping as ORM;
-use JsonSerializable;
+use LogicException;
 use Rollerworks\Component\PasswordStrength\Validator\Constraints as RollerworksPassword;
 use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 use Symfony\Component\Security\Core\User\UserInterface;
@@ -16,7 +17,7 @@ use Symfony\Component\Validator\Constraints as Assert;
  * @UniqueEntity(fields={"username"}, repositoryMethod="checkUniqueEmail", message="Die E-Mail-Adresse ist schon vergeben.")
  * @ORM\HasLifecycleCallbacks()
  */
-class User implements UserInterface, JsonSerializable
+class User implements UserInterface
 {
     const
         GENDER_NONE = 0,
@@ -158,7 +159,7 @@ class User implements UserInterface, JsonSerializable
      */
     public static function getGenders(): array
     {
-        return [self::GENDER_NONE,self::GENDER_MALE,self::GENDER_FEMALE, self::GENDER_MISC];
+        return [self::GENDER_NONE, self::GENDER_MALE, self::GENDER_FEMALE, self::GENDER_MISC];
     }
 
     /** @see UserInterface */
@@ -174,18 +175,33 @@ class User implements UserInterface, JsonSerializable
         // $this->plainPassword = null;
     }
 
-    /** @see \Serializable::serialize() */
-    public function jsonSerialize()
+    public function toProtobuf(): \App\User
     {
-        return [
-            'id' => $this->getId(),
-            'username' => $this->getUsername(),
-            'roles' => $this->getRoles(),
-            'firstName' => $this->getFirstName(),
-            'lastName' => $this->getLastName(),
-            'gender' => $this->getGender(),
-        ];
+        $pb = new \App\User();
+        $pb->setId($this->getId() ?? "");
+        $pb->setUsername($this->getUsername() ?? "");
+        $pb->setRoles($this->getRoles());
+        $pb->setFirstName($this->getFirstName() ?? "");
+        $pb->setLastName($this->getLastName() ?? "");
+        switch ($this->getGender()) {
+            case self::GENDER_NONE:
+                $pb->setGender(Gender::NONE);
+                break;
+            case self::GENDER_MALE:
+                $pb->setGender(Gender::MALE);
+                break;
+            case self::GENDER_FEMALE:
+                $pb->setGender(Gender::FEMALE);
+                break;
+            case self::GENDER_MISC:
+                $pb->setGender(Gender::MISC);
+                break;
+            default:
+                throw new LogicException("Unable to convert gender {$this->getGender()}.");
+        }
+        return $pb;
     }
+
 
     /******************************************************************************************
      * auto generated:

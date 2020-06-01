@@ -1,14 +1,13 @@
 <?php
 
 
-namespace App\ApiModels;
+namespace App\Security;
 
 
 use App\Entity\User;
 use DateTimeInterface;
-use JsonSerializable;
 
-class LoginSuccess implements JsonSerializable
+class LoginSuccess
 {
 
     private $token;
@@ -36,16 +35,6 @@ class LoginSuccess implements JsonSerializable
     public function getUser(): User
     {
         return $this->user;
-    }
-
-
-    public function jsonSerialize()
-    {
-        return [
-            'token' => $this->getToken(),
-            'tokenExpiresAt' => $this->getTokenExpiresAt()->format(DATE_RFC3339_EXTENDED),
-            'user' => $this->getUser()->jsonSerialize(),
-        ];
     }
 
 

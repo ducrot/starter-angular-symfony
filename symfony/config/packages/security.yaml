@@ -23,7 +23,7 @@ security:
             pattern: ^/(_(profiler|wdt)|css|images|js)/
             security: false
         api:
-            pattern: ^/(api|api_pb)/
+            pattern: ^/api/
             stateless: true
             remember_me: false
             anonymous: true
@@ -36,5 +36,5 @@ security:
     access_control:
         # - { path: ^/admin, roles: ROLE_ADMIN }
         # - { path: ^/profile, roles: ROLE_USER }
-        - { path: ^/api/auth/login$, roles: IS_AUTHENTICATED_ANONYMOUSLY }
+        - { path: ^/api/app.AuthenticationService/login$, roles: IS_AUTHENTICATED_ANONYMOUSLY }
         - { path: ^/, roles: IS_AUTHENTICATED_FULLY }

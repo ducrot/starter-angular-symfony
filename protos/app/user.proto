@@ -2,9 +2,15 @@ syntax = "proto3";
 
 package app;
 
+import "app/gender.proto";
+
 
 message User {
     string id = 1;
     string username = 2;
+    repeated string roles = 3;
+    string first_name = 4;
+    string last_name = 5;
+    Gender gender = 6;
 }
 

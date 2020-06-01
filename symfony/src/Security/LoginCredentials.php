@@ -1,7 +1,7 @@
 <?php
 
 
-namespace App\ApiModels;
+namespace App\Security;
 
 
 class LoginCredentials
@@ -12,6 +12,18 @@ class LoginCredentials
 
     /** @var string */
     private $password;
+
+    /**
+     * LoginCredentials constructor.
+     * @param string $username
+     * @param string $password
+     */
+    public function __construct(string $username, string $password)
+    {
+        $this->username = $username;
+        $this->password = $password;
+    }
+
 
     /**
      * @return string

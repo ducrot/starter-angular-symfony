@@ -4,12 +4,11 @@
 namespace App\Services;
 
 
-use App\ApiModels\LoginCredentials;
 use App\AuthenticationServiceInterface;
 use App\LoginRequest;
 use App\LoginResponse;
 use App\Security\AuthenticationManager;
-use App\User;
+use App\Security\LoginCredentials;
 use Google\Protobuf\Timestamp;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpKernel\Exception\BadRequestHttpException;
@@ -39,9 +38,10 @@ class AuthenticationService implements AuthenticationServiceInterface
             throw new BadRequestHttpException();
         }
 
-        $credentials = new LoginCredentials();
-        $credentials->setUsername($request->getUsername());
-        $credentials->setPassword($request->getPassword());
+        $credentials = new LoginCredentials(
+            $request->getUsername(),
+            $request->getPassword()
+        );
 
         $success = $this->manager->validateLogin($credentials);
         if (!$success) {
@@ -53,11 +53,7 @@ class AuthenticationService implements AuthenticationServiceInterface
         $response->setTokenExpiresAt(
             (new Timestamp())->setSeconds($success->getTokenExpiresAt()->getTimestamp())
         );
-        $response->setUser(
-            (new User())
-                ->setId($success->getUser()->getId())
-                ->setUsername($success->getUser()->getUsername())
-        );
+        $response->setUser($success->getUser()->toProtobuf());
 
         return $response;
     }

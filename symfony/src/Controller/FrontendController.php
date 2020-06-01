@@ -51,7 +51,7 @@ class FrontendController
      *
      * @Route(
      *     path="/{path}",
-     *     requirements={"path" = "^(?!api|api-pb|_profiler).*$"},
+     *     requirements={"path" = "^(?!api|_profiler).*$"},
      *     methods={"GET"},
      *     name="frontend-asset"
      * )

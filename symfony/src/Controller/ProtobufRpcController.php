@@ -73,8 +73,8 @@ class ProtobufRpcController implements ServiceSubscriberInterface
     /**
      * @Route(
      *     methods={"PUT", "POST", "PATCH"},
-     *     path="/api-pb/{serviceName}/{methodName}" ,
-     *     name="api-pb-execute"
+     *     path="/api/{serviceName}/{methodName}" ,
+     *     name="api-execute"
      * )
      *
      * @param Request $request

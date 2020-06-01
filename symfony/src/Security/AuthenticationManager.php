@@ -4,8 +4,6 @@
 namespace App\Security;
 
 
-use App\ApiModels\LoginCredentials;
-use App\ApiModels\LoginSuccess;
 use App\Entity\User;
 use Exception;
 use LogicException;
