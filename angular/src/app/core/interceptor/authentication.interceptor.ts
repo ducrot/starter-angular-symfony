@@ -44,7 +44,10 @@ export class AuthenticationInterceptor implements HttpInterceptor {
 
   private isExpiredTokenResponse(response: HttpErrorResponse): boolean {
     const wwwAuthenticate = bearerTokenParse(response.headers.get('WWW-Authenticate'));
-    return wwwAuthenticate && wwwAuthenticate.error_description === 'Expired token';
+    if (wwwAuthenticate == null) {
+      return false;
+    }
+    return wwwAuthenticate.error_description === 'Expired token';
   }
 
 
