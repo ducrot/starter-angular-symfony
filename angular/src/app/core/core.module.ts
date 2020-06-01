@@ -37,7 +37,7 @@ export class CoreModule {
         ProtobufRpcHandler,
         {
           provide: PROTOBUF_RPC_ENDPOINT,
-          useFactory: () => environment.apiPbEndpoint
+          useFactory: () => environment.apiEndpoint
         },
       ]
     };

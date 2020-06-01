@@ -1,8 +1,7 @@
 import {Injectable} from '@angular/core';
 import {Observable, ReplaySubject} from 'rxjs';
-import {User} from '@data/schema/user';
-import {LoginSuccess} from '@data/schema/login-success';
-import {jsonDateParse} from '@app/lib/json-date';
+import {User} from "@pb/app/user";
+import {LoginResponse} from "@pb/app/authentication-service";
 
 
 @Injectable({
@@ -53,8 +52,19 @@ export class SessionService {
   }
 
 
-  acceptSession(session: LoginSuccess): void {
-    localStorage.setItem(this.sessionKey, JSON.stringify(session));
+  acceptSession(session: LoginResponse): void {
+    if (session.user === undefined) {
+      throw new Error('Missing user');
+    }
+    if (session.token === undefined) {
+      throw new Error('Missing token');
+    }
+    if (session.tokenExpiresAt === undefined) {
+      throw new Error('Missing tokenExpiresAt');
+    }
+    const jsonObj = LoginResponse.toJSON(session);
+    const jsonStr = JSON.stringify(jsonObj);
+    localStorage.setItem(this.sessionKey, jsonStr);
     this.userSubject.next(session.user);
   }
 
@@ -64,17 +74,21 @@ export class SessionService {
   }
 
 
-  private willSessionExpireSoon(session: LoginSuccess): boolean {
+  private willSessionExpireSoon(session: LoginResponse): boolean {
+    if (session.tokenExpiresAt === undefined) {
+      throw new Error('Missing tokenExpiresAt');
+    }
     const nowTs = Date.now();
-    const expirationTs = jsonDateParse(session.tokenExpiresAt).getTime();
+    const expirationTs = session.tokenExpiresAt.getTime();
     return (expirationTs - 1000 * this.sessionEagerExpirationSeconds) < nowTs;
   }
 
 
-  private readSession(): LoginSuccess | undefined {
-    const json = localStorage.getItem(this.sessionKey);
-    if (typeof json === 'string') {
-      return JSON.parse(json) as LoginSuccess;
+  private readSession(): LoginResponse | undefined {
+    const jsonStr = localStorage.getItem(this.sessionKey);
+    if (typeof jsonStr === 'string') {
+      const jsonObj = JSON.parse(jsonStr);
+      return LoginResponse.fromJSON(jsonObj);
     }
     return undefined;
   }

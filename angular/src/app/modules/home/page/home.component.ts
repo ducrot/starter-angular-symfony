@@ -1,7 +1,7 @@
 import {Component} from '@angular/core';
 import {Observable} from 'rxjs';
-import {User} from '@data/schema/user';
 import {SessionService} from '@app/service/session.service';
+import {User} from "@pb/app/user";
 
 @Component({
   selector: 'app-home',

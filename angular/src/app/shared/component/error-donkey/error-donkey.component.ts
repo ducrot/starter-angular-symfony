@@ -1,6 +1,7 @@
-import {ChangeDetectionStrategy, Component} from '@angular/core';
-import {TestClient} from '@data/service/test-client.service';
+import {ChangeDetectionStrategy, Component, Inject} from '@angular/core';
 import {Subject} from 'rxjs';
+import {TEST_SERVICE} from "@shared/service-tokens";
+import {TestService} from "@pb/app/test-service";
 
 @Component({
   selector: 'app-error-donkey',
@@ -13,31 +14,34 @@ export class ErrorDonkeyComponent {
   readonly errorSubject = new Subject<string | null>();
   readonly error$ = this.errorSubject.asObservable();
 
-  constructor(private readonly client: TestClient) {
+  constructor(@Inject(TEST_SERVICE) private readonly testService: TestService) {
   }
 
 
-  badRequest(): void {
-    this.client.badRequest().subscribe(
-      v => console.log('badRequest', v),
-      error => this.errorSubject.next(error.toString())
-    );
+  async badRequest(): Promise<void> {
+    try {
+      await this.testService.badRequestError({});
+    } catch (e) {
+      this.errorSubject.next(e.toString());
+    }
   }
 
 
-  processingError(): void {
-    this.client.processingError().subscribe(
-      v => console.log('processingError', v),
-      error => this.errorSubject.next(error.toString())
-    );
+  async processingError(): Promise<void> {
+    try {
+      await this.testService.processingError({});
+    } catch (e) {
+      this.errorSubject.next(e.toString());
+    }
   }
 
 
-  unexpectedError(): void {
-    this.client.unexpectedError().subscribe(
-      v => console.log('unexpectedError', v),
-      error => this.errorSubject.next(error.toString())
-    );
+  async unexpectedError(): Promise<void> {
+    try {
+      await this.testService.unexpectedError({});
+    } catch (e) {
+      this.errorSubject.next(e.toString());
+    }
   }
 
 

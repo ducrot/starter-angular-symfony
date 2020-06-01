@@ -14,6 +14,7 @@
     "typeRoots": [
       "node_modules/@types"
     ],
+    "strictNullChecks": true,
     "lib": [
       "es2018",
       "dom"
@@ -31,8 +32,8 @@
       "@modules/*": [
         "src/app/modules/*"
       ],
-      "@data/*": [
-        "src/app/data/*"
+      "@pb/*": [
+        "src/pb/*"
       ]
     }
   },

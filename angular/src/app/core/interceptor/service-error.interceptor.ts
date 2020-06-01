@@ -2,7 +2,7 @@ import {Injectable} from '@angular/core';
 import {HttpErrorResponse, HttpEvent, HttpHandler, HttpInterceptor, HttpRequest} from '@angular/common/http';
 import {Observable, throwError} from 'rxjs';
 import {catchError} from 'rxjs/operators';
-import {ServiceError as ServiceErrorMessage} from "../../../pb/app/service-error";
+import {ServiceError as ServiceErrorMessage} from "@pb/app/service-error";
 
 export class ServiceError implements Error {
 

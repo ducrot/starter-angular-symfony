@@ -1,5 +1,4 @@
-import {ChangeDetectionStrategy, ChangeDetectorRef, Component, OnInit} from '@angular/core';
-import {AuthenticationClient} from '@app/service/authentication-client.service';
+import {ChangeDetectionStrategy, ChangeDetectorRef, Component, Inject, OnInit} from '@angular/core';
 import {SessionService} from '@app/service/session.service';
 import {ActivatedRoute} from '@angular/router';
 import {AuthenticationRoutingService} from '@app/service/authentication-routing.service';
@@ -8,6 +7,8 @@ import {ServiceError} from '@app/interceptor/service-error.interceptor';
 import {AlertService} from '@shared/service/alert.service';
 import {HeaderService} from '@shared/service/header.service';
 import {HttpErrorResponse} from '@angular/common/http';
+import {AUTH_SERVICE} from "@shared/service-tokens";
+import {AuthenticationService} from "@pb/app/authentication-service";
 
 @Component({
   selector: 'app-login',
@@ -20,7 +21,7 @@ export class LoginComponent implements OnInit {
   readonly formGroup: FormGroup;
 
   constructor(
-    private readonly authClient: AuthenticationClient,
+    @Inject(AUTH_SERVICE) private readonly authService: AuthenticationService,
     private readonly session: SessionService,
     private readonly routing: AuthenticationRoutingService,
     private readonly route: ActivatedRoute,
@@ -49,29 +50,30 @@ export class LoginComponent implements OnInit {
   }
 
 
-  onSubmit(): void {
+  async onSubmit(): Promise<void> {
     // reset alerts on submit
     this.alertService.clear();
 
-    this.authClient.login({
-      username: this.formGroup.value.username,
-      password: this.formGroup.value.password
-    })
-      .subscribe(
-        val => {
-          this.session.acceptSession(val);
-          this.routing.onLoginSuccess(this.route);
-        },
-        error => {
-          if (error instanceof ServiceError || error instanceof HttpErrorResponse) {
-            this.alertService.error(error.message);
-          } else {
-            this.alertService.error('Unknown error: ' + error);
-            console.log(error);
-          }
-          this.cdr.markForCheck();
-        }
-      );
+    try {
+
+      const response = await this.authService.login({
+        username: this.formGroup.value.username,
+        password: this.formGroup.value.password
+      })
+
+      this.session.acceptSession(response);
+      this.routing.onLoginSuccess(this.route);
+
+    } catch (error) {
+      if (error instanceof ServiceError || error instanceof HttpErrorResponse) {
+        this.alertService.error(error.message);
+      } else {
+        this.alertService.error('Unknown error: ' + error);
+        console.log(error);
+      }
+      this.cdr.markForCheck();
+    }
+
   }
 
 }
