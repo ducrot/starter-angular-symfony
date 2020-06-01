@@ -13,6 +13,6 @@
   "author": "",
   "license": "ISC",
   "devDependencies": {
-    "protoc-h1-plugins": "^1.3.12"
+    "ts-proto": "^1.21.3"
   }
 }

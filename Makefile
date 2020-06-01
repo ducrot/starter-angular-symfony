@@ -33,11 +33,14 @@ generate: pb-ng pb-php
 pb-ng: $(proto_files)
 	@find $(pb_ng_out) ! -path $(pb_ng_out) ! -name '.gitignore' -exec rm -rf {} +
 	@protoc \
-		--plugin=./node_modules/.bin/protoc-gen-h1c-angular \
+		--plugin=./node_modules/ts-proto/protoc-gen-ts_proto \
+		--ts_proto_opt=lowerCaseServiceMethods=true \
+		--ts_proto_opt=outputJsonMethods=true \
+		--ts_proto_opt=forceLong=long \
 		--proto_path=$(proto_path) \
-		--h1c-angular_out=$(pb_ng_out) \
+		--ts_proto_out=$(pb_ng_out) \
 		$^
-	@echo generated $@
+
 
 pb-php: $(proto_files)
 	@find $(pb_php_out) ! -path $(pb_php_out) ! -name '.gitignore' -exec rm -rf {} +
