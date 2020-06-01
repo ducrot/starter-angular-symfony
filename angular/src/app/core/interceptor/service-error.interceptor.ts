@@ -2,6 +2,7 @@ import {Injectable} from '@angular/core';
 import {HttpErrorResponse, HttpEvent, HttpHandler, HttpInterceptor, HttpRequest} from '@angular/common/http';
 import {Observable, throwError} from 'rxjs';
 import {catchError} from 'rxjs/operators';
+import {ServiceError as ServiceErrorMessage} from "../../../pb/app/service-error";
 
 export class ServiceError implements Error {
 
@@ -43,19 +44,23 @@ export class ServiceErrorInterceptor implements HttpInterceptor {
   intercept(request: HttpRequest<unknown>, next: HttpHandler): Observable<HttpEvent<unknown>> {
     return next.handle(request).pipe(
       catchError((response: HttpErrorResponse) => {
-        if (!response.error) {
-          return throwError(response);
+
+        if (response.headers.get('Content-Type') === 'application/protobuf' && response.error instanceof ArrayBuffer) {
+          try {
+            const pb = ServiceErrorMessage.decode(new Uint8Array(response.error));
+            return throwError(new ServiceError(pb.message, response, pb.requestId, pb.stack));
+          } catch (e) {
+            //
+          }
         }
-        if (typeof response.error !== 'object') {
-          return throwError(response);
+
+        if (response.headers.get('Content-Type') === 'application/json' && response.error !== null && typeof response.error === 'object' && typeof response.error.message === 'string') {
+          const requestId = typeof response.error.request_id === 'string' ? response.error.request_id : undefined;
+          const stack = typeof response.error.stack === 'string' ? response.error.stack : undefined;
+          return throwError(new ServiceError(response.error.message, response, requestId, stack));
         }
-        if (typeof response.error.message !== 'string') {
-          return throwError(response);
-        }
-        const requestId = typeof response.error.request_id === 'string' ? response.error.request_id : undefined;
-        const stack = typeof response.error.stack === 'string' ? response.error.stack : undefined;
-        const error = new ServiceError(response.error.message, response, requestId, stack);
-        return throwError(error);
+
+        return throwError(response);
       })
     );
   }
