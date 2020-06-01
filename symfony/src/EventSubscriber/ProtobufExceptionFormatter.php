@@ -9,7 +9,7 @@
 namespace App\EventSubscriber;
 
 
-use App\ServiceError;
+use Common\ServiceError;
 use Exception;
 use LogicException;
 use Symfony\Component\HttpFoundation\AcceptHeaderItem;

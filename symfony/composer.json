@@ -39,6 +39,9 @@
                 "src/",
                 "src-pb/App/"
             ],
+            "Common\\": [
+                "src-pb/Common/"
+            ],
             "GPBMetadata\\": "src-pb/GPBMetadata/"
         }
     },

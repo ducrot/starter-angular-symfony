@@ -1,6 +1,6 @@
 syntax = "proto3";
 
-package app;
+package common;
 
 
 // This message is used by the JsonExceptionFormatter.php to
