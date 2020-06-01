@@ -23,7 +23,7 @@ import {ErrorPageLayoutComponent} from './layout/error-page-layout/error-page-la
     FlexLayoutModule,
 
     // Core, Data & Shared
-    CoreModule,
+    CoreModule.forRoot(),
     DataModule,
     SharedModule,
 
