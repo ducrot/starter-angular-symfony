@@ -33,7 +33,7 @@ generate: pb-ng pb-php
 pb-ng: $(proto_files)
 	@find $(pb_ng_out) ! -path $(pb_ng_out) ! -name '.gitignore' -exec rm -rf {} +
 	@protoc \
-		--plugin=./node_modules/ts-proto/protoc-gen-ts_proto \
+		--plugin=./angular/node_modules/ts-proto/protoc-gen-ts_proto \
 		--ts_proto_opt=lowerCaseServiceMethods=true \
 		--ts_proto_opt=outputJsonMethods=true \
 		--ts_proto_opt=forceLong=long \
