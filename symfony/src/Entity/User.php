@@ -6,7 +6,6 @@ namespace App\Entity;
 use App\Gender;
 use Doctrine\ORM\Event\PreUpdateEventArgs;
 use Doctrine\ORM\Mapping as ORM;
-use LogicException;
 use Rollerworks\Component\PasswordStrength\Validator\Constraints as RollerworksPassword;
 use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 use Symfony\Component\Security\Core\User\UserInterface;
@@ -183,22 +182,7 @@ class User implements UserInterface
         $pb->setRoles($this->getRoles());
         $pb->setFirstName($this->getFirstName() ?? "");
         $pb->setLastName($this->getLastName() ?? "");
-        switch ($this->getGender()) {
-            case self::GENDER_NONE:
-                $pb->setGender(Gender::NONE);
-                break;
-            case self::GENDER_MALE:
-                $pb->setGender(Gender::MALE);
-                break;
-            case self::GENDER_FEMALE:
-                $pb->setGender(Gender::FEMALE);
-                break;
-            case self::GENDER_MISC:
-                $pb->setGender(Gender::MISC);
-                break;
-            default:
-                throw new LogicException("Unable to convert gender {$this->getGender()}.");
-        }
+        $pb->setGender($this->getGender() ?? Gender::NONE);
         return $pb;
     }
 
