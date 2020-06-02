@@ -15,10 +15,9 @@ export class ProtobufRpcHandler {
   }
 
   request(service: string, method: string, data: Uint8Array): Promise<Uint8Array> {
-
     const url = this.makeUrl(service, method);
-
-    const response$ = this.http.post(url, data.buffer, {
+    const buffer = data.buffer.slice(data.byteOffset, data.byteOffset + data.byteLength);
+    const response$ = this.http.post(url, buffer, {
       headers: {
         'Content-Type': 'application/protobuf',
         'Accept': ['application/protobuf', 'application/json']
