@@ -23,6 +23,24 @@ class UserRepository extends ServiceEntityRepository implements UserLoaderInterf
         $this->getEntityManager()->flush();
     }
 
+    public function checkUniqueEmail(array $properties): \Countable
+    {
+        $username = $properties['username'] ?? null;
+        $id = $properties['id'] ?? null;
+
+        $qb = $this->createQueryBuilder('u')
+            ->where('u.username = :username')
+            ->setParameter('username', $username);
+        if (!empty($id)) {
+            $qb
+                ->andWhere('u.id != :id')
+                ->setParameter('id', $id);
+        }
+
+        return $qb->getQuery()->getResult();
+    }
+
+
     public function loadUserByUsername(string $username): ?UserInterface
     {
         if (!is_string($username)) {
