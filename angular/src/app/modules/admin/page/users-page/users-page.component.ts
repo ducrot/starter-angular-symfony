@@ -21,6 +21,7 @@ export class UsersPageComponent {
 
   readonly response$: Observable<ListResponse>;
 
+  // this thing translates between parameters in the url and a ListRequest
   readonly query = new QueryMapper<ListRequest>(ListRequest.fromPartial({
     page: 1,
     pageSize: 10,
@@ -39,14 +40,19 @@ export class UsersPageComponent {
     @Inject(USER_MAN_SERVICE) private readonly service: UserManagementService
   ) {
 
+    // whenever the parameters in the url change, we parse them
     route.params.subscribe(pm => this.query.parse(pm));
 
+    // whenever the parsed parameters lead to a different ListRequest,
+    // we execute that request, so the display updates.
     this.response$ = this.query.valueChange$.pipe(
       switchMap(request => from(service.list(request))),
       tap(x => console.log("UsersPageComponent list response:", x)),
       shareReplay(1)
     );
 
+    // whenever query.update() is called, this executes and updates
+    // the url parameters
     this.query.paramsChange$.subscribe(pm => {
       this.router.navigate(['./', pm], {
         relativeTo: this.route
@@ -61,6 +67,7 @@ export class UsersPageComponent {
     const user = await dialogRef.afterClosed().toPromise() as User | undefined;
     if (user) {
       this.snackBar.open(`User "${user.username}" created.`);
+      // url parameters did not change, but we want to refresh the list anyway
       this.query.forceValueChange();
     }
   }
@@ -106,6 +113,7 @@ export class UsersPageComponent {
   }
 
   onSearchChange(text: string) {
+    // when search changes, we better go to page 1
     this.query.update({searchText: text, page: 1});
   }
 }

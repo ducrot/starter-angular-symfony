@@ -6,6 +6,7 @@ namespace App\Services\UserManagement;
 
 use App\CreateRequest;
 use App\CreateResponse;
+use App\Entity\User;
 use App\ListRequest;
 use App\ListResponse;
 use App\UpdateRequest;
@@ -88,7 +89,7 @@ class UserManagementService implements UserManagementServiceInterface
             $this->listBuilder->getStatus()
         );
         $response->setItems(
-            $this->listBuilder->getResultArray()
+            $this->listBuilder->getResultArray(fn(User $u) => $u->toProtobuf())
         );
 
         return $response;

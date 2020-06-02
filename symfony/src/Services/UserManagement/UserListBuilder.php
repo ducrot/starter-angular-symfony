@@ -17,16 +17,30 @@ class UserListBuilder extends AbstractListBuilder
     public ?bool $disabled = null;
 
 
-    protected function setup(): void
+// dont really need setup for this simple one
+//    protected function setup(): void
+//    {
+//        $this->disabled = false;
+//        $this->setPageSizeDefault(20);
+//        $this->setPageSizeMax(100);
+//    }
+
+
+    // at the moment, entity is mapped to proto in UserManagementService.php.
+    // could also do this here:
+//    protected function mapResultRow(object $row): object
+//    {
+//        return $row instanceof User ? $row->toProtobuf() : $row;
+//    }
+
+
+    protected function provideSummary(): Generator
     {
         $this->disabled = false;
-        $this->setPageSizeDefault(20);
-        $this->setPageSizeMax(100);
-    }
+        yield "enabledCount";
 
-    protected function mapResultRow(object $row): object
-    {
-        return $row instanceof User ? $row->toProtobuf() : $row;
+        $this->disabled = true;
+        yield "disabledCount";
     }
 
 
@@ -57,16 +71,6 @@ class UserListBuilder extends AbstractListBuilder
         }
 
         return $qb->getQuery();
-    }
-
-
-    protected function provideSummary(): Generator
-    {
-        $this->disabled = false;
-        yield "enabledCount";
-
-        $this->disabled = true;
-        yield "disabledCount";
     }
 
 
