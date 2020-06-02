@@ -1,0 +1,28 @@
+syntax = "proto3";
+
+package common;
+
+
+message ListStatus {
+
+    // Lists are usually constrained to a page size,
+    // meaning that only a part of the list is returned.
+    //
+    // This field contains the total number of items of
+    // the list.
+    int32 count = 1;
+
+    // This field is true when the count is zero AND
+    // there are no items hidden by a filter.
+    bool empty = 2;
+
+    // Page number, starting with 1.
+    int32 page = 4;
+
+    // Number of items per page.
+    int32 page_size = 5;
+
+    // Optional summary fields.
+    map<string, int32> summary = 3;
+
+}

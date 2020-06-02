@@ -7,7 +7,9 @@ namespace App\Controller;
 use App\AuthenticationServiceInterface;
 use App\Services\AuthenticationService;
 use App\Services\TestService;
+use App\Services\UserManagementService;
 use App\TestServiceInterface;
+use App\UserManagementServiceInterface;
 use Psr\Container\ContainerInterface;
 use Psr\Log\LoggerInterface;
 use Symfony\Component\HttpFoundation\Request;
@@ -28,6 +30,7 @@ class ProtobufRpcController implements ServiceSubscriberInterface
     private const MAPPINGS = [
         TestService::class => TestServiceInterface::class,
         AuthenticationService::class => AuthenticationServiceInterface::class,
+        UserManagementService::class => UserManagementServiceInterface::class,
     ];
 
 

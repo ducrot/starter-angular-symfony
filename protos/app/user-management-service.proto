@@ -1,0 +1,48 @@
+syntax = "proto3";
+
+package app;
+option php_generic_services = true;
+
+import "app/user.proto";
+import "common/list-status.proto";
+import "google/protobuf/wrappers.proto";
+
+
+service UserManagementService {
+
+    rpc CreateUser (CreateUserRequest) returns (CreateUserResponse);
+
+    rpc ListUsers (ListUsersRequest) returns (ListUsersResponse);
+
+}
+
+
+message CreateUserRequest {
+    app.User user = 1;
+}
+
+
+message CreateUserResponse {
+
+}
+
+
+message ListUsersRequest {
+    string search_text = 1;
+    Disabled disabled = 2;
+    int32 page = 3;
+    int32 page_size = 4;
+
+    enum Disabled {
+        ANY = 0;
+        YES = 1;
+        NO = 2;
+    }
+}
+
+
+message ListUsersResponse {
+    repeated app.User items = 1;
+    common.ListStatus status = 2;
+}
+
