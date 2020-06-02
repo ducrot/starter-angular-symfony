@@ -59,7 +59,7 @@ export class LoginComponent implements OnInit {
       const response = await this.authService.login({
         username: this.formGroup.value.username,
         password: this.formGroup.value.password
-      })
+      });
 
       this.session.acceptSession(response);
       this.routing.onLoginSuccess(this.route);

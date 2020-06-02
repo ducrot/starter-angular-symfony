@@ -5,7 +5,6 @@ option php_generic_services = true;
 
 import "app/user.proto";
 import "common/list-status.proto";
-import "google/protobuf/wrappers.proto";
 
 
 service UserManagementService {
