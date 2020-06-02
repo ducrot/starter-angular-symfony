@@ -1,10 +1,11 @@
 <?php
 
 
-namespace App\Listings;
+namespace App\Services\UserManagement;
 
 
 use App\Entity\User;
+use App\Listings\AbstractListBuilder;
 use Doctrine\ORM\EntityManagerInterface;
 use Doctrine\ORM\Query;
 use Generator;

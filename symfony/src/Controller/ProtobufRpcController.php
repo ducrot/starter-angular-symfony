@@ -7,7 +7,7 @@ namespace App\Controller;
 use App\AuthenticationServiceInterface;
 use App\Services\AuthenticationService;
 use App\Services\TestService;
-use App\Services\UserManagementService;
+use App\Services\UserManagement\UserManagementService;
 use App\TestServiceInterface;
 use App\UserManagementServiceInterface;
 use Psr\Container\ContainerInterface;

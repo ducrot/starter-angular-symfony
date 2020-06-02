@@ -1,0 +1,44 @@
+<h1>Users</h1>
+
+<mat-toolbar>
+  <button mat-button (click)="onCreateClick()">Create new user</button>
+
+  <div *ngIf="query.valueChange$ | async as qv">
+    <mat-button-toggle [checked]=" qv.disabled === disabledNo" (change)=" onEnabledButtonChange(qv) ">
+      Enabled ({{ (response$ | async)?.status?.summary?.enabledCount }})
+    </mat-button-toggle>
+    <mat-button-toggle [checked]=" qv.disabled === disabledYes" (change)=" onDisabledButtonChange(qv) ">
+      Disabled ({{ (response$ | async)?.status?.summary?.disabledCount }})
+    </mat-button-toggle>
+  </div>
+
+  <mat-form-field class="example-form-field">
+    <mat-label>Search</mat-label>
+    <input #searchInput matInput type="text"
+           [value]=" (query.valueChange$ | async)?.searchText "
+           (change)="onSearchChange(searchInput.value)">
+    <button mat-button *ngIf=" (query.valueChange$ | async)?.searchText.length > 0 "
+            matSuffix mat-icon-button aria-label="Clear"
+            (click)="onClearSearchButton()">
+      <mat-icon>close</mat-icon>
+    </button>
+  </mat-form-field>
+
+</mat-toolbar>
+
+
+<ng-container *ngIf="response$ | async as response">
+
+  <div *ngFor="let item of response.items">
+    {{ item.id }} {{item.username}}
+  </div>
+
+  <mat-paginator [length]=" response.status.count "
+                 [pageIndex]="response.status.page -1"
+                 [pageSize]="response.status.pageSize"
+                 (page)="onPaginatorPage($event)"
+                 [pageSizeOptions]="[5, 10, 25, 100]">
+  </mat-paginator>
+
+</ng-container>
+

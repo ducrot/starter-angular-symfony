@@ -21,6 +21,15 @@ const routes: Routes = [
   },
 
   {
+    path: 'admin',
+    component: ContentLayoutComponent,
+    canActivate: [SessionRequired],
+    canActivateChild: [SessionRequired],
+    loadChildren: () =>
+      import('@modules/admin/admin.module').then(m => m.AdminModule)
+  },
+
+  {
     path: 'auth',
     component: AuthLayoutComponent,
     loadChildren: () =>

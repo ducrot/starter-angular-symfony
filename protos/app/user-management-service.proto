@@ -9,24 +9,38 @@ import "common/list-status.proto";
 
 service UserManagementService {
 
-    rpc CreateUser (CreateUserRequest) returns (CreateUserResponse);
+    rpc Create (CreateRequest) returns (CreateResponse);
 
-    rpc ListUsers (ListUsersRequest) returns (ListUsersResponse);
+    rpc Update (UpdateRequest) returns (UpdateResponse);
+
+    rpc List (ListRequest) returns (ListResponse);
 
 }
 
 
-message CreateUserRequest {
+message CreateRequest {
+    string username = 1;
+    string password = 2;
+    bool is_admin = 3;
+}
+
+
+message CreateResponse {
     app.User user = 1;
 }
 
 
-message CreateUserResponse {
-
+message UpdateRequest {
+    app.User user = 1;
 }
 
 
-message ListUsersRequest {
+message UpdateResponse {
+    app.User user = 1;
+}
+
+
+message ListRequest {
     string search_text = 1;
     Disabled disabled = 2;
     int32 page = 3;
@@ -40,7 +54,7 @@ message ListUsersRequest {
 }
 
 
-message ListUsersResponse {
+message ListResponse {
     repeated app.User items = 1;
     common.ListStatus status = 2;
 }
