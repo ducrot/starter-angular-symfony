@@ -1,0 +1,22 @@
+<mat-toolbar color="primary" fxLayout="row">
+
+  <span fxFlex="1 1 0%">{{ appName }}</span>
+
+  <img src="assets/logo-negative.svg" class="logo" alt="{{ companyName }}" fxFlex="1 1 0%" fxShow="true" fxHide.lt-md>
+
+  <div fxFlex="1 1 0%" fxLayoutAlign="end">
+
+    <button mat-icon-button (click)="toggleSidenav.emit()" fxShow="true" fxHide.gt-sm *ngIf="isAuthenticated()">
+      <mat-icon>menu</mat-icon>
+    </button>
+
+    <div fxShow="true" fxHide.lt-md *ngIf="isAuthenticated()">
+      <a routerLink="/" mat-button>Home</a>
+      <a routerLink="/first" mat-button>First</a>
+      <a routerLink="/second" mat-button>Second</a>
+      <a (click)="onLogoutClick($event)" href="/auth/logout" mat-button>Logout</a>
+    </div>
+
+  </div>
+
+</mat-toolbar>

@@ -1,7 +1,12 @@
-.menu-spacer {
-  flex: 1 1 auto;
+.mat-drawer-container {
+  @media (max-width: 599px) {
+    background-color: white;
+  }
 }
 
 #content {
-  padding: 16px;
+  padding: 32px;
+  @media (max-width: 599px) {
+    padding: 16px;
+  }
 }

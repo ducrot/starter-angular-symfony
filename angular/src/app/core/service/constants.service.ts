@@ -6,5 +6,6 @@ import { Injectable } from '@angular/core';
 export class ConstantsService {
 
   readonly appName: string = 'My Application';
+  readonly companyName: string = 'ACME CO';
 
 }

@@ -1,0 +1,15 @@
+<footer fxLayout="column" fxLayoutAlign="center center">
+
+  <span>&copy; {{ currentYear }} {{ companyName }}</span>
+
+  <nav>
+    <button mat-button
+            class="nav-button"
+            routerLinkActive="active"
+            *ngFor="let item of navItems"
+            [routerLink]="[item.link]">
+      {{ item.title }}
+    </button>
+  </nav>
+
+</footer>

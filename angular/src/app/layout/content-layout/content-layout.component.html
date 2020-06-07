@@ -1,33 +1,19 @@
-<mat-toolbar color="primary">
-  <mat-toolbar-row>
-    <span>{{ appName }}</span>
-    <span class="menu-spacer"></span>
-    <button mat-icon-button (click)="sidenav.toggle()" fxShow="true" fxHide.gt-sm>
-      <mat-icon>menu</mat-icon>
-    </button>
-    <div fxShow="true" fxHide.lt-md>
-      <a routerLink="/" mat-button>Home</a>
-      <a routerLink="/first" mat-button>First</a>
-      <a routerLink="/second" mat-button>Second</a>
-      <a routerLink="/admin" mat-button>Admin</a>
-      <a (click)="onLogoutClick($event)" href="/auth/logout" mat-button>Logout</a>
-    </div>
-  </mat-toolbar-row>
-</mat-toolbar>
+<mat-sidenav-container fullscreen>
 
-<mat-sidenav-container fxFlexFill>
-  <mat-sidenav #sidenav position="end">
-    <mat-nav-list>
-      <a routerLink="/" mat-list-item>Home</a>
-      <a routerLink="/first" mat-list-item>First</a>
-      <a routerLink="/second" mat-list-item>Second</a>
-      <a routerLink="/admin" mat-list-item>Admin</a>
-      <a (click)="onLogoutClick($event)" href="/auth/logout" mat-list-item>Logout</a>
-    </mat-nav-list>
-  </mat-sidenav>
-  <mat-sidenav-content fxFlexFill>
-    <div id="content">
+  <mat-sidenav-content fxLayout="column">
+
+    <app-header (toggleSidenav)="sidenav.toggle()" fxFlex="0 0 auto"></app-header>
+
+    <div id="content" role="main" fxFlex="1 0 auto" fullscreen>
       <router-outlet></router-outlet>
     </div>
+
+    <app-footer fxFlexOffset="auto"></app-footer>
+
   </mat-sidenav-content>
+
+  <mat-sidenav #sidenav position="start">
+    <app-sidenav (toggleSidenav)="sidenav.toggle()"></app-sidenav>
+  </mat-sidenav>
+
 </mat-sidenav-container>

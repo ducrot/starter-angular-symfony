@@ -1,7 +1,7 @@
-import {Injectable} from '@angular/core';
-import {Observable, ReplaySubject} from 'rxjs';
-import {User} from "@pb/app/user";
-import {LoginResponse} from "@pb/app/authentication-service";
+import { Injectable } from '@angular/core';
+import { Observable, ReplaySubject } from 'rxjs';
+import { User } from '@pb/app/user';
+import { LoginResponse } from '@pb/app/authentication-service';
 
 
 @Injectable({
@@ -34,6 +34,10 @@ export class SessionService {
   get token(): string | undefined {
     const sess = this.readSession();
     return sess ? sess.token : undefined;
+  }
+
+  get isAuthenticated(): boolean {
+    return this.state === 'valid';
   }
 
 

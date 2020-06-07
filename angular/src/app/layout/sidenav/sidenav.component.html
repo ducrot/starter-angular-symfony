@@ -1,0 +1,9 @@
+<mat-toolbar color="primary">
+  <img src="assets/logo-negative.svg" class="logo" alt="{{ appName }}">
+</mat-toolbar>
+<mat-nav-list>
+  <a routerLink="/" mat-list-item (click)="toggleSidenav.emit()">Home</a>
+  <a routerLink="/first" mat-list-item (click)="toggleSidenav.emit()">First</a>
+  <a routerLink="/second" mat-list-item (click)="toggleSidenav.emit()">Second</a>
+  <a (click)="onLogoutClick($event)" href="/auth/logout" mat-list-item>Logout</a>
+</mat-nav-list>

@@ -1,14 +1,15 @@
-import {ChangeDetectionStrategy, ChangeDetectorRef, Component, Inject, OnInit} from '@angular/core';
-import {SessionService} from '@app/service/session.service';
-import {ActivatedRoute} from '@angular/router';
-import {AuthenticationRoutingService} from '@app/service/authentication-routing.service';
-import {FormBuilder, FormGroup, Validators} from '@angular/forms';
-import {ServiceError} from '@app/interceptor/service-error.interceptor';
-import {AlertService} from '@shared/service/alert.service';
-import {HeaderService} from '@shared/service/header.service';
-import {HttpErrorResponse} from '@angular/common/http';
-import {AUTH_SERVICE} from "@shared/service-tokens";
-import {AuthenticationService} from "@pb/app/authentication-service";
+import { ChangeDetectionStrategy, ChangeDetectorRef, Component, Inject, OnInit } from '@angular/core';
+import { SessionService } from '@app/service/session.service';
+import { ActivatedRoute } from '@angular/router';
+import { AuthenticationRoutingService } from '@app/service/authentication-routing.service';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { ServiceError } from '@app/interceptor/service-error.interceptor';
+import { AlertService } from '@shared/service/alert.service';
+import { HeaderService } from '@shared/service/header.service';
+import { HttpErrorResponse } from '@angular/common/http';
+import { AUTH_SERVICE } from '@shared/service-tokens';
+import { AuthenticationService } from '@pb/app/authentication-service';
+import { ConstantsService } from '@app/service/constants.service';
 
 @Component({
   selector: 'app-login',
@@ -18,6 +19,8 @@ import {AuthenticationService} from "@pb/app/authentication-service";
 })
 export class LoginComponent implements OnInit {
 
+  companyName: string;
+  title: string;
   readonly formGroup: FormGroup;
 
   constructor(
@@ -27,10 +30,13 @@ export class LoginComponent implements OnInit {
     private readonly route: ActivatedRoute,
     fb: FormBuilder,
     private alertService: AlertService,
+    private constants: ConstantsService,
     private headerService: HeaderService,
     private cdr: ChangeDetectorRef
   ) {
-    this.headerService.setTitle('Login');
+    this.companyName = this.constants.companyName;
+    this.title = 'Login';
+    this.headerService.setTitle(this.title);
 
     this.formGroup = fb.group({
       username: [null, Validators.required],

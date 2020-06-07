@@ -1,3 +1,42 @@
+:host {
+  display: flex;
+  height: 100%;
+}
+
+.container {
+  margin: 0 auto;
+  align-self: center;
+  justify-self: center;
+  max-width: 400px;
+  width: 100%;
+  @media (max-width: 599px) {
+    max-width: none;
+  }
+}
+
+mat-card {
+  padding: 32px;
+  @media (max-width: 599px) {
+    padding: 0;
+    transition: none !important;
+    box-shadow: none !important;
+  }
+}
+
+.logo {
+  display: block;
+  box-sizing: border-box;
+  margin: 0 auto;
+  padding: 0 0 32px 0;
+  width: 100%;
+  height: auto;
+
+  max-width: 336px;
+  @media (max-width: 599px) {
+    max-width: 240px;
+  }
+}
+
 .hint {
   margin: 1rem 0;
   padding: 0.75em;
