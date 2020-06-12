@@ -6,16 +6,22 @@
 
   <div fxFlex="1 1 0%" fxLayoutAlign="end">
 
-    <button mat-icon-button (click)="toggleSidenav.emit()" fxShow="true" fxHide.gt-sm *ngIf="isAuthenticated()">
-      <mat-icon>menu</mat-icon>
-    </button>
-
     <div fxShow="true" fxHide.lt-md *ngIf="isAuthenticated()">
       <a routerLink="/" mat-button>Home</a>
       <a routerLink="/first" mat-button>First</a>
       <a routerLink="/second" mat-button>Second</a>
       <a (click)="onLogoutClick($event)" href="/auth/logout" mat-button>Logout</a>
     </div>
+
+    <mat-select [ngModel]="currentLang" (selectionChange)="onLanguageSelect($event)">
+      <mat-option *ngFor="let l of languages" [value]="l">
+        {{ l.toUpperCase() }}
+      </mat-option>
+    </mat-select>
+
+    <button mat-icon-button (click)="toggleSidenav.emit()" fxShow="true" fxHide.gt-sm *ngIf="isAuthenticated()">
+      <mat-icon>menu</mat-icon>
+    </button>
 
   </div>
 

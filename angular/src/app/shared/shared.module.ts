@@ -1,17 +1,18 @@
-import {NgModule} from '@angular/core';
-import {CommonModule} from '@angular/common';
-import {FormsModule, ReactiveFormsModule} from '@angular/forms';
-import {RouterModule} from '@angular/router';
+import { NgModule } from '@angular/core';
+import { CommonModule } from '@angular/common';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { RouterModule } from '@angular/router';
+import { MaterialModule } from '@shared/material.module';
+import { TranslateModule } from '@ngx-translate/core';
 
-import {MaterialModule} from '@shared/material.module';
+import { AlertComponent } from '@shared/component/alert/alert.component';
+import { LuckyNumberComponent } from '@shared/component/lucky-number/lucky-number.component';
+import { ErrorDonkeyComponent } from '@shared/component/error-donkey/error-donkey.component';
+import { TestServiceClientImpl } from '@pb/app/test-service';
+import { ProtobufRpcHandler } from '@app/service/protobuf-rpc-handler.service';
+import { AuthenticationServiceClientImpl } from '@pb/app/authentication-service';
+import { AUTH_SERVICE, TEST_SERVICE } from '@shared/service-tokens';
 
-import {AlertComponent} from '@shared/component/alert/alert.component';
-import {LuckyNumberComponent} from '@shared/component/lucky-number/lucky-number.component';
-import {ErrorDonkeyComponent} from '@shared/component/error-donkey/error-donkey.component';
-import {TestServiceClientImpl} from "@pb/app/test-service";
-import {ProtobufRpcHandler} from "@app/service/protobuf-rpc-handler.service";
-import {AuthenticationServiceClientImpl} from "@pb/app/authentication-service";
-import {AUTH_SERVICE, TEST_SERVICE} from "@shared/service-tokens";
 
 
 @NgModule({
@@ -31,8 +32,8 @@ import {AUTH_SERVICE, TEST_SERVICE} from "@shared/service-tokens";
     FormsModule,
     ReactiveFormsModule,
     RouterModule,
-
     MaterialModule,
+    TranslateModule,
 
     AlertComponent,
     ErrorDonkeyComponent,
