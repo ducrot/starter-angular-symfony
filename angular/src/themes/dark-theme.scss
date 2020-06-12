@@ -1,0 +1,9 @@
+$app-dark-primary: mat-palette($mat-grey, 700, 300, 900);
+$app-dark-accent: mat-palette($mat-blue-grey, 400);
+$app-dark-warn: mat-palette($mat-red, 500);
+
+$app-dark-theme: mat-dark-theme(
+    $app-dark-primary,
+    $app-dark-accent,
+    $app-dark-warn
+);

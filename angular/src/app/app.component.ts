@@ -1,6 +1,8 @@
 import { ChangeDetectionStrategy, Component, OnInit } from '@angular/core';
 import { Logger } from '@app/service/logger.service';
 import { environment } from '@env';
+import { ThemeService } from '@app/service/theme.service';
+import { OverlayContainer } from '@angular/cdk/overlay';
 
 const log = new Logger('App');
 
@@ -12,7 +14,12 @@ const log = new Logger('App');
 })
 export class AppComponent implements OnInit {
 
-  constructor() {
+  public theme = 'app-light-theme';
+
+  constructor(
+    private themeService: ThemeService,
+    private overlayContainer: OverlayContainer,
+  ) {
   }
 
   ngOnInit() {
@@ -22,6 +29,22 @@ export class AppComponent implements OnInit {
     }
 
     log.debug('init');
+
+    // Setup theme
+    this.themeService.getDarkTheme().subscribe(theme => {
+      this.theme = (theme) ? 'app-dark-theme' : 'app-light-theme';
+
+      if (this.overlayContainer) {
+        const overlayContainerClasses = this.overlayContainer.getContainerElement().classList;
+        const themeClassesToRemove = Array.from(overlayContainerClasses).filter((item: string) => item.includes('-theme'));
+        if (themeClassesToRemove.length) {
+          overlayContainerClasses.remove(...themeClassesToRemove);
+        }
+        overlayContainerClasses.add(this.theme);
+      }
+
+      log.debug(`Theme switched to ${this.theme}`);
+    });
   }
 
 }

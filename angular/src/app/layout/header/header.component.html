@@ -2,7 +2,7 @@
 
   <span fxFlex="1 1 0%">{{ appName }}</span>
 
-  <img src="assets/logo-negative.svg" class="logo" alt="{{ companyName }}" fxFlex="1 1 0%" fxShow="true" fxHide.lt-md>
+  <img [src]="logo" class="logo" alt="{{ companyName }}" fxFlex="1 1 0%" fxShow="true" fxHide.lt-md>
 
   <div fxFlex="1 1 0%" fxLayoutAlign="end">
 
@@ -12,6 +12,8 @@
       <a routerLink="/second" mat-button>Second</a>
       <a (click)="onLogoutClick($event)" href="/auth/logout" mat-button>Logout</a>
     </div>
+
+    <mat-slide-toggle [checked]="isDarkTheme$ | async" (change)="toggleTheme($event.checked)"></mat-slide-toggle>
 
     <mat-select [ngModel]="currentLang" (selectionChange)="onLanguageSelect($event)">
       <mat-option *ngFor="let l of languages" [value]="l">

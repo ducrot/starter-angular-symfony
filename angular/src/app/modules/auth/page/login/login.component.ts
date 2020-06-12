@@ -10,6 +10,7 @@ import { HttpErrorResponse } from '@angular/common/http';
 import { AUTH_SERVICE } from '@shared/service-tokens';
 import { AuthenticationService } from '@pb/app/authentication-service';
 import { ConstantsService } from '@app/service/constants.service';
+import { ThemeService } from '@app/service/theme.service';
 
 @Component({
   selector: 'app-login',
@@ -19,8 +20,9 @@ import { ConstantsService } from '@app/service/constants.service';
 })
 export class LoginComponent implements OnInit {
 
-  companyName: string;
-  title: string;
+  public companyName: string;
+  public title: string;
+  public logo: string;
   readonly formGroup: FormGroup;
 
   constructor(
@@ -32,6 +34,7 @@ export class LoginComponent implements OnInit {
     private alertService: AlertService,
     private constants: ConstantsService,
     private headerService: HeaderService,
+    private themeService: ThemeService,
     private cdr: ChangeDetectorRef
   ) {
     this.companyName = this.constants.companyName;
@@ -53,6 +56,12 @@ export class LoginComponent implements OnInit {
     if (this.route.snapshot.queryParamMap.get('expired') === 'true') {
       this.alertService.warning('Your session has expired. Please login again.');
     }
+
+    // Select logo for dark/light mode
+    this.themeService.getDarkTheme().subscribe(theme => {
+      this.logo = (theme) ? 'assets/logo-negative.svg' : 'assets/logo.svg';
+      this.cdr.markForCheck();
+    });
   }
 
 

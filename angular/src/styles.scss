@@ -1,4 +1,31 @@
-/* You can add global styles to this file, and also import other style files */
+@import 'styles-variables';
 
-html, body { height: 100%; }
-body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
+@import 'style-reset';
+
+@import '~@angular/material/theming';
+
+// always include only once per project
+@include mat-core();
+
+// import custom themes
+@import './themes/light-theme';
+@import './themes/dark-theme';
+
+// import custom component themes here
+@import 'styles-reset.scss-theme';
+// @import './modules/foo/components/bar/bar.component.scss-theme';
+
+@mixin custom-components-theme($theme) {
+  @include app-styles-reset-theme($theme);
+  // @include app-bar-component-theme($theme);
+}
+
+.app-light-theme {
+  @include angular-material-theme($app-light-theme);
+  @include custom-components-theme($app-light-theme);
+}
+
+.app-dark-theme {
+  @include angular-material-theme($app-dark-theme);
+  @include custom-components-theme($app-dark-theme);
+}
