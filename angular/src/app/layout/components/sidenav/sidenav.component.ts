@@ -1,21 +1,21 @@
 import { Component, EventEmitter, OnInit, Output } from '@angular/core';
-import { ConstantsService } from '@app/service/constants.service';
 import { SessionService } from '@app/service/session.service';
-import { I18nService } from '@app/service/i18n.service';
-import { Observable } from 'rxjs';
+import { ConstantsService } from '@app/service/constants.service';
 import { ThemeService } from '@app/service/theme.service';
+import { Observable } from 'rxjs';
+import { I18nService } from '@app/service/i18n.service';
+
 
 @Component({
-  selector: 'app-header',
-  templateUrl: './header.component.html',
-  styleUrls: ['./header.component.scss']
+  selector: 'app-sidenav',
+  templateUrl: './sidenav.component.html',
+  styleUrls: ['./sidenav.component.scss']
 })
-export class HeaderComponent implements OnInit {
+export class SidenavComponent implements OnInit {
 
   @Output() toggleSidenav = new EventEmitter<void>();
 
   public appName: string;
-  public companyName: string;
   public currentLang: string;
   public languages: Array<string>;
   public isDarkTheme$: Observable<boolean>;
@@ -28,7 +28,6 @@ export class HeaderComponent implements OnInit {
     private themeService: ThemeService,
   ) {
     this.appName = this.constants.appName;
-    this.companyName = this.constants.companyName;
     this.currentLang = this.i18nService.language;
     this.languages = this.i18nService.supportedLanguages;
   }

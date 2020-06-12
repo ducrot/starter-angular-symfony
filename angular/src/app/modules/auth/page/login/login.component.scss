@@ -17,7 +17,7 @@
 mat-card {
   padding: 32px;
   @media (max-width: 599px) {
-    padding: 0;
+    padding: 16px;
     transition: none !important;
     box-shadow: none !important;
   }
@@ -40,7 +40,6 @@ mat-card {
 .hint {
   margin: 1rem 0;
   padding: 0.75em;
-  background-color: rgba(0,0,0,.04);
 }
 
 mat-form-field, .mat-primary {

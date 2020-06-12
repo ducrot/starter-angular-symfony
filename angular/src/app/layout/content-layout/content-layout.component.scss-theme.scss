@@ -1,0 +1,11 @@
+@import '~@angular/material/theming';
+
+@mixin app-content-layout-component-theme($theme) {
+  // retrieve variables from theme
+  // (all possible variables, use only what you really need)
+  // all of these variables contain many additional variables
+  //$primary: map-get($theme, primary);
+  //$accent: map-get($theme, accent);
+  //$foreground: map-get($theme, foreground);
+  //$background: map-get($theme, background);
+}

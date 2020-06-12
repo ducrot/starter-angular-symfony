@@ -10,9 +10,11 @@ import { AppRoutingModule } from './app-routing.module';
 
 import { AppComponent } from './app.component';
 import { ContentLayoutComponent } from './layout/content-layout/content-layout.component';
-import { HeaderComponent } from './layout/header/header.component';
-import { SidenavComponent } from './layout/sidenav/sidenav.component';
-import { FooterComponent } from './layout/footer/footer.component';
+import { HeaderComponent } from './layout/components/header/header.component';
+import { SidenavComponent } from './layout/components/sidenav/sidenav.component';
+import { FooterComponent } from './layout/components/footer/footer.component';
+import { LanguageComponent } from './layout/components/language/language.component';
+import { ThemeComponent } from './layout/components/theme/theme.component';
 
 
 @NgModule({
@@ -26,7 +28,7 @@ import { FooterComponent } from './layout/footer/footer.component';
     CoreModule.forRoot(),
     SharedModule,
 
-    // App
+    // Routing
     AppRoutingModule,
   ],
   declarations: [
@@ -35,6 +37,8 @@ import { FooterComponent } from './layout/footer/footer.component';
     HeaderComponent,
     SidenavComponent,
     FooterComponent,
+    LanguageComponent,
+    ThemeComponent,
   ],
   providers: [],
   bootstrap: [AppComponent]

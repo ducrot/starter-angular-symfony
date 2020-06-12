@@ -1,0 +1,20 @@
+<mat-toolbar color="primary" fxLayout="row">
+  <div class="brand" fxFlex="1 1 auto" fxLayout="row" fxLayoutAlign="flex-start center">
+    <img [src]="logo" class="logo" alt="{{ appName }}">
+  </div>
+
+  <app-language></app-language>
+</mat-toolbar>
+
+<mat-nav-list *ngIf="isAuthenticated()">
+  <a routerLink="/" mat-list-item (click)="toggleSidenav.emit()">Home</a>
+  <a routerLink="/first" mat-list-item (click)="toggleSidenav.emit()">First</a>
+  <a routerLink="/second" mat-list-item (click)="toggleSidenav.emit()">Second</a>
+  <a (click)="onLogoutClick($event)" href="/auth/logout" mat-list-item>Logout</a>
+
+  <mat-divider></mat-divider>
+</mat-nav-list>
+
+<mat-nav-list>
+  <app-theme [label]="'Dark-Mode'"></app-theme>
+</mat-nav-list>

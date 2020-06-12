@@ -1,0 +1,24 @@
+:host {
+  width: 100%;
+}
+
+.brand {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  margin-right: 16px;
+}
+
+.logo {
+  height: 30px;
+  margin-right: 16px;
+}
+
+app-theme {
+  margin: 0 0 0 8px;
+}
+
+app-language {
+  margin: 0 0 0 24px;
+  width: 40px;
+  font-size: 14px;
+}
