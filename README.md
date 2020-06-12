@@ -20,7 +20,8 @@ For the first installation and after adding or changing a .proto file, run `make
 generate Typescript and PHP code.
 
 You need the protobuf compiler `protoc` for that. Run `brew install protobuf` or 
-download a release for your OS [here](https://github.com/protocolbuffers/protobuf/releases) 
+`sudo port install protobuf3-cpp` or download a release for your OS 
+[here](https://github.com/protocolbuffers/protobuf/releases) 
 and follow the installation instructions.
 
 This will write PHP files to `symfony/src-pb` and typescript files to `angular/src/pb`.   
