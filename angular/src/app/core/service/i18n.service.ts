@@ -2,8 +2,10 @@ import { Injectable } from '@angular/core';
 import { LangChangeEvent, TranslateService } from '@ngx-translate/core';
 import { ConstantsService } from '@app/service/constants.service';
 import { Subscription } from 'rxjs';
+import { Logger } from '@app/service/logger.service';
 
 const languageKey = 'language';
+const log = new Logger('I18nService');
 
 /**
  * i18N service which works with ngx-translate.
@@ -65,6 +67,7 @@ export class I18nService {
       language = this.defaultLanguage;
     }
 
+    log.debug(`Language set to ${language}`);
     this.translateService.use(language);
   }
 
