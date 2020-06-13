@@ -1,18 +1,20 @@
-import {Injectable} from '@angular/core';
-import {ActivatedRouteSnapshot, CanActivate, CanActivateChild, RouterStateSnapshot, UrlTree} from '@angular/router';
-import {Observable} from 'rxjs';
-import {SessionService} from '@app/service/session.service';
-import {AuthenticationRoutingService} from './authentication-routing.service';
+import { Injectable } from '@angular/core';
+import { ActivatedRouteSnapshot, CanActivate, CanActivateChild, RouterStateSnapshot, UrlTree } from '@angular/router';
+import { Observable } from 'rxjs';
+import { SessionService } from '@app/service/session.service';
+import { AuthenticationRoutingService } from '../service/authentication-routing.service';
 
 @Injectable({
   providedIn: 'root'
 })
-export class SessionRequired implements CanActivate, CanActivateChild {
+export class AuthGuard implements CanActivate, CanActivateChild {
 
 
-  constructor(private readonly session: SessionService, private readonly routing: AuthenticationRoutingService) {
+  constructor(
+    private readonly session: SessionService,
+    private readonly routing: AuthenticationRoutingService,
+  ) {
   }
-
 
   canActivate(
     next: ActivatedRouteSnapshot,
