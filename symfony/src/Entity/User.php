@@ -161,6 +161,11 @@ class User implements UserInterface
         return [self::GENDER_NONE, self::GENDER_MALE, self::GENDER_FEMALE, self::GENDER_MISC];
     }
 
+    private function isAdmin(): bool
+    {
+        return in_array('ROLE_ADMIN', $this->getRoles());
+    }
+
     /** @see UserInterface */
     public function getSalt()
     {
@@ -183,6 +188,7 @@ class User implements UserInterface
         $pb->setFirstName($this->getFirstName() ?? "");
         $pb->setLastName($this->getLastName() ?? "");
         $pb->setGender($this->getGender() ?? Gender::NONE);
+        $pb->setIsAdmin($this->isAdmin());
         return $pb;
     }
 

@@ -2,6 +2,7 @@ import { NgModule } from '@angular/core';
 import { ExtraOptions, RouterModule, Routes } from '@angular/router';
 import { SessionRequired } from '@app/service/session-required.service';
 import { ContentLayoutComponent } from './layout/content-layout/content-layout.component';
+import { AuthAdminGuard } from '@app/guard/auth-admin.guard';
 
 const config: ExtraOptions = {
   scrollPositionRestoration: 'top',
@@ -23,8 +24,8 @@ const routes: Routes = [
 
       {
         path: 'admin',
-        canActivate: [SessionRequired],
-        canActivateChild: [SessionRequired],
+        canActivate: [SessionRequired, AuthAdminGuard],
+        canActivateChild: [SessionRequired, AuthAdminGuard],
         loadChildren: () =>
           import('@modules/admin/admin.module').then(m => m.AdminModule)
       },

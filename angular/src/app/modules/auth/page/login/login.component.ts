@@ -11,6 +11,9 @@ import { AUTH_SERVICE } from '@shared/service-tokens';
 import { AuthenticationService } from '@pb/app/authentication-service';
 import { ConstantsService } from '@app/service/constants.service';
 import { ThemeService } from '@app/service/theme.service';
+import { Logger } from '@app/service/logger.service';
+
+const log = new Logger('LoginComponent');
 
 @Component({
   selector: 'app-login',
@@ -76,6 +79,7 @@ export class LoginComponent implements OnInit {
         password: this.formGroup.value.password
       });
 
+      log.debug('authService.login', response);
       this.session.acceptSession(response);
       this.routing.onLoginSuccess(this.route);
 

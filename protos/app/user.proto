@@ -3,7 +3,7 @@ syntax = "proto3";
 package app;
 
 import "app/gender.proto";
-
+import "google/protobuf/timestamp.proto";
 
 message User {
     string id = 1;
@@ -12,5 +12,6 @@ message User {
     string first_name = 4;
     string last_name = 5;
     Gender gender = 6;
+    bool is_admin = 7;
 }
 
