@@ -1,6 +1,6 @@
-$app-light-primary: mat-palette($mat-grey, 200, 500, 300);
-$app-light-accent: mat-palette($mat-brown, 200);
-$app-light-warn: mat-palette($mat-deep-orange, 200);
+$app-light-primary: mat-palette($mat-grey);
+$app-light-accent: mat-palette($mat-blue-grey);
+$app-light-warn: mat-palette($mat-deep-orange);
 
 $app-light-theme: mat-light-theme(
     $app-light-primary,
