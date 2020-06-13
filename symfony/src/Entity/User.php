@@ -105,14 +105,14 @@ class User implements UserInterface
     private $updated;
 
     /**
-     * @var \DateTime
+     * @var \DateTime|null
      *
      * @ORM\Column(type="datetime", nullable=true)
      */
     private $passwordChanged;
 
     /**
-     * @var \DateTime
+     * @var \DateTime|null
      *
      * @ORM\Column(type="datetime", nullable=true)
      */
@@ -126,8 +126,8 @@ class User implements UserInterface
      */
     public function onPrePersist()
     {
-        $this->created = new \DateTime();
-        $this->updated = $this->created;
+        $this->created = $this->created ?: new \DateTime();
+        $this->updated = $this->updated ?: $this->created;
     }
 
     /**
@@ -325,7 +325,7 @@ class User implements UserInterface
         return $this->passwordChanged;
     }
 
-    public function setPasswordChanged(\DateTimeInterface $passwordChanged): self
+    public function setPasswordChanged(?\DateTimeInterface $passwordChanged): self
     {
         $this->passwordChanged = $passwordChanged;
 
@@ -337,7 +337,7 @@ class User implements UserInterface
         return $this->lastLogin;
     }
 
-    public function setLastLogin(\DateTimeInterface $lastLogin): self
+    public function setLastLogin(?\DateTimeInterface $lastLogin): self
     {
         $this->lastLogin = $lastLogin;
 
