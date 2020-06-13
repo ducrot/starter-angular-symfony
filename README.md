@@ -70,6 +70,12 @@ Create a first admin account. Additional users can be created in the application
 symfony console backend:createadmin testuser@domain.tld 'A#Very$ecretPwd'
 ```
 
+Or import fixtures which will be generated with Alice and Faker.
+
+```shell script
+symfony console hautelook:fixtures:load
+```
+
 
 # angular
 
