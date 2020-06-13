@@ -1,5 +1,5 @@
 import { ChangeDetectionStrategy, ChangeDetectorRef, Component, Inject, OnInit } from '@angular/core';
-import { SessionService } from '@app/service/session.service';
+import { AuthService } from '@app/service/auth.service';
 import { ActivatedRoute } from '@angular/router';
 import { AuthenticationRoutingService } from '@app/service/authentication-routing.service';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
@@ -29,8 +29,8 @@ export class LoginComponent implements OnInit {
   readonly formGroup: FormGroup;
 
   constructor(
-    @Inject(AUTH_SERVICE) private readonly authService: AuthenticationService,
-    private readonly session: SessionService,
+    @Inject(AUTH_SERVICE) private readonly authenticationService: AuthenticationService,
+    private readonly authService: AuthService,
     private readonly routing: AuthenticationRoutingService,
     private readonly route: ActivatedRoute,
     fb: FormBuilder,
@@ -53,7 +53,7 @@ export class LoginComponent implements OnInit {
 
   ngOnInit(): void {
     // always destroy session when the page is opened
-    this.session.destroySession();
+    this.authService.destroySession();
 
     // Show alert if session is expired
     if (this.route.snapshot.queryParamMap.get('expired') === 'true') {
@@ -74,13 +74,13 @@ export class LoginComponent implements OnInit {
 
     try {
 
-      const response = await this.authService.login({
+      const response = await this.authenticationService.login({
         username: this.formGroup.value.username,
         password: this.formGroup.value.password
       });
 
-      log.debug('authService.login', response);
-      this.session.acceptSession(response);
+      log.debug('authenticationService.login', response);
+      this.authService.acceptSession(response);
       this.routing.onLoginSuccess(this.route);
 
     } catch (error) {

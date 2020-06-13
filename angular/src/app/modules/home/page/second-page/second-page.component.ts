@@ -1,6 +1,6 @@
 import {ChangeDetectionStrategy, Component} from '@angular/core';
 import {Observable} from 'rxjs';
-import {SessionService} from '@app/service/session.service';
+import {AuthService} from '@app/service/auth.service';
 import {User} from "@pb/app/user";
 
 @Component({
@@ -13,8 +13,8 @@ export class SecondPageComponent {
 
   readonly user$: Observable<User>;
 
-  constructor(session: SessionService) {
-    this.user$ = session.user$;
+  constructor(private readonly authService: AuthService) {
+    this.user$ = this.authService.user$;
   }
 
 }

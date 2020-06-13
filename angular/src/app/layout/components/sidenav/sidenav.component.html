@@ -6,11 +6,11 @@
   <app-language></app-language>
 </mat-toolbar>
 
-<mat-nav-list *ngIf="isAuthenticated()">
+<mat-nav-list *ngIf="authService.isAuthenticated">
   <a routerLink="/" mat-list-item (click)="toggleSidenav.emit()">Home</a>
   <a routerLink="/first" mat-list-item (click)="toggleSidenav.emit()">First</a>
   <a routerLink="/second" mat-list-item (click)="toggleSidenav.emit()">Second</a>
-  <a routerLink="/admin" mat-list-item (click)="toggleSidenav.emit()">Admin</a>
+  <a routerLink="/admin" mat-list-item (click)="toggleSidenav.emit()" *ngIf="authService.isAdmin">Admin</a>
   <a (click)="onLogoutClick($event)" href="/auth/logout" mat-list-item>Logout</a>
 
   <mat-divider></mat-divider>

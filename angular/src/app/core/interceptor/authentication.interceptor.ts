@@ -1,7 +1,7 @@
 import {Injectable} from '@angular/core';
 import {HttpErrorResponse, HttpEvent, HttpHandler, HttpInterceptor, HttpRequest} from '@angular/common/http';
 import {Observable, throwError} from 'rxjs';
-import {SessionService} from '@app/service/session.service';
+import {AuthService} from '@app/service/auth.service';
 import {environment} from '@env';
 import {bearerTokenParse} from '@app/lib/bearer-token';
 import {catchError} from 'rxjs/operators';
@@ -12,7 +12,7 @@ import {ActivatedRoute, Router} from '@angular/router';
 export class AuthenticationInterceptor implements HttpInterceptor {
 
   constructor(
-    private readonly session: SessionService,
+    private readonly authService: AuthService,
     private readonly routing: AuthenticationRoutingService,
     private readonly activatedRoute: ActivatedRoute,
     private readonly router: Router
@@ -28,11 +28,11 @@ export class AuthenticationInterceptor implements HttpInterceptor {
         if (response.status === 401) {
           if (this.isExpiredTokenResponse(response)) {
             // session expired
-            this.session.destroySession();
+            this.authService.destroySession();
             this.routing.onSessionExpired(this.router.url);
           } else {
             // token missing or other token error
-            this.session.destroySession();
+            this.authService.destroySession();
             this.routing.onNotAuthenticated(this.router.url);
           }
         }
@@ -60,7 +60,7 @@ export class AuthenticationInterceptor implements HttpInterceptor {
       }
       return req;
     }
-    const token = this.session.token;
+    const token = this.authService.token;
     if (!token) {
       return req;
     }

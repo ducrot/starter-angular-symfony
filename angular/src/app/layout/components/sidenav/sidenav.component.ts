@@ -1,5 +1,5 @@
 import { Component, EventEmitter, OnInit, Output } from '@angular/core';
-import { SessionService } from '@app/service/session.service';
+import { AuthService } from '@app/service/auth.service';
 import { ConstantsService } from '@app/service/constants.service';
 import { ThemeService } from '@app/service/theme.service';
 import { Observable } from 'rxjs';
@@ -22,7 +22,7 @@ export class SidenavComponent implements OnInit {
   public logo: string;
 
   constructor(
-    private readonly session: SessionService,
+    public authService: AuthService,
     private constants: ConstantsService,
     private i18nService: I18nService,
     private themeService: ThemeService,
@@ -49,11 +49,7 @@ export class SidenavComponent implements OnInit {
   }
 
   onLogoutClick(event: Event): void {
-    this.session.destroySession();
-  }
-
-  public isAuthenticated(): boolean {
-    return this.session.isAuthenticated;
+    this.authService.destroySession();
   }
 
 }

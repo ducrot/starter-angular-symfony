@@ -7,7 +7,7 @@ import { LoginResponse } from '@pb/app/authentication-service';
 @Injectable({
   providedIn: 'root'
 })
-export class SessionService {
+export class AuthService {
 
 
   readonly user$: Observable<User>;
@@ -38,6 +38,10 @@ export class SessionService {
 
   get isAuthenticated(): boolean {
     return this.state === 'valid';
+  }
+
+  get isAdmin(): boolean {
+    return this.user ? this.user.isAdmin : false;
   }
 
 

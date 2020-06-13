@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { ActivatedRouteSnapshot, CanActivate, CanActivateChild, RouterStateSnapshot, UrlTree } from '@angular/router';
 import { Observable } from 'rxjs';
-import { SessionService } from '@app/service/session.service';
+import { AuthService } from '@app/service/auth.service';
 import { AuthenticationRoutingService } from '../service/authentication-routing.service';
 
 @Injectable({
@@ -11,7 +11,7 @@ export class AuthGuard implements CanActivate, CanActivateChild {
 
 
   constructor(
-    private readonly session: SessionService,
+    private readonly authService: AuthService,
     private readonly routing: AuthenticationRoutingService,
   ) {
   }
@@ -20,16 +20,16 @@ export class AuthGuard implements CanActivate, CanActivateChild {
     next: ActivatedRouteSnapshot,
     state: RouterStateSnapshot): Observable<boolean | UrlTree> | Promise<boolean | UrlTree> | boolean | UrlTree {
 
-    switch (this.session.state) {
+    switch (this.authService.state) {
       case 'empty':
         console.error(`Not authenticated. Cannot navigate to "${state.url}".`);
-        this.session.destroySession();
+        this.authService.destroySession();
         this.routing.onNotAuthenticated(state.url);
         return false;
 
       case 'expired':
         console.error(`Session expired. Cannot navigate to "${state.url}".`);
-        this.session.destroySession();
+        this.authService.destroySession();
         this.routing.onSessionExpired(state.url);
         return false;
 

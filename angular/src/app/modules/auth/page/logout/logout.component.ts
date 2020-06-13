@@ -1,5 +1,5 @@
 import {ChangeDetectionStrategy, Component, OnInit} from '@angular/core';
-import {SessionService} from '@app/service/session.service';
+import {AuthService} from '@app/service/auth.service';
 import {HeaderService} from '@shared/service/header.service';
 
 @Component({
@@ -11,7 +11,7 @@ import {HeaderService} from '@shared/service/header.service';
 export class LogoutComponent implements OnInit {
 
   constructor(
-    private readonly session: SessionService,
+    private readonly authService: AuthService,
     private headerService: HeaderService,
   ) {
     this.headerService.setTitle('Logout');
@@ -19,7 +19,7 @@ export class LogoutComponent implements OnInit {
 
   ngOnInit(): void {
     // always destroy session when the page is opened
-    this.session.destroySession();
+    this.authService.destroySession();
   }
 
 }

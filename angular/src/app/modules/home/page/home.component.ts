@@ -1,7 +1,7 @@
-import {Component} from '@angular/core';
-import {Observable} from 'rxjs';
-import {SessionService} from '@app/service/session.service';
-import {User} from "@pb/app/user";
+import { Component } from '@angular/core';
+import { Observable } from 'rxjs';
+import { AuthService } from '@app/service/auth.service';
+import { User } from '@pb/app/user';
 
 @Component({
   selector: 'app-home',
@@ -12,7 +12,8 @@ export class HomeComponent {
 
   readonly user$: Observable<User>;
 
-  constructor(session: SessionService) {
-    this.user$ = session.user$;
+  constructor(private readonly authService: AuthService) {
+    this.user$ = this.authService.user$;
   }
+
 }
