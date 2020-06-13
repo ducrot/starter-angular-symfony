@@ -13,5 +13,6 @@ message User {
     string last_name = 5;
     Gender gender = 6;
     bool is_admin = 7;
+    google.protobuf.Timestamp last_login = 8;
 }
 

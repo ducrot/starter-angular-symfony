@@ -6,6 +6,7 @@ namespace App\Entity;
 use App\Gender;
 use Doctrine\ORM\Event\PreUpdateEventArgs;
 use Doctrine\ORM\Mapping as ORM;
+use Google\Protobuf\Timestamp;
 use Rollerworks\Component\PasswordStrength\Validator\Constraints as RollerworksPassword;
 use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 use Symfony\Component\Security\Core\User\UserInterface;
@@ -189,6 +190,11 @@ class User implements UserInterface
         $pb->setLastName($this->getLastName() ?? "");
         $pb->setGender($this->getGender() ?? Gender::NONE);
         $pb->setIsAdmin($this->isAdmin());
+        if ($this->getLastLogin()) {
+            $lastLogin = new Timestamp();
+            $lastLogin->fromDateTime($this->getLastLogin());
+            $pb->setLastLogin($lastLogin);
+        }
         return $pb;
     }
 
