@@ -7,6 +7,9 @@
 // always include only once per project
 @include mat-core();
 
+// Typography
+@import './styles-typography';
+
 // import custom themes
 @import './themes/light-theme';
 @import './themes/dark-theme';
