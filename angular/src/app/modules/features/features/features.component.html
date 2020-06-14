@@ -1,0 +1,30 @@
+<h1>{{ 'app.features.title' | translate }}</h1>
+
+<div class="container" fxLayout="row wrap" fxFill fxLayoutGap="16px 16px grid">
+  <div class="wrapper" fxFlex="100%" fxFlex.gt-xs="50%" fxFlex.gt-sm="33.3333%" *ngFor="let feature of features">
+    <mat-card>
+      <mat-card-title fxLayout="row" fxLayoutAlign="start stretch">
+        <div fxFlex="1 1 100%">{{feature.name | translate}}</div>
+        <code fxFlexAlign="start" *ngIf="feature.version">{{feature.version}}</code>
+      </mat-card-title>
+      <mat-card-content>
+        <p>
+          {{ feature.description | translate }}
+        </p>
+      </mat-card-content>
+      <mat-card-actions>
+        <a *ngIf="feature.github" mat-icon-button [href]="feature.github" rel="noopener noreferrer" target="_blank">
+          <fa-icon [icon]="['fab','github']"></fa-icon>
+        </a>
+        <a mat-button [href]="feature.documentation" rel="noopener noreferrer" target="_blank">
+          <fa-icon icon="book"></fa-icon>
+          {{ 'app.features.documentation' | translate }}
+        </a>
+        <a *ngIf="feature.medium" mat-button [href]="feature.medium" rel="noopener noreferrer" target="_blank">
+          <fa-icon [icon]="['fab','medium-m']"></fa-icon>
+          {{ 'app.features.guide' | translate }}
+        </a>
+      </mat-card-actions>
+    </mat-card>
+  </div>
+</div>

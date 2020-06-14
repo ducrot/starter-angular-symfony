@@ -1,0 +1,25 @@
+@import '../../../../styles-variables';
+
+:host {
+  display: block;
+}
+
+mat-card {
+  box-sizing: border-box;
+  height: 100%;
+
+  code {
+    font-size: 11px;
+  }
+
+  mat-card-content {
+    min-height: 50px;
+  }
+
+  mat-card-actions {
+    position: absolute;
+    bottom: 0;
+    margin-bottom: 0!important;
+  }
+
+}

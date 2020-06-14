@@ -1,5 +1,27 @@
 {
   "app": {
-    "lang": "EN"
+    "lang": "EN",
+    "features": {
+      "angular": "Modern powerful framework",
+      "angular-cli": "A command line interface for Angular",
+      "angular-material": "Material design component library",
+      "documentation": "Docs",
+      "folderstructure.description": "Based on best practices for projects big or small",
+      "folderstructure.title": "Angular Folder Structure",
+      "fontawesome": "Easy to use vector icons and social logos",
+      "guide": "Guide",
+      "lazyloading.description": "Faster startup time with lazy loaded feature modules",
+      "lazyloading.title": "Lazy loading",
+      "ngxtranslate": "An internationalization library for Angular",
+      "protobuf.description": "Data exchange between frontend and api via protobuf",
+      "protobuf.title": "Protocol buffers (proto3)",
+      "rxjs": "Reactive programming with async collections using Observables",
+      "symfony.description": "PHP web application framework",
+      "symfony.title": "Symfony 5",
+      "themes.description": "Flexible theming support for provided and custom components",
+      "themes.title": "Themes",
+      "title": "Features",
+      "typescript": "Superior developer experience, code completion, refactoring and less bugs"
+    }
   }
 }
