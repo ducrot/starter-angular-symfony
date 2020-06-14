@@ -27,6 +27,7 @@ import {
   faPaperPlane,
   faPhone,
   faSearch,
+  faSlidersH,
 } from '@fortawesome/free-solid-svg-icons';
 
 
@@ -94,6 +95,7 @@ export class FontawesomeModule {
       faPaperPlane,
       faPhone,
       faSearch,
+      faSlidersH,
 
       // far free-regular-svg-icons
       faSmile,

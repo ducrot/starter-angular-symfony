@@ -4,11 +4,11 @@ import { ThemeService } from '@app/service/theme.service';
 
 
 @Component({
-  selector: 'app-theme',
-  templateUrl: './theme.component.html',
-  styleUrls: ['./theme.component.scss']
+  selector: 'app-theme-toggle',
+  templateUrl: './theme-toggle.component.html',
+  styleUrls: ['./theme-toggle.component.scss']
 })
-export class ThemeComponent implements OnInit {
+export class ThemeToggleComponent implements OnInit {
 
   @Input() label;
   public isDarkTheme$: Observable<boolean>;
