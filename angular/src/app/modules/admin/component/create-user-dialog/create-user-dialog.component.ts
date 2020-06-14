@@ -1,10 +1,10 @@
-import {ChangeDetectionStrategy, Component, Inject} from '@angular/core';
-import {MatDialogRef} from "@angular/material/dialog";
-import {USER_MAN_SERVICE} from "@modules/admin/service-tokens";
-import {UserManagementService} from "@pb/app/user-management-service";
-import {FormBuilder, FormGroup, Validators} from "@angular/forms";
-import {MatSnackBar} from "@angular/material/snack-bar";
-import {ServiceError} from "@app/interceptor/service-error.interceptor";
+import { ChangeDetectionStrategy, Component, Inject } from '@angular/core';
+import { MatDialogRef } from '@angular/material/dialog';
+import { USER_MAN_SERVICE } from '@modules/admin/service-tokens';
+import { UserManagementService } from '@pb/app/user-management-service';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { MatSnackBar } from '@angular/material/snack-bar';
+import { ServiceError } from '@app/interceptor/service-error.interceptor';
 
 @Component({
   selector: 'app-create-user-dialog',
@@ -43,7 +43,7 @@ export class CreateUserDialogComponent {
 
   async onSubmitClick(): Promise<void> {
     if (this.formGroup.invalid) {
-      this.snackBar.open("Please fix the form");
+      this.snackBar.open('Please fix the form');
       return;
     }
     try {

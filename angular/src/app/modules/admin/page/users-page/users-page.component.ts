@@ -1,15 +1,20 @@
-import {ChangeDetectionStrategy, Component, Inject} from '@angular/core';
-import {User} from "@pb/app/user";
-import {ListRequest, ListRequest_Disabled, ListResponse, UserManagementService} from "@pb/app/user-management-service";
-import {USER_MAN_SERVICE} from "@modules/admin/service-tokens";
-import {MatDialog} from "@angular/material/dialog";
-import {MatSnackBar} from "@angular/material/snack-bar";
-import {PageEvent} from "@angular/material/paginator";
-import {from, Observable} from "rxjs";
-import {CreateUserDialogComponent} from "@modules/admin/component/create-user-dialog/create-user-dialog.component";
-import {ActivatedRoute, Router} from "@angular/router";
-import {QueryMapper} from "@app/lib/query-mapper";
-import {shareReplay, switchMap, tap} from "rxjs/operators";
+import { ChangeDetectionStrategy, Component, Inject } from '@angular/core';
+import { User } from '@pb/app/user';
+import {
+  ListRequest,
+  ListRequest_Disabled,
+  ListResponse,
+  UserManagementService
+} from '@pb/app/user-management-service';
+import { USER_MAN_SERVICE } from '@modules/admin/service-tokens';
+import { MatDialog } from '@angular/material/dialog';
+import { MatSnackBar } from '@angular/material/snack-bar';
+import { PageEvent } from '@angular/material/paginator';
+import { from, Observable } from 'rxjs';
+import { CreateUserDialogComponent } from '@modules/admin/component/create-user-dialog/create-user-dialog.component';
+import { ActivatedRoute, Router } from '@angular/router';
+import { QueryMapper } from '@app/lib/query-mapper';
+import { shareReplay, switchMap, tap } from 'rxjs/operators';
 
 @Component({
   selector: 'app-users-page',
@@ -47,7 +52,7 @@ export class UsersPageComponent {
     // we execute that request, so the display updates.
     this.response$ = this.query.valueChange$.pipe(
       switchMap(request => from(service.list(request))),
-      tap(x => console.log("UsersPageComponent list response:", x)),
+      tap(x => console.log('UsersPageComponent list response:', x)),
       shareReplay(1)
     );
 
@@ -63,7 +68,7 @@ export class UsersPageComponent {
 
 
   async onCreateClick() {
-    const dialogRef = this.matDialog.open(CreateUserDialogComponent)
+    const dialogRef = this.matDialog.open(CreateUserDialogComponent);
     const user = await dialogRef.afterClosed().toPromise() as User | undefined;
     if (user) {
       this.snackBar.open(`User "${user.username}" created.`);
@@ -109,7 +114,7 @@ export class UsersPageComponent {
   }
 
   onClearSearchButton() {
-    this.query.update({searchText: ""});
+    this.query.update({searchText: ''});
   }
 
   onSearchChange(text: string) {
