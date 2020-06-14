@@ -36,10 +36,10 @@ class SmokeFunctionalTest extends WebTestCase
      *
      * @dataProvider secureUrlApiProvider
      */
-    public function testAPIisSecure($method, $url)
+    public function testAPIisSecure($method, $url, $expectedStatusCode)
     {
         $this->client->request($method, $url, [], [], $this->buildAPIHeader('incorrect_api_key'));
-        $this->assertEquals(Response::HTTP_UNAUTHORIZED, $this->client->getResponse()->getStatusCode());
+        $this->assertEquals($expectedStatusCode, $this->client->getResponse()->getStatusCode());
     }
 
     /**
@@ -49,7 +49,8 @@ class SmokeFunctionalTest extends WebTestCase
      */
     public function secureUrlApiProvider()
     {
-        yield ['GET', '/api/lucky-number'];
+        yield ['GET', '/api/app.TestService/luckyNumber', Response::HTTP_METHOD_NOT_ALLOWED];
+        yield ['POST', '/api/app.TestService/luckyNumber', Response::HTTP_UNAUTHORIZED];
     }
 
     /**
@@ -70,11 +71,16 @@ class SmokeFunctionalTest extends WebTestCase
     public function urlApiProvider()
     {
         yield ['GET', '/api', false, Response::HTTP_NOT_FOUND];
+        yield ['POST', '/api', false, Response::HTTP_NOT_FOUND];
         yield ['GET', '/api/does-not-exists', false, Response::HTTP_NOT_FOUND];
+        yield ['POST', '/api/does-not-exists', false, Response::HTTP_NOT_FOUND];
 
-        yield ['GET', '/api/lucky-number', true, Response::HTTP_OK];
-        yield ['POST', '/api/auth/login', false, Response::HTTP_BAD_REQUEST];
-        yield ['POST', '/api/auth/login', true, Response::HTTP_BAD_REQUEST];
+        yield ['GET', '/api/app.TestService/luckyNumber', true, Response::HTTP_METHOD_NOT_ALLOWED];
+        yield ['POST', '/api/app.TestService/luckyNumber', true, Response::HTTP_OK];
+        yield ['GET', '/api/app.AuthenticationService/login', false, Response::HTTP_METHOD_NOT_ALLOWED];
+        yield ['POST', '/api/app.AuthenticationService/login', false, Response::HTTP_BAD_REQUEST];
+        yield ['GET', '/api/app.AuthenticationService/login', true, Response::HTTP_METHOD_NOT_ALLOWED];
+        yield ['POST', '/api/app.AuthenticationService/login', true, Response::HTTP_BAD_REQUEST];
     }
 
     private function generateValidToken()

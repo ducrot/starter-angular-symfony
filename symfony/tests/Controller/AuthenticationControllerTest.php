@@ -25,7 +25,7 @@ class AuthenticationControllerTest extends WebTestCase
 
     public function testLoginEmptyCredentials()
     {
-        $this->client->request('POST', '/api/auth/login');
+        $this->client->request('POST', '/api/app.AuthenticationService/login');
         $this->assertEquals(Response::HTTP_BAD_REQUEST, $this->client->getResponse()->getStatusCode());
     }
 
@@ -35,17 +35,17 @@ class AuthenticationControllerTest extends WebTestCase
             'username' => 'not-existing-username',
             'password' => 'not-existing-password',
         ]);
-        $this->client->request('POST', '/api/auth/login', [], [], [], $content);
+        $this->client->request('POST', '/api/app.AuthenticationService/login', [], [], [], $content);
         $this->assertEquals(Response::HTTP_UNAUTHORIZED, $this->client->getResponse()->getStatusCode());
     }
 
     public function testLoginWrongPassword()
     {
         $content = json_encode([
-            'username' => 'cducrot',
+            'username' => 'testuser@domain.tld',
             'password' => 'not-existing-password',
         ]);
-        $this->client->request('POST', '/api/auth/login', [], [], [], $content);
+        $this->client->request('POST', '/api/app.AuthenticationService/login', [], [], [], $content);
         $this->assertEquals(Response::HTTP_UNAUTHORIZED, $this->client->getResponse()->getStatusCode());
     }
 }

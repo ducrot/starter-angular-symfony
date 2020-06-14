@@ -1,5 +1,5 @@
 ### Login
-POST {{endpoint}}/auth/login
+POST {{endpoint}}/app.AuthenticationService/login
 Content-Type: application/json
 
 {
@@ -10,7 +10,7 @@ Content-Type: application/json
 > {% client.global.set("token", response.body.token); %}
 
 ### Test action
-GET {{endpoint}}/lucky-number
+POST {{endpoint}}/app.TestService/luckyNumber
 Accept: application/json
 Authorization: Bearer {{token}}
 ###
