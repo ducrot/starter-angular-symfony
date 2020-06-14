@@ -6,13 +6,18 @@ mat-nav-list {
   height: 30px;
 }
 
-app-theme {
-  padding: 16px;
-  display: inline-block;
-}
-
 app-language {
   margin: 0 0 0 24px;
   width: 40px;
   font-size: 14px;
+}
+
+app-theme {
+  padding: 8px 16px;
+  display: inline-block;
+}
+
+app-sticky-header-toggle {
+  padding: 8px 16px;
+  display: inline-block;
 }

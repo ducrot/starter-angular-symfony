@@ -10,7 +10,8 @@
       "features": "Merkmale",
       "authenticated": "Authentifiziert",
       "admin": "Admin",
-      "darkmode": "Dunkelmodus"
+      "darkmode": "Dunkelmodus",
+      "stickyheader": "Feste Kopfzeile"
     },
     "admin": {
       "users": {

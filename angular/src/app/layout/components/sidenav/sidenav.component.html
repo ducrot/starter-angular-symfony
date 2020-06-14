@@ -16,7 +16,7 @@
      (click)="toggleSidenav.emit()"
      routerLinkActive="active"
      mat-list-item
-     [disabled]="!(authService.isAuthenticated)">{{ 'app.menu.authenticated' | translate }}</a>
+     *ngIf="authService.isAuthenticated">{{ 'app.menu.authenticated' | translate }}</a>
 
   <a routerLink="/admin"
      (click)="toggleSidenav.emit()"
@@ -38,4 +38,5 @@
 
 <mat-nav-list>
   <app-theme [label]="'app.menu.darkmode' | translate"></app-theme>
+  <app-sticky-header-toggle [label]="'app.menu.stickyheader' | translate"></app-sticky-header-toggle>
 </mat-nav-list>

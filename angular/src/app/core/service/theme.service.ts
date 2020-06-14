@@ -3,16 +3,22 @@ import { BehaviorSubject, Observable } from 'rxjs';
 import { Logger } from '@app/service/logger.service';
 
 const themeKey = 'isDarkTheme';
+const stickyKey = 'isStickyHeader';
 
 @Injectable({
   providedIn: 'root'
 })
 export class ThemeService {
+
   private isDarkTheme: BehaviorSubject<boolean>;
+  private isStickyHeader: BehaviorSubject<boolean>;
 
   constructor() {
     this.isDarkTheme = new BehaviorSubject<boolean>(
       localStorage.getItem(themeKey) === 'true'
+    );
+    this.isStickyHeader = new BehaviorSubject<boolean>(
+      (localStorage.getItem(stickyKey) === null || localStorage.getItem(stickyKey) === 'true')
     );
   }
 
@@ -23,5 +29,14 @@ export class ThemeService {
 
   getDarkTheme(): Observable<boolean> {
     return this.isDarkTheme;
+  }
+
+  setStickyHeader(isStickyHeader: boolean) {
+    this.isStickyHeader.next(isStickyHeader);
+    localStorage.setItem(themeKey, this.isStickyHeader.value.toString());
+  }
+
+  getStickyHeader(): Observable<boolean> {
+    return this.isStickyHeader;
   }
 }

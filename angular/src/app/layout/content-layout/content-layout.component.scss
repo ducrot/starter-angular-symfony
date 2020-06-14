@@ -6,4 +6,11 @@
   @media (max-width: 599px) {
     padding: 16px;
   }
+
+  &.sticky-header {
+    margin-top: 64px;
+    @media (max-width: 599px) {
+      margin-top: 56px;
+    }
+  }
 }

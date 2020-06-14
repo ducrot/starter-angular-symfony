@@ -19,6 +19,7 @@ export class HeaderComponent implements OnInit {
   public appName: string;
   public companyName: string;
   public logo: string;
+  public stickyHeader$: Observable<boolean>;
 
   constructor(
     public authService: AuthService,
@@ -34,6 +35,12 @@ export class HeaderComponent implements OnInit {
     this.themeService.getDarkTheme().subscribe(theme => {
       this.logo = (theme) ? 'assets/logo-negative.svg' : 'assets/logo.svg';
     });
+
+    this.stickyHeader$ = this.themeService.getStickyHeader();
+    // this.themeService.getStickyHeader().subscribe(sticky => {
+    //   this.stickyHeader = sticky;
+    //   console.log(this.stickyHeader);
+    // });
   }
 
   onLogoutClick(event: Event): void {

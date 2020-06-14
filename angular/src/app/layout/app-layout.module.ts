@@ -7,6 +7,7 @@ import { SidenavComponent } from './components/sidenav/sidenav.component';
 import { FooterComponent } from './components/footer/footer.component';
 import { LanguageComponent } from './components/language/language.component';
 import { ThemeComponent } from './components/theme/theme.component';
+import { StickyHeaderToggleComponent } from './components/sticky-header-toggle/sticky-header-toggle.component';
 
 
 @NgModule({
@@ -17,6 +18,7 @@ import { ThemeComponent } from './components/theme/theme.component';
     FooterComponent,
     LanguageComponent,
     ThemeComponent,
+    StickyHeaderToggleComponent,
   ],
   imports: [
     CommonModule,

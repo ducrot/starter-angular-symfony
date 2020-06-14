@@ -10,7 +10,8 @@
       "features": "Features",
       "authenticated": "Authenticated",
       "admin": "Admin",
-      "darkmode": "Dark Mode"
+      "darkmode": "Dark Mode",
+      "stickyheader": "Sticky Header"
     },
     "admin": {
       "users": {

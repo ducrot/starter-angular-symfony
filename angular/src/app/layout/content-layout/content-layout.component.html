@@ -4,7 +4,7 @@
 
     <app-header (toggleSidenav)="sidenav.toggle()" fxFlex="0 0 auto"></app-header>
 
-    <div id="content" role="main" fxFlex="1 0 auto" fullscreen>
+    <div id="content" role="main" fxFlex="1 0 auto" fullscreen [class.sticky-header]="(stickyHeader$ | async)">
       <router-outlet></router-outlet>
     </div>
 
