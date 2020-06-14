@@ -2,6 +2,8 @@ import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { RouterModule } from '@angular/router';
+import { FlexLayoutModule } from '@angular/flex-layout';
+import { FontawesomeModule } from '@shared/fontawesome.module';
 import { MaterialModule } from '@shared/material.module';
 import { TranslateModule } from '@ngx-translate/core';
 
@@ -21,6 +23,7 @@ import { AUTH_SERVICE, TEST_SERVICE } from '@shared/service-tokens';
     FormsModule,
     ReactiveFormsModule,
     RouterModule,
+    FlexLayoutModule,
   ],
   declarations: [
     AlertComponent,
@@ -32,6 +35,8 @@ import { AUTH_SERVICE, TEST_SERVICE } from '@shared/service-tokens';
     FormsModule,
     ReactiveFormsModule,
     RouterModule,
+    FlexLayoutModule,
+    FontawesomeModule,
     MaterialModule,
     TranslateModule,
 
