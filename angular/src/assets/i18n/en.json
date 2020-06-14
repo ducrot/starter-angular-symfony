@@ -22,14 +22,20 @@
         "title": "Login"
       },
       "logout": {
-        "title": "Hope to see you again soon",
-        "continue": "Continue to the home page"
+        "title": "Hope to see you again soon!",
+        "continue": "Continue to the home page..."
       }
     },
     "authenticated": {
       "title": "Authenticated",
       "hello": "Hello, {{email}}!",
       "lastlogin": "Your last visit was on {{ date }}."
+    },
+    "error-page": {
+      "not-found": {
+        "title": "Sorry, the page you requested was not found",
+        "continue": "Continue to the home page..."
+      }
     },
     "features": {
       "angular": "Modern powerful framework",

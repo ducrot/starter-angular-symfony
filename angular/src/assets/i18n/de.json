@@ -22,14 +22,20 @@
         "title": "Anmelden"
       },
       "logout": {
-        "title": "Bis zum nächsten Mal",
-        "continue": "Weiter zur Startseite"
+        "title": "Bis zum nächsten Mal!",
+        "continue": "Weiter zur Startseite..."
       }
     },
     "authenticated": {
       "title": "Authentifiziert",
       "hello": "Hallo, {{email}}!",
       "lastlogin": "Dein letzter Besuch war am {{ date }}."
+    },
+    "error-page": {
+      "not-found": {
+        "title": "Entschuldigung, die von Ihnen angeforderte Seite wurde nicht gefunden.",
+        "continue": "Weiter zur Startseite..."
+      }
     },
     "features": {
       "angular": "Modernes und leistungsfähiges Framework",

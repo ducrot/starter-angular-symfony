@@ -1,5 +1,8 @@
-<p>Sorry, the page you requested was not found</p>
-
-<p>
-  <a routerLink="/">Home</a>
-</p>
+<div class="container">
+  <mat-card>
+    <mat-card-title>{{ 'app.error-page.not-found.title' | translate }}</mat-card-title>
+    <mat-card-content>
+      <a mat-raised-button color="primary" routerLink="/">{{ 'app.error-page.not-found.continue' | translate }}</a>
+    </mat-card-content>
+  </mat-card>
+</div>
