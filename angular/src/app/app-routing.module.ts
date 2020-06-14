@@ -4,6 +4,7 @@ import { AuthGuard } from '@app/guard/auth.guard';
 import { AuthAdminGuard } from '@app/guard/auth-admin.guard';
 import { ContentLayoutComponent } from './layout/content-layout/content-layout.component';
 
+
 const config: ExtraOptions = {
   scrollPositionRestoration: 'top',
 };
@@ -16,10 +17,22 @@ const routes: Routes = [
     children: [
       {
         path: '',
+        redirectTo: 'features',
+        pathMatch: 'full'
+      },
+
+      {
+        path: 'features',
+        loadChildren: () =>
+          import('@modules/features/features.module').then(m => m.FeaturesModule)
+      },
+
+      {
+        path: 'authenticated',
         canActivate: [AuthGuard],
         canActivateChild: [AuthGuard],
         loadChildren: () =>
-          import('@modules/home/home.module').then(m => m.HomeModule)
+          import('@modules/authenticated/authenticated.module').then(m => m.AuthenticatedModule)
       },
 
       {

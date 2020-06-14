@@ -6,16 +6,36 @@
   <app-language></app-language>
 </mat-toolbar>
 
-<mat-nav-list *ngIf="authService.isAuthenticated">
-  <a routerLink="/" mat-list-item (click)="toggleSidenav.emit()">Home</a>
-  <a routerLink="/first" mat-list-item (click)="toggleSidenav.emit()">First</a>
-  <a routerLink="/second" mat-list-item (click)="toggleSidenav.emit()">Second</a>
-  <a routerLink="/admin" mat-list-item (click)="toggleSidenav.emit()" *ngIf="authService.isAdmin">Admin</a>
-  <a (click)="onLogoutClick($event)" href="/auth/logout" mat-list-item>Logout</a>
+<mat-nav-list>
+  <a routerLink="/features"
+     (click)="toggleSidenav.emit()"
+     routerLinkActive="active"
+     mat-list-item>{{ 'app.menu.features' | translate }}</a>
 
-  <mat-divider></mat-divider>
+  <a routerLink="/authenticated"
+     (click)="toggleSidenav.emit()"
+     routerLinkActive="active"
+     mat-list-item
+     [disabled]="!(authService.isAuthenticated)">{{ 'app.menu.authenticated' | translate }}</a>
+
+  <a routerLink="/admin"
+     (click)="toggleSidenav.emit()"
+     mat-list-item
+     *ngIf="authService.isAdmin">{{ 'app.menu.admin' | translate }}</a>
+
+  <a routerLink="/auth/logout"
+     (click)="toggleSidenav.emit(); onLogoutClick($event)"
+     mat-list-item
+     *ngIf="authService.isAuthenticated">{{ 'app.menu.logout' | translate }}</a>
+
+  <a routerLink="/auth/login"
+     (click)="toggleSidenav.emit()"
+     mat-list-item
+     *ngIf="!(authService.isAuthenticated)">{{ 'app.menu.login' | translate }}</a>
 </mat-nav-list>
 
+<mat-divider></mat-divider>
+
 <mat-nav-list>
-  <app-theme [label]="'Dark-Mode'"></app-theme>
+  <app-theme [label]="'app.menu.darkmode' | translate"></app-theme>
 </mat-nav-list>

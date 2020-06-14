@@ -1,6 +1,36 @@
 {
   "app": {
     "lang": "DE",
+    "menu": {
+      "login": "Anmelden",
+      "logout": "Abmelden",
+      "home": "Home",
+      "legal": "Impressum",
+      "privacy": "Datenschutz",
+      "features": "Merkmale",
+      "authenticated": "Authentifiziert",
+      "admin": "Admin",
+      "darkmode": "Dunkelmodus"
+    },
+    "admin": {
+      "users": {
+        "title": "Anwender"
+      }
+    },
+    "auth": {
+      "login": {
+        "title": "Anmelden"
+      },
+      "logout": {
+        "title": "Bis zum nächsten Mal",
+        "continue": "Weiter zur Startseite"
+      }
+    },
+    "authenticated": {
+      "title": "Authentifiziert",
+      "hello": "Hallo, {{email}}!",
+      "lastlogin": "Dein letzter Besuch war am {{ date }}."
+    },
     "features": {
       "angular": "Modernes und leistungsfähiges Framework",
       "angular-cli": "Eine Befehlszeilenschnittstelle für Angular",

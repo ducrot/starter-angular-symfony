@@ -4,11 +4,11 @@ import { AuthService } from '@app/service/auth.service';
 import { User } from '@pb/app/user';
 
 @Component({
-  selector: 'app-home',
-  templateUrl: './home.component.html',
-  styleUrls: ['./home.component.scss']
+  selector: 'app-authenticated',
+  templateUrl: './authenticated.component.html',
+  styleUrls: ['./authenticated.component.scss']
 })
-export class HomeComponent {
+export class AuthenticatedComponent {
 
   readonly user$: Observable<User>;
 

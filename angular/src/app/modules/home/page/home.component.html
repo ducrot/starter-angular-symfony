@@ -1,9 +1,0 @@
-<h1>Home</h1>
-
-<div *ngIf="user$ | async as user">
-  <p>Hello, {{ user.username }}!</p>
-  <p *ngIf="user.lastLogin">Your last visit was on {{ user.lastLogin }}</p>
-</div>
-
-
-<app-lucky-number></app-lucky-number>

@@ -2,24 +2,47 @@
 
   <div class="container" fxLayout="row">
 
-    <div class="brand" fxFlex="1 1 auto" fxLayout="row" fxLayoutAlign="flex-start center">
+    <a routerLink="/" class="brand" fxFlex="1 1 auto" fxLayout="row" fxLayoutAlign="flex-start center">
       <img [src]="logo" class="logo" alt="{{ companyName }}">
       <span>{{ appName }}</span>
-    </div>
+    </a>
 
     <div fxLayoutAlign="flex-end center">
 
+      <div fxShow="true" fxHide.lt-md>
+        <a routerLink="/features"
+           routerLinkActive="mat-flat-button"
+           mat-button>{{ 'app.menu.features' | translate }}</a>
+
+        <a routerLink="/authenticated"
+           routerLinkActive="mat-flat-button"
+           mat-button
+           [disabled]="!(authService.isAuthenticated)">{{ 'app.menu.authenticated' | translate }}</a>
+      </div>
+
       <div fxShow="true" fxHide.lt-md *ngIf="authService.isAuthenticated">
-        <a routerLink="/" mat-button>Home</a>
-        <a routerLink="/first" mat-button>First</a>
-        <a routerLink="/second" mat-button>Second</a>
-        <a routerLink="/admin" mat-button *ngIf="authService.isAdmin">Admin</a>
-        <a (click)="onLogoutClick($event)" href="/auth/logout" mat-button>Logout</a>
+        <a routerLink="/admin"
+           routerLinkActive="mat-flat-button"
+           mat-button
+           *ngIf="authService.isAdmin">{{ 'app.menu.admin' | translate }}</a>
       </div>
 
       <app-theme fxHide.lt-md></app-theme>
 
       <app-language fxHide.lt-md></app-language>
+
+      <div class="auth" fxShow="true" fxHide.lt-md>
+        <button routerLink="/auth/login"
+                mat-raised-button
+                color="accent"
+                *ngIf="!(authService.isAuthenticated)">{{ 'app.menu.login' | translate }}</button>
+
+        <button routerLink="/auth/logout"
+                (click)="onLogoutClick($event)"
+                mat-stroked-button
+                color="accent"
+                *ngIf="(authService.isAuthenticated)">{{ 'app.menu.logout' | translate }}</button>
+      </div>
 
       <button mat-icon-button (click)="toggleSidenav.emit()" fxShow="true" fxHide.gt-sm>
         <mat-icon>menu</mat-icon>

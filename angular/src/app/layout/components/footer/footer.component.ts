@@ -14,9 +14,9 @@ export class FooterComponent {
   currentYear: number = new Date().getFullYear();
 
   navItems = [
-    { link: '/', title: 'Home' },
-    { link: '/general/legal', title: 'Corporate Information' },
-    { link: '/general/privacy', title: 'Privacy Notice' }
+    { link: '/', title: 'app.menu.home' },
+    { link: '/general/legal', title: 'app.menu.legal' },
+    { link: '/general/privacy', title: 'app.menu.privacy' }
   ];
 
   constructor(private constants: ConstantsService) {

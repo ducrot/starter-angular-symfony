@@ -3,12 +3,11 @@
   <span>&copy; {{ currentYear }} {{ companyName }}</span>
 
   <nav>
-    <button mat-button
+    <button [routerLink]="[item.link]"
+            mat-button
             class="nav-button"
-            routerLinkActive="active"
-            *ngFor="let item of navItems"
-            [routerLink]="[item.link]">
-      {{ item.title }}
+            *ngFor="let item of navItems">
+      {{ item.title | translate }}
     </button>
   </nav>
 

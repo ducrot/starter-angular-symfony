@@ -8,6 +8,14 @@ independent of each other.  This allows Angular to load only the module it
 requires to display the request thereby saving bandwidth and speeding the
 entire application.
 
+To generate a new module with two components run:
+
+```bash
+ng g module modules/FeatureFoo --routing=true
+ng g component modules/feature-foo/FeatureFoo
+ng g component modules/feature-foo/FeatureBar
+```
+
 In order to accomplish this each module must have its own routing which is a
 `loadChildren` route resource defined in the `AppRoutingModule`.
 

@@ -16,6 +16,11 @@
   overflow: hidden;
   text-overflow: ellipsis;
   margin-right: 16px;
+
+  text-decoration: none;
+  &:hover {
+    text-decoration: none;
+  }
 }
 
 .logo {
@@ -28,7 +33,11 @@ app-theme {
 }
 
 app-language {
-  margin: 0 0 0 24px;
+  margin: 0 0 0 16px;
   width: 40px;
   font-size: 14px;
+}
+
+.auth {
+  margin: 0 0 0 16px;
 }
