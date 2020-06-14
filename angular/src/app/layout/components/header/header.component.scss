@@ -32,8 +32,9 @@ mat-toolbar {
   margin-right: 16px;
 }
 
-app-theme {
-  margin: 0 0 0 8px;
+app-theme-toggle, app-sticky-header-toggle {
+  margin: 8px 16px;
+  display: block;
 }
 
 app-language {
@@ -44,4 +45,8 @@ app-language {
 
 .auth {
   margin: 0 0 0 16px;
+}
+
+fa-icon.bars {
+  font-size: 24px;
 }

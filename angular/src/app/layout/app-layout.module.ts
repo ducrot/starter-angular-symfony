@@ -6,7 +6,7 @@ import { HeaderComponent } from './components/header/header.component';
 import { SidenavComponent } from './components/sidenav/sidenav.component';
 import { FooterComponent } from './components/footer/footer.component';
 import { LanguageComponent } from './components/language/language.component';
-import { ThemeComponent } from './components/theme/theme.component';
+import { ThemeToggleComponent } from './components/theme-toggle/theme-toggle.component';
 import { StickyHeaderToggleComponent } from './components/sticky-header-toggle/sticky-header-toggle.component';
 
 
@@ -17,7 +17,7 @@ import { StickyHeaderToggleComponent } from './components/sticky-header-toggle/s
     SidenavComponent,
     FooterComponent,
     LanguageComponent,
-    ThemeComponent,
+    ThemeToggleComponent,
     StickyHeaderToggleComponent,
   ],
   imports: [

@@ -29,11 +29,15 @@
            *ngIf="authService.isAdmin">{{ 'app.menu.admin' | translate }}</a>
       </div>
 
-      <app-theme fxHide.lt-md></app-theme>
+      <button mat-button [matMenuTriggerFor]="configMenu" fxHide.lt-md><fa-icon icon="sliders-h"></fa-icon></button>
+      <mat-menu #configMenu="matMenu" yPosition="above">
+        <app-theme-toggle [label]="'app.menu.darkmode' | translate"></app-theme-toggle>
+        <app-sticky-header-toggle [label]="'app.menu.stickyheader' | translate"></app-sticky-header-toggle>
+      </mat-menu>
 
       <app-language fxHide.lt-md></app-language>
 
-      <div class="auth" fxShow="true" fxHide.lt-md>
+      <div class="auth">
         <button routerLink="/auth/login"
                 mat-raised-button
                 color="accent"
@@ -47,7 +51,7 @@
       </div>
 
       <button mat-icon-button (click)="toggleSidenav.emit()" fxShow="true" fxHide.gt-sm>
-        <mat-icon>menu</mat-icon>
+        <fa-icon class="bars" icon="bars"></fa-icon>
       </button>
 
     </div>
