@@ -14,12 +14,12 @@
 // import custom component themes here
 @import 'styles-reset.scss-theme';
 @import './app/layout/content-layout/content-layout.component.scss-theme';
-// @import './modules/foo/components/bar/bar.component.scss-theme';
+@import './app/shared/component/alert/alert.component.scss-theme';
 
 @mixin custom-components-theme($theme) {
   @include app-styles-reset-theme($theme);
   @include app-content-layout-component-theme($theme);
-  // @include app-bar-component-theme($theme);
+  @include app-alert-component-theme($theme);
 }
 
 .app-light-theme {

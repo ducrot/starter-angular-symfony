@@ -1,0 +1,28 @@
+@import '~@angular/material/theming';
+
+@mixin app-alert-component-theme($theme) {
+  $accent: map-get($theme, accent);
+  $warn: map-get($theme, warn);
+  $success-colors: mat-palette($mat-green, 400);
+  $warning-colors: mat-palette($mat-amber, 400);
+
+  .alert-success {
+    color: mat-color($success-colors, default-contrast);
+    background-color: mat-color($success-colors);
+  }
+
+  .alert-warning {
+    color: mat-color($warning-colors, default-contrast);
+    background-color: mat-color($warning-colors);
+  }
+
+  .alert-info {
+    color: mat-color($accent, default-contrast);
+    background-color: mat-color($accent);
+  }
+
+  .alert-danger {
+    color: mat-color($warn, default-contrast);
+    background-color: mat-color($warn);
+  }
+}
