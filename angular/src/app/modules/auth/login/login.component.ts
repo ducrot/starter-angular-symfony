@@ -12,6 +12,7 @@ import { AuthenticationService } from '@pb/app/authentication-service';
 import { ConstantsService } from '@app/service/constants.service';
 import { ThemeService } from '@app/service/theme.service';
 import { Logger } from '@app/service/logger.service';
+import { TranslateService } from '@ngx-translate/core';
 
 const log = new Logger('LoginComponent');
 
@@ -38,7 +39,8 @@ export class LoginComponent implements OnInit {
     private constants: ConstantsService,
     private headerService: HeaderService,
     private themeService: ThemeService,
-    private cdr: ChangeDetectorRef
+    private cdr: ChangeDetectorRef,
+    private translate: TranslateService,
   ) {
     this.companyName = this.constants.companyName;
     this.title = 'Login';
@@ -57,12 +59,14 @@ export class LoginComponent implements OnInit {
 
     // Show alert if session is expired
     if (this.route.snapshot.queryParamMap.get('expired') === 'true') {
-      this.alertService.warning('Your session has expired. Please login again.');
+      this.translate.get('session_expired').subscribe((res: string) => {
+        this.alertService.warning(res);
+      });
     }
 
     // Select logo for dark/light mode
     this.themeService.getDarkTheme().subscribe(theme => {
-      this.logo = (theme) ? 'assets/logo-negative.svg' : 'assets/logo.svg';
+      this.logo = (theme) ? 'assets/logo.svg' : 'assets/logo.svg';
       this.cdr.markForCheck();
     });
   }

@@ -20,7 +20,11 @@
     },
     "auth": {
       "login": {
-        "title": "Login"
+        "title": "Login",
+        "username": "Username",
+        "password": "Password",
+        "submit": "Submit",
+        "session_expired": "Your session has expired. Please login again."
       },
       "logout": {
         "title": "Hope to see you again soon!",

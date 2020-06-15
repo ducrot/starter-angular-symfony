@@ -20,7 +20,11 @@
     },
     "auth": {
       "login": {
-        "title": "Anmelden"
+        "title": "Anmelden",
+        "username": "Benutzername",
+        "password": "Kennwort",
+        "submit": "Absenden",
+        "session_expired": "Ihre Sitzung ist abgelaufen. Bitte loggen Sie sich erneut ein."
       },
       "logout": {
         "title": "Bis zum nächsten Mal!",
