@@ -3,14 +3,14 @@
 namespace App\Tests\Controller;
 
 use App\LoginRequest;
-use App\Tests\ORM\DatabaseSetupTrait;
+use Hautelook\AliceBundle\PhpUnit\RefreshDatabaseTrait;
 use Symfony\Bundle\FrameworkBundle\KernelBrowser as KernelBrowserAlias;
 use Symfony\Bundle\FrameworkBundle\Test\WebTestCase;
 use Symfony\Component\HttpFoundation\Response;
 
 class AuthenticationControllerTest extends WebTestCase
 {
-    use DatabaseSetupTrait;
+    use RefreshDatabaseTrait;
 
     /** @var KernelBrowserAlias */
     private $client = null;
@@ -18,10 +18,6 @@ class AuthenticationControllerTest extends WebTestCase
     protected function setUp()
     {
         $this->client = static::createClient();
-
-        $this->setUpEntityManager();
-        $this->createSchema();
-        $this->loadFixturesByAlice();
     }
 
     public function testLoginEmptyCredentials()
