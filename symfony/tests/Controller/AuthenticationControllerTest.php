@@ -2,6 +2,7 @@
 
 namespace App\Tests\Controller;
 
+use App\LoginRequest;
 use App\Tests\ORM\DatabaseSetupTrait;
 use Symfony\Bundle\FrameworkBundle\KernelBrowser as KernelBrowserAlias;
 use Symfony\Bundle\FrameworkBundle\Test\WebTestCase;
@@ -20,7 +21,7 @@ class AuthenticationControllerTest extends WebTestCase
 
         $this->setUpEntityManager();
         $this->createSchema();
-        $this->loadFixtures();
+        $this->loadFixturesByAlice();
     }
 
     public function testLoginEmptyCredentials()
@@ -31,21 +32,37 @@ class AuthenticationControllerTest extends WebTestCase
 
     public function testLoginWrongUsername()
     {
-        $content = json_encode([
-            'username' => 'not-existing-username',
-            'password' => 'not-existing-password',
-        ]);
+        $loginRequest = new LoginRequest();
+        $loginRequest
+            ->setUsername('not-existing-username')
+            ->setPassword('not-existing-password');
+        $content = $loginRequest->serializeToString();
+
         $this->client->request('POST', '/api/app.AuthenticationService/login', [], [], [], $content);
         $this->assertEquals(Response::HTTP_UNAUTHORIZED, $this->client->getResponse()->getStatusCode());
     }
 
     public function testLoginWrongPassword()
     {
-        $content = json_encode([
-            'username' => 'testuser@domain.tld',
-            'password' => 'not-existing-password',
-        ]);
+        $loginRequest = new LoginRequest();
+        $loginRequest
+            ->setUsername('testuser@domain.tld')
+            ->setPassword('not-existing-password');
+        $content = $loginRequest->serializeToString();
+
         $this->client->request('POST', '/api/app.AuthenticationService/login', [], [], [], $content);
         $this->assertEquals(Response::HTTP_UNAUTHORIZED, $this->client->getResponse()->getStatusCode());
+    }
+
+    public function testLoginSucess()
+    {
+        $loginRequest = new LoginRequest();
+        $loginRequest
+            ->setUsername('testuser@domain.tld')
+            ->setPassword('A#Very$ecretPwd');
+        $content = $loginRequest->serializeToString();
+
+        $this->client->request('POST', '/api/app.AuthenticationService/login', [], [], [], $content);
+        $this->assertEquals(Response::HTTP_OK, $this->client->getResponse()->getStatusCode());
     }
 }

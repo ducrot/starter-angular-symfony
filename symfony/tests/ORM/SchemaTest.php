@@ -19,7 +19,7 @@ class SchemaTest extends KernelTestCase
     {
         $this->setUpEntityManager();
         $this->createSchema();
-        $this->loadFixtures();
+        $this->loadFixturesByAlice();
     }
 
     public function testValidateSchema()

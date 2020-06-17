@@ -28,7 +28,7 @@ class SmokeFunctionalTest extends WebTestCase
 
         $this->setUpEntityManager();
         $this->createSchema();
-        $this->loadFixtures();
+        $this->loadFixturesByAlice();
     }
 
     /**
@@ -96,11 +96,11 @@ class SmokeFunctionalTest extends WebTestCase
         if ($token) {
             return [
                 'HTTP_' . UserTokenAuthenticator::HEADER_AUTHORIZATION => UserTokenAuthenticator::BEARER_PREFIX . $token,
-                'HTTP_ACCEPT' => 'application/json'
+                'HTTP_ACCEPT' => 'application/protobuf,application/json'
             ];
         } else {
             return [
-                'HTTP_ACCEPT' => 'application/json'
+                'HTTP_ACCEPT' => 'application/protobuf,application/json'
             ];
         }
     }
