@@ -4,12 +4,12 @@ proto_files = $(wildcard $(proto_path)*/*.proto)
 pb_ng_out = ./angular/src/pb/
 pb_php_out = ./symfony/src-pb/
 
+
 default: install test build
 	@echo "Done."
 
 
 install: install-ng generate install-php
-	@npm i >/dev/null --silent
 
 install-ng:
 	@pushd angular/ && npm i >/dev/null --silent && popd
@@ -27,7 +27,6 @@ test-ng:
 	@pushd angular/ && node_modules/.bin/ng test --watch=false && popd
 
 
-
 generate: pb-ng pb-php
 
 pb-ng: $(proto_files)
@@ -40,7 +39,6 @@ pb-ng: $(proto_files)
 		--proto_path=$(proto_path) \
 		--ts_proto_out=$(pb_ng_out) \
 		$^
-
 
 pb-php: $(proto_files)
 	@find $(pb_php_out) ! -path $(pb_php_out) ! -name '.gitignore' -exec rm -rf {} +
