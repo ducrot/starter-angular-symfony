@@ -46,7 +46,7 @@ export class CoreModule {
     throwIfAlreadyLoaded(parentModule, 'CoreModule');
   }
 
-  public static forRoot(): ModuleWithProviders {
+  public static forRoot(): ModuleWithProviders<CoreModule> {
     return {
       ngModule: CoreModule,
       providers: [
