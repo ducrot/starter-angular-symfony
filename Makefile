@@ -4,11 +4,11 @@ proto_files = $(wildcard $(proto_path)*/*.proto)
 pb_ng_out = ./angular/src/pb/
 pb_php_out = ./symfony/src-pb/
 
-default: install generate test build
+default: install test build
 	@echo "Done."
 
 
-install: install-ng install-php
+install: install-ng generate install-php
 	@npm i >/dev/null --silent
 
 install-ng:
