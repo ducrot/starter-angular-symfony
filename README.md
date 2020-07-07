@@ -8,7 +8,19 @@ starter-angular-symfony
 - angular production builds delivered by symfony (with proper caching)
 - all data exchange between server and frontend uses binary protobuf
 - automatic formatting of exceptions for angular client (stack traces if symfony debug = true)
-- each request is tagged with a unique id, id is logged with every log record, delivered to client 
+- each request is tagged with a unique id, id is logged with every log record, delivered to client
+
+
+# install
+
+```shell script
+# Clone with SSH
+git clone --depth=1 git@git.ducrot.de:websolutions/starter-angular-symfony.git my-project
+# Clone with HTTPS
+git clone --depth=1 https://git.ducrot.de/mediatoolbox/alko.git my-project
+cd !$
+make install
+```
 
 
 # protobuf
