@@ -83,6 +83,10 @@
     },
     "authors": [
         {
+            "name": "Christian Ducrot",
+            "email": "christian@ducrot.de"
+        },
+        {
             "name": "Timo Stamm",
             "email": "ts@timostamm.de"
         }
