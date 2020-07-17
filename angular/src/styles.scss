@@ -1,36 +1,5 @@
-@import 'styles-variables';
+// Always include only once per project
+@import 'scss/core';
 
-@import 'style-reset';
-
-@import '~@angular/material/theming';
-
-// always include only once per project
-@include mat-core();
-
-// Typography
-@import './styles-typography';
-
-// import custom themes
-@import './themes/light-theme';
-@import './themes/dark-theme';
-
-// import custom component themes here
-@import 'styles-reset.scss-theme';
-@import './app/layout/content-layout/content-layout.component.scss-theme';
-@import './app/shared/component/alert/alert.component.scss-theme';
-
-@mixin custom-components-theme($theme) {
-  @include app-styles-reset-theme($theme);
-  @include app-content-layout-component-theme($theme);
-  @include app-alert-component-theme($theme);
-}
-
-.app-light-theme {
-  @include angular-material-theme($app-light-theme);
-  @include custom-components-theme($app-light-theme);
-}
-
-.app-dark-theme {
-  @include angular-material-theme($app-dark-theme);
-  @include custom-components-theme($app-dark-theme);
-}
+// App theme
+@import 'app/app.theme';

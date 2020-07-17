@@ -1,0 +1,25 @@
+// import custom themes
+@import 'src/scss/themes/light-theme';
+@import 'src/scss/themes/dark-theme';
+
+// import custom component themes
+@import 'src/scss/themes/styles-reset.scss-theme';
+@import 'layout/content-layout/content-layout.component.scss-theme';
+@import 'shared/component/alert/alert.component.scss-theme';
+
+
+@mixin custom-components-theme($theme) {
+  @include app-styles-reset-theme($theme);
+  @include app-content-layout-component-theme($theme);
+  @include app-alert-component-theme($theme);
+}
+
+.app-light-theme {
+  @include angular-material-theme($app-light-theme);
+  @include custom-components-theme($app-light-theme);
+}
+
+.app-dark-theme {
+  @include angular-material-theme($app-dark-theme);
+  @include custom-components-theme($app-dark-theme);
+}

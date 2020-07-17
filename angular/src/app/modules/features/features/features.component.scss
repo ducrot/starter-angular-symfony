@@ -1,12 +1,12 @@
-@import '../../../../styles-variables';
+@import 'src/scss/app';
 
 :host {
   display: block;
 }
 
 mat-card {
-  box-sizing: border-box;
   height: 100%;
+  padding: 16px!important;
 
   code {
     font-size: 11px;

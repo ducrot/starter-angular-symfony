@@ -1,0 +1,27 @@
+/*----------------------------------------------------------------*/
+/*  @ Text rendering & box sizing
+/*----------------------------------------------------------------*/
+* {
+  text-rendering: optimizeLegibility;
+  box-sizing: border-box;
+
+  &:before, &:after {
+    box-sizing: border-box;
+  }
+
+  // Remove focus outline
+  &:active,
+  &:focus {
+    outline: none;
+  }
+}
+
+// -----------------------------------------------------------------------------------------------------
+// @ Responsive images
+// -----------------------------------------------------------------------------------------------------
+img {
+  max-width: 100%;
+  height: auto;
+  vertical-align: top;
+  border: none;
+}

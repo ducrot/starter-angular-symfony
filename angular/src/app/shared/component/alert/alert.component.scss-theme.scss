@@ -1,4 +1,4 @@
-@import '~@angular/material/theming';
+@import 'src/scss/app';
 
 @mixin app-alert-component-theme($theme) {
   $accent: map-get($theme, accent);

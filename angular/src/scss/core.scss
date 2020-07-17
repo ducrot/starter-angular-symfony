@@ -1,0 +1,14 @@
+// This file meant to be imported only once!
+// Use ´@import 'src/scss/app';´ to access the core App and Angular Material mixins.
+
+// App
+@import "app";
+
+// Include core Angular Material styles
+@include mat-core();
+
+// Partials
+@import "partials/helpers";
+@import "partials/general";
+@import "partials/material";
+@import "partials/typography";

@@ -11,16 +11,8 @@
   width: 100%;
 }
 
-mat-card {
-  padding: 32px;
-  @media (max-width: 514px) {
-    padding: 16px;
-  }
-}
-
 .logo {
   display: block;
-  box-sizing: border-box;
   margin: 0 auto;
   padding: 0 0 32px 0;
   width: 100%;
