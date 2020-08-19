@@ -88,8 +88,8 @@ abstract class AbstractBearerTokenAuthenticator extends AbstractGuardAuthenticat
      *
      *
      *
-     * @param Request $request The request that resulted in an AuthenticationException
-     * @param AuthenticationException $authException The exception that started the authentication process
+     * @param Request|null $request The request that resulted in an AuthenticationException
+     * @param AuthenticationException|null $authException The exception that started the authentication process
      * @return Response|void
      */
     public function start(Request $request = null, AuthenticationException $authException = null)
@@ -155,6 +155,8 @@ abstract class AbstractBearerTokenAuthenticator extends AbstractGuardAuthenticat
         } catch (UsernameNotFoundException $exception) {
             $this->start(null, $exception);
         }
+
+        return null;
     }
 
 
