@@ -2,6 +2,7 @@ import { Injectable } from '@angular/core';
 import { Observable, ReplaySubject } from 'rxjs';
 import { User } from '@pb/app/user';
 import { LoginResponse } from '@pb/app/authentication-service';
+import { Timestamp } from '@pb/google/protobuf/timestamp';
 
 
 @Injectable({
@@ -70,8 +71,7 @@ export class AuthService {
     if (session.tokenExpiresAt === undefined) {
       throw new Error('Missing tokenExpiresAt');
     }
-    const jsonObj = LoginResponse.toJSON(session);
-    const jsonStr = JSON.stringify(jsonObj);
+    const jsonStr = LoginResponse.toJsonString(session);
     localStorage.setItem(this.sessionKey, jsonStr);
     this.userSubject.next(session.user);
   }
@@ -87,7 +87,7 @@ export class AuthService {
       throw new Error('Missing tokenExpiresAt');
     }
     const nowTs = Date.now();
-    const expirationTs = session.tokenExpiresAt.getTime();
+    const expirationTs = Timestamp.toDate(session.tokenExpiresAt).getTime();
     return (expirationTs - 1000 * this.sessionEagerExpirationSeconds) < nowTs;
   }
 
@@ -95,8 +95,7 @@ export class AuthService {
   private readSession(): LoginResponse | undefined {
     const jsonStr = localStorage.getItem(this.sessionKey);
     if (typeof jsonStr === 'string') {
-      const jsonObj = JSON.parse(jsonStr);
-      return LoginResponse.fromJSON(jsonObj);
+      return LoginResponse.fromJsonString(jsonStr);
     }
     return undefined;
   }

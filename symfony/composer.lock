@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "01d4af1c8e6b8ebbae6f7d020e389102",
+    "content-hash": "f008b06f835854a2316a549ad1c261f4",
     "packages": [
         {
             "name": "composer/package-versions-deprecated",
@@ -1448,16 +1448,16 @@
         },
         {
             "name": "google/protobuf",
-            "version": "v3.12.2",
+            "version": "v3.13.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/protocolbuffers/protobuf-php.git",
-                "reference": "571f9a4ba39826a18611ae568d97b6007954c070"
+                "reference": "fddc6c2439b190284f207143f6d37bf5b651cea6"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/protocolbuffers/protobuf-php/zipball/571f9a4ba39826a18611ae568d97b6007954c070",
-                "reference": "571f9a4ba39826a18611ae568d97b6007954c070",
+                "url": "https://api.github.com/repos/protocolbuffers/protobuf-php/zipball/fddc6c2439b190284f207143f6d37bf5b651cea6",
+                "reference": "fddc6c2439b190284f207143f6d37bf5b651cea6",
                 "shasum": ""
             },
             "require": {
@@ -1485,7 +1485,7 @@
             "keywords": [
                 "proto"
             ],
-            "time": "2020-05-27T17:57:58+00:00"
+            "time": "2020-08-15T00:44:58+00:00"
         },
         {
             "name": "laminas/laminas-code",
@@ -3567,7 +3567,7 @@
         },
         {
             "name": "symfony/inflector",
-            "version": "v5.0.10",
+            "version": "v5.0.11",
             "source": {
                 "type": "git",
                 "url": "https://github.com/symfony/inflector.git",
@@ -4237,16 +4237,16 @@
         },
         {
             "name": "symfony/property-info",
-            "version": "v5.0.10",
+            "version": "v5.0.11",
             "source": {
                 "type": "git",
                 "url": "https://github.com/symfony/property-info.git",
-                "reference": "c0e4310a3098e69b8bfe62f13b4287504c51c4fe"
+                "reference": "ab2210c90e8038ffaad09fe10cf635ad31bebb62"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/symfony/property-info/zipball/c0e4310a3098e69b8bfe62f13b4287504c51c4fe",
-                "reference": "c0e4310a3098e69b8bfe62f13b4287504c51c4fe",
+                "url": "https://api.github.com/repos/symfony/property-info/zipball/ab2210c90e8038ffaad09fe10cf635ad31bebb62",
+                "reference": "ab2210c90e8038ffaad09fe10cf635ad31bebb62",
                 "shasum": ""
             },
             "require": {
@@ -4260,7 +4260,7 @@
             },
             "require-dev": {
                 "doctrine/annotations": "~1.7",
-                "phpdocumentor/reflection-docblock": "^3.0|^4.0",
+                "phpdocumentor/reflection-docblock": "^3.0|^4.0|^5.0",
                 "symfony/cache": "^4.4|^5.0",
                 "symfony/dependency-injection": "^4.4|^5.0",
                 "symfony/serializer": "^4.4|^5.0"
@@ -4323,7 +4323,7 @@
                     "type": "tidelift"
                 }
             ],
-            "time": "2020-05-20T17:38:26+00:00"
+            "time": "2020-06-18T21:17:00+00:00"
         },
         {
             "name": "symfony/routing",
@@ -5470,29 +5470,30 @@
             "time": "2020-05-20T17:38:26+00:00"
         },
         {
-            "name": "timostamm/protoc-h1-php-server",
-            "version": "v1.0.4",
+            "name": "timostamm/symfony-twirp-handler",
+            "version": "v0.0.2",
             "source": {
                 "type": "git",
-                "url": "https://github.com/timostamm/protoc-h1-php-server.git",
-                "reference": "e53a6de8305918bd10df8ab804bd50251ae5d835"
+                "url": "https://github.com/timostamm/symfony-twirp-handler.git",
+                "reference": "29ab554c72a0021b8a5983dfe3170e30c716cdd6"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/timostamm/protoc-h1-php-server/zipball/e53a6de8305918bd10df8ab804bd50251ae5d835",
-                "reference": "e53a6de8305918bd10df8ab804bd50251ae5d835",
+                "url": "https://api.github.com/repos/timostamm/symfony-twirp-handler/zipball/29ab554c72a0021b8a5983dfe3170e30c716cdd6",
+                "reference": "29ab554c72a0021b8a5983dfe3170e30c716cdd6",
                 "shasum": ""
             },
             "require": {
                 "google/protobuf": "^3.10",
                 "php": "^7.1",
+                "psr/container": "^1.0",
+                "symfony/event-dispatcher": ">=4",
+                "symfony/http-foundation": ">=4.3",
+                "symfony/http-kernel": ">=4",
                 "symfony/property-info": ">=4"
             },
             "require-dev": {
-                "phpunit/phpunit": "^7.3",
-                "psr/container": "^1.0",
-                "psr/log": "^1.1",
-                "symfony/http-foundation": "^4.3"
+                "phpunit/phpunit": "^7.3"
             },
             "suggest": {
                 "ext-bcmath": "Need to support JSON deserialization",
@@ -5503,15 +5504,15 @@
             "type": "library",
             "autoload": {
                 "psr-4": {
-                    "TS\\Protobuf\\": "src"
+                    "SymfonyTwirpHandler\\": "src/SymfonyTwirpHandler"
                 }
             },
             "notification-url": "https://packagist.org/downloads/",
             "license": [
                 "MIT"
             ],
-            "description": "PHP utilities to implement protobuf services on a simple HTTP server",
-            "time": "2020-05-29T21:38:28+00:00"
+            "description": "Helps implementing Twirp in a Symfony application",
+            "time": "2020-08-19T16:04:44+00:00"
         },
         {
             "name": "webimpress/safe-writer",

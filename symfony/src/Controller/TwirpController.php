@@ -11,15 +11,14 @@ use App\Services\UserManagement\UserManagementService;
 use App\TestServiceInterface;
 use App\UserManagementServiceInterface;
 use Psr\Container\ContainerInterface;
-use Psr\Log\LoggerInterface;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Contracts\Service\ServiceSubscriberInterface;
-use TS\Protobuf\HttpHandler;
-use TS\Protobuf\ServiceResolver;
+use SymfonyTwirpHandler\ServiceResolver;
+use SymfonyTwirpHandler\TwirpHandler;
 
-class ProtobufRpcController implements ServiceSubscriberInterface
+class TwirpController implements ServiceSubscriberInterface
 {
 
     /**
@@ -45,7 +44,7 @@ class ProtobufRpcController implements ServiceSubscriberInterface
     }
 
 
-    private HttpHandler $handler;
+    private TwirpHandler $handler;
 
 
     /**
@@ -54,11 +53,9 @@ class ProtobufRpcController implements ServiceSubscriberInterface
      * Sets up a handler that routes HTTP requests to the proper service.
      *
      * @param ContainerInterface $locator
-     * @param LoggerInterface $logger
      */
     public function __construct(
-        ContainerInterface $locator,
-        LoggerInterface $logger
+        ContainerInterface $locator
     )
     {
         $resolver = new ServiceResolver();
@@ -67,15 +64,12 @@ class ProtobufRpcController implements ServiceSubscriberInterface
                 return $locator->get($imp);
             });
         }
-        $this->handler = new HttpHandler($resolver);
-        $this->handler->setLogger($logger);
-        $this->handler->setDebug(true);
+        $this->handler = new TwirpHandler($resolver);
     }
 
 
     /**
      * @Route(
-     *     methods={"PUT", "POST", "PATCH"},
      *     path="/api/{serviceName}/{methodName}" ,
      *     name="api-execute"
      * )

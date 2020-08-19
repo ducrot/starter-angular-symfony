@@ -48,15 +48,11 @@ services:
             $frontendDir: '%kernel.project_dir%/%env(string:FRONTEND_DIR)%'
 
 
-    # need to add exception formatters manually, as we dont have a compiler pass for that
-    App\EventSubscriber\ExceptionFormatterSubscriber:
+    SymfonyTwirpHandler\TwirpErrorSubscriber:
         arguments:
+            $requestTagAttribute: "_request_id"
             $debug: '%kernel.debug%'
-            $formatters:
-                - '@App\EventSubscriber\ProtobufExceptionFormatter'
-                - '@App\EventSubscriber\JsonExceptionFormatter'
-                - '@App\EventSubscriber\PlaintextExceptionFormatter'
-#                - '@App\EventSubscriber\HtmlExceptionFormatter'
+            $prefix: "api"
 
 
     # tag request tagger as monolog processor (no auto configure available as of symfony 4)

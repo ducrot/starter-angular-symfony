@@ -10,12 +10,9 @@ import { TranslateModule } from '@ngx-translate/core';
 import { AlertComponent } from '@shared/component/alert/alert.component';
 import { LuckyNumberComponent } from '@shared/component/lucky-number/lucky-number.component';
 import { ErrorDonkeyComponent } from '@shared/component/error-donkey/error-donkey.component';
-import { TestServiceClientImpl } from '@pb/app/test-service';
-import { ProtobufRpcHandler } from '@app/service/protobuf-rpc-handler.service';
-import { AuthenticationServiceClientImpl } from '@pb/app/authentication-service';
-import { AUTH_SERVICE, TEST_SERVICE } from '@shared/service-tokens';
 import { Nl2brPipe } from '@shared/pipe/nl2br.pipe';
-
+import { TestServiceClient } from '@pb/app/test-service';
+import { AuthenticationServiceClient } from '@pb/app/authentication-service';
 
 
 @NgModule({
@@ -48,15 +45,8 @@ import { Nl2brPipe } from '@shared/pipe/nl2br.pipe';
     Nl2brPipe,
   ],
   providers: [
-    {
-      provide: TEST_SERVICE, deps: [ProtobufRpcHandler],
-      useFactory: (rpc: ProtobufRpcHandler) => new TestServiceClientImpl(rpc)
-    },
-    {
-      provide: AUTH_SERVICE, deps: [ProtobufRpcHandler],
-      useFactory: (rpc: ProtobufRpcHandler) => new AuthenticationServiceClientImpl(rpc)
-
-    },
+    TestServiceClient,
+    AuthenticationServiceClient,
   ]
 })
 export class SharedModule {

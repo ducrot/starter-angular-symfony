@@ -1,18 +1,16 @@
-import { ChangeDetectionStrategy, ChangeDetectorRef, Component, Inject, OnInit } from '@angular/core';
+import { ChangeDetectionStrategy, ChangeDetectorRef, Component, OnInit } from '@angular/core';
 import { AuthService } from '@app/service/auth.service';
 import { ActivatedRoute } from '@angular/router';
 import { AuthenticationRoutingService } from '@app/service/authentication-routing.service';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { ServiceError } from '@app/interceptor/service-error.interceptor';
 import { AlertService } from '@shared/service/alert.service';
 import { HeaderService } from '@shared/service/header.service';
-import { HttpErrorResponse } from '@angular/common/http';
-import { AUTH_SERVICE } from '@shared/service-tokens';
-import { AuthenticationService } from '@pb/app/authentication-service';
 import { ConstantsService } from '@app/service/constants.service';
 import { ThemeService } from '@app/service/theme.service';
 import { Logger } from '@app/service/logger.service';
 import { TranslateService } from '@ngx-translate/core';
+import { AuthenticationServiceClient } from '@pb/app/authentication-service';
+
 
 const log = new Logger('LoginComponent');
 
@@ -30,7 +28,7 @@ export class LoginComponent implements OnInit {
   readonly formGroup: FormGroup;
 
   constructor(
-    @Inject(AUTH_SERVICE) private readonly authenticationService: AuthenticationService,
+    private readonly client: AuthenticationServiceClient,
     private readonly authService: AuthService,
     private readonly routing: AuthenticationRoutingService,
     private readonly route: ActivatedRoute,
@@ -78,22 +76,17 @@ export class LoginComponent implements OnInit {
 
     try {
 
-      const response = await this.authenticationService.login({
+      const {responseMessage} = await this.client.login({
         username: this.formGroup.value.username,
         password: this.formGroup.value.password
       });
 
-      log.debug('authenticationService.login', response);
-      this.authService.acceptSession(response);
+      log.debug('authenticationService.login', responseMessage);
+      this.authService.acceptSession(responseMessage);
       this.routing.onLoginSuccess(this.route);
 
     } catch (error) {
-      if (error instanceof ServiceError || error instanceof HttpErrorResponse) {
-        this.alertService.error(error.message);
-      } else {
-        this.alertService.error('Unknown error: ' + error);
-        console.log(error);
-      }
+      this.alertService.error(error.message ?? error);
       this.cdr.markForCheck();
     }
 

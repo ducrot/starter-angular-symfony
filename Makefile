@@ -1,7 +1,9 @@
+.PHONY: default install install-ng install-php test test-php test-ng generate pb-ng pb-ng
 
 proto_path = ./protos/
 proto_files = $(wildcard $(proto_path)*/*.proto)
 pb_ng_out = ./angular/src/pb/
+pb_ng2_out = ./angular/src/pb2/
 pb_php_out = ./symfony/src-pb/
 
 
@@ -32,15 +34,17 @@ generate: pb-ng pb-php
 pb-ng: $(proto_files)
 	@find $(pb_ng_out) ! -path $(pb_ng_out) ! -name '.gitignore' -exec rm -rf {} +
 	@protoc \
-		--plugin=./angular/node_modules/ts-proto/protoc-gen-ts_proto \
-		--ts_proto_opt=lowerCaseServiceMethods=true \
-		--ts_proto_opt=outputJsonMethods=true \
-		--ts_proto_opt=forceLong=long \
+		--plugin=./angular/node_modules/.bin/protoc-gen-ts \
+		--ts_opt=generate_dependencies \
+		--ts_opt=long_type_string \
+		--ts_opt=enable_angular_annotations \
 		--proto_path=$(proto_path) \
-		--ts_proto_out=$(pb_ng_out) \
+		--ts_out=$(pb_ng_out) \
 		$^
 
 pb-php: $(proto_files)
 	@find $(pb_php_out) ! -path $(pb_php_out) ! -name '.gitignore' -exec rm -rf {} +
 	protoc --proto_path=$(proto_path) --php_out=$(pb_php_out) $^
 	@echo generated $@
+
+

@@ -9,10 +9,8 @@ use App\LoginRequest;
 use App\LoginResponse;
 use App\Security\AuthenticationManager;
 use App\Security\LoginCredentials;
+use SymfonyTwirpHandler\TwirpError;
 use Google\Protobuf\Timestamp;
-use Symfony\Component\HttpFoundation\Response;
-use Symfony\Component\HttpKernel\Exception\BadRequestHttpException;
-use Symfony\Component\HttpKernel\Exception\HttpException;
 
 class AuthenticationService implements AuthenticationServiceInterface
 {
@@ -32,10 +30,10 @@ class AuthenticationService implements AuthenticationServiceInterface
     public function login(LoginRequest $request): LoginResponse
     {
         if (empty($request->getUsername())) {
-            throw new BadRequestHttpException();
+            throw new TwirpError("missing username", TwirpError::INVALID_ARGUMENT);
         }
         if (empty($request->getPassword())) {
-            throw new BadRequestHttpException();
+            throw new TwirpError("missing password", TwirpError::INVALID_ARGUMENT);
         }
 
         $credentials = new LoginCredentials(
@@ -45,7 +43,7 @@ class AuthenticationService implements AuthenticationServiceInterface
 
         $success = $this->manager->validateLogin($credentials);
         if (!$success) {
-            throw new HttpException(Response::HTTP_UNAUTHORIZED, 'Login failed');
+            throw new TwirpError("missing password", TwirpError::UNAUTHENTICATED);
         }
 
         $response = new LoginResponse();

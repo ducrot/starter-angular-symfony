@@ -1,7 +1,6 @@
-import {ChangeDetectionStrategy, Component, Inject} from '@angular/core';
-import {Subject} from 'rxjs';
-import {TEST_SERVICE} from "@shared/service-tokens";
-import {TestService} from "@pb/app/test-service";
+import { ChangeDetectionStrategy, Component } from '@angular/core';
+import { Subject } from 'rxjs';
+import { TestServiceClient } from '@pb/app/test-service';
 
 @Component({
   selector: 'app-error-donkey',
@@ -14,13 +13,15 @@ export class ErrorDonkeyComponent {
   readonly errorSubject = new Subject<string | null>();
   readonly error$ = this.errorSubject.asObservable();
 
-  constructor(@Inject(TEST_SERVICE) private readonly testService: TestService) {
+  constructor(
+    private readonly client: TestServiceClient) {
   }
 
 
   async badRequest(): Promise<void> {
+
     try {
-      await this.testService.badRequestError({});
+      await this.client.badRequestError({});
     } catch (e) {
       this.errorSubject.next(e.toString());
     }
@@ -29,7 +30,7 @@ export class ErrorDonkeyComponent {
 
   async processingError(): Promise<void> {
     try {
-      await this.testService.processingError({});
+      await this.client.processingError({});
     } catch (e) {
       this.errorSubject.next(e.toString());
     }
@@ -38,7 +39,7 @@ export class ErrorDonkeyComponent {
 
   async unexpectedError(): Promise<void> {
     try {
-      await this.testService.unexpectedError({});
+      await this.client.unexpectedError({});
     } catch (e) {
       this.errorSubject.next(e.toString());
     }

@@ -1,7 +1,6 @@
-import {Component, Inject} from '@angular/core';
-import {Subject} from 'rxjs';
-import {TestService} from "@pb/app/test-service";
-import {TEST_SERVICE} from "@shared/service-tokens";
+import { Component } from '@angular/core';
+import { Subject } from 'rxjs';
+import { TestServiceClient } from '@pb/app/test-service';
 
 
 interface Draw {
@@ -23,7 +22,7 @@ export class LuckyNumberComponent {
   readonly draw$ = this.draw.asObservable();
 
 
-  constructor(@Inject(TEST_SERVICE) private readonly testService: TestService) {
+  constructor(private readonly client: TestServiceClient) {
   }
 
 
@@ -34,10 +33,10 @@ export class LuckyNumberComponent {
       number: null
     });
     try {
-      const response = await this.testService.luckyNumber({});
+      const {responseMessage} = await this.client.luckyNumber({});
       this.draw.next({
         loading: false,
-        number: response.number,
+        number: responseMessage.number,
         error: null
       });
     } catch (e) {

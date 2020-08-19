@@ -100,7 +100,7 @@
         "version": "v1.9.1"
     },
     "google/protobuf": {
-        "version": "v3.12.2"
+        "version": "v3.13.0"
     },
     "hautelook/alice-bundle": {
         "version": "2.1",
@@ -364,7 +364,7 @@
         "version": "v5.0.4"
     },
     "symfony/property-info": {
-        "version": "v5.0.8"
+        "version": "v5.0.11"
     },
     "symfony/routing": {
         "version": "4.2",
@@ -460,8 +460,8 @@
             "ref": "fe5a50faf580eb58f08ada2abe8afbd2d4941e05"
         }
     },
-    "timostamm/protoc-h1-php-server": {
-        "version": "v1.0.4"
+    "timostamm/symfony-twirp-handler": {
+        "version": "v0.0.2"
     },
     "webimpress/safe-writer": {
         "version": "2.0.0"

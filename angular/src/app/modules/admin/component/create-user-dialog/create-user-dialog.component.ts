@@ -1,10 +1,8 @@
-import { ChangeDetectionStrategy, Component, Inject } from '@angular/core';
+import { ChangeDetectionStrategy, Component } from '@angular/core';
 import { MatDialogRef } from '@angular/material/dialog';
-import { USER_MAN_SERVICE } from '@modules/admin/service-tokens';
-import { UserManagementService } from '@pb/app/user-management-service';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { MatSnackBar } from '@angular/material/snack-bar';
-import { ServiceError } from '@app/interceptor/service-error.interceptor';
+import { UserManagementServiceClient } from '@pb/app/user-management-service';
 
 @Component({
   selector: 'app-create-user-dialog',
@@ -20,7 +18,7 @@ export class CreateUserDialogComponent {
     fb: FormBuilder,
     public dialogRef: MatDialogRef<CreateUserDialogComponent>,
     public snackBar: MatSnackBar,
-    @Inject(USER_MAN_SERVICE) private readonly service: UserManagementService
+    private readonly client: UserManagementServiceClient
   ) {
 
     this.formGroup = fb.group({
@@ -33,7 +31,6 @@ export class CreateUserDialogComponent {
 
 
   getErrorMessage() {
-    // this.formGroup.controls['username'].errors.
     return this.formGroup.get('username')?.hasError('required') ? 'You must enter a value' : null;
   }
 
@@ -47,16 +44,14 @@ export class CreateUserDialogComponent {
       return;
     }
     try {
-      const response = await this.service.create({
+      const {responseMessage} = await this.client.create({
         username: this.formGroup.value.username,
         password: this.formGroup.value.password,
         isAdmin: this.formGroup.value.isAdmin,
       });
-      this.dialogRef.close(response.user);
+      this.dialogRef.close(responseMessage.user);
     } catch (e) {
-      if (e instanceof ServiceError) {
-        this.snackBar.open(e.message);
-      }
+      this.snackBar.open(e.message);
     }
   }
 

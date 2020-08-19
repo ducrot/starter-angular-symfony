@@ -6,13 +6,12 @@ namespace App\Services;
 
 use App\LuckyNumberRequest;
 use App\LuckyNumberResponse;
+use SymfonyTwirpHandler\TwirpError;
 use App\TestCallRequest;
 use App\TestCallResponse;
 use App\TestServiceInterface;
 use Exception;
 use Google\Protobuf\GPBEmpty;
-use Symfony\Component\HttpKernel\Exception\BadRequestHttpException;
-use Symfony\Component\HttpKernel\Exception\UnprocessableEntityHttpException;
 
 class TestService implements TestServiceInterface
 {
@@ -40,16 +39,14 @@ class TestService implements TestServiceInterface
 
     public function badRequestError(GPBEmpty $request): GPBEmpty
     {
-        // throwing any kind of HttpException will show the message to the user
+        // throwing a TwirpException will show the message to the user
 
-        throw new BadRequestHttpException('Your request does not look so good....');
-        // alternatively: throw new HttpException(Response::HTTP_BAD_REQUEST, '...')
+        throw new TwirpError('Your request does not look so good....', TwirpError::INVALID_ARGUMENT);
     }
 
     public function processingError(GPBEmpty $request): GPBEmpty
     {
-        throw new UnprocessableEntityHttpException("I'm afraid I can't do that, Dave.");
-        // alternatively: throw new HttpException(Response::HTTP_UNPROCESSABLE_ENTITY, '...')
+        throw new TwirpError("I'm afraid I can't do that, Dave.", TwirpError::ALREADY_EXISTS);
     }
 
     public function unexpectedError(GPBEmpty $request): GPBEmpty

@@ -9,12 +9,11 @@ use App\CreateResponse;
 use App\Entity\User;
 use App\ListRequest;
 use App\ListResponse;
+use SymfonyTwirpHandler\TwirpError;
 use App\UpdateRequest;
 use App\UpdateResponse;
 use App\UserManagementServiceInterface;
-use LogicException;
 use Psr\Log\LoggerInterface;
-use Symfony\Component\HttpKernel\Exception\BadRequestHttpException;
 
 class UserManagementService implements UserManagementServiceInterface
 {
@@ -50,13 +49,13 @@ class UserManagementService implements UserManagementServiceInterface
 
         $e = $this->creator->getErrors()->get(0);
         $msg = $e->getPropertyPath() . ': ' . $e->getMessage() . " " . $e->getInvalidValue();
-        throw new BadRequestHttpException($msg);
+        throw new TwirpError($msg, TwirpError::INVALID_ARGUMENT);
     }
 
 
     public function update(UpdateRequest $request): UpdateResponse
     {
-        throw new LogicException('not implemented');
+        throw new TwirpError("not implemented", TwirpError::UNIMPLEMENTED);
     }
 
 
