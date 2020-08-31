@@ -33,10 +33,10 @@ export class LuckyNumberComponent {
       number: null
     });
     try {
-      const {responseMessage} = await this.client.luckyNumber({});
+      const {response} = await this.client.luckyNumber({});
       this.draw.next({
         loading: false,
-        number: responseMessage.number,
+        number: response.number,
         error: null
       });
     } catch (e) {

@@ -44,12 +44,12 @@ export class CreateUserDialogComponent {
       return;
     }
     try {
-      const {responseMessage} = await this.client.create({
+      const {response} = await this.client.create({
         username: this.formGroup.value.username,
         password: this.formGroup.value.password,
         isAdmin: this.formGroup.value.isAdmin,
       });
-      this.dialogRef.close(responseMessage.user);
+      this.dialogRef.close(response.user);
     } catch (e) {
       this.snackBar.open(e.message);
     }

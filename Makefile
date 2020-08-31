@@ -3,7 +3,6 @@
 proto_path = ./protos/
 proto_files = $(wildcard $(proto_path)*/*.proto)
 pb_ng_out = ./angular/src/pb/
-pb_ng2_out = ./angular/src/pb2/
 pb_php_out = ./symfony/src-pb/
 
 

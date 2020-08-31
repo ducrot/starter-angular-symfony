@@ -1,26 +1,19 @@
-import { ChangeDetectionStrategy, Component } from '@angular/core';
-// import { User } from '@pb/app/user';
-// import {
-//   ListRequest,
-//   ListRequest_Disabled,
-//   ListResponse,
-//   UserManagementService
-// } from '@pb/app/user-management-service';
-import { MatDialog } from '@angular/material/dialog';
-import { MatSnackBar } from '@angular/material/snack-bar';
-import { PageEvent } from '@angular/material/paginator';
-import { from, Observable } from 'rxjs';
-import { CreateUserDialogComponent } from '@modules/admin/component/create-user-dialog/create-user-dialog.component';
-import { ActivatedRoute, Router } from '@angular/router';
-import { QueryMapper } from '@app/lib/query-mapper';
-import { map, shareReplay, switchMap, tap } from 'rxjs/operators';
+import {ChangeDetectionStrategy, Component} from '@angular/core';
+import {MatDialog} from '@angular/material/dialog';
+import {MatSnackBar} from '@angular/material/snack-bar';
+import {PageEvent} from '@angular/material/paginator';
+import {from, Observable} from 'rxjs';
+import {CreateUserDialogComponent} from '@modules/admin/component/create-user-dialog/create-user-dialog.component';
+import {ActivatedRoute, Router} from '@angular/router';
+import {QueryMapper} from '@app/lib/query-mapper';
+import {map, shareReplay, switchMap} from 'rxjs/operators';
 import {
   ListRequest,
   ListRequest_Disabled,
   ListResponse,
   UserManagementServiceClient
 } from '@pb/app/user-management-service';
-import { User } from '@pb/app/user';
+import {User} from '@pb/app/user';
 
 @Component({
   selector: 'app-users-page',
@@ -58,8 +51,7 @@ export class UsersPageComponent {
     // we execute that request, so the display updates.
     this.response$ = this.query.valueChange$.pipe(
       switchMap(request => from(client.list(request))),
-      map(finishedCall => finishedCall.responseMessage),
-      tap(x => console.log('UsersPageComponent list response:', x)),
+      map(finishedCall => finishedCall.response),
       shareReplay(1)
     );
 

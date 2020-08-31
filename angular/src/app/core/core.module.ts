@@ -7,7 +7,7 @@ import {ConstantsService} from '@app/service/constants.service';
 import {TranslateLoader, TranslateModule} from '@ngx-translate/core';
 import {TranslateHttpLoader} from '@ngx-translate/http-loader';
 import {I18nService} from '@app/service/i18n.service';
-import {PbDatePipeModule, TwirpAngularModule} from '@protobuf-ts/runtime-angular';
+import {PbDatePipeModule, TwirpModule} from '@protobuf-ts/runtime-angular';
 import {AuthenticationInterceptor} from '@app/interceptor/authentication.interceptor';
 
 export function HttpLoaderFactory(http: HttpClient) {
@@ -32,7 +32,7 @@ export function HttpLoaderFactory(http: HttpClient) {
 
     // Registers the `TwirpAngularTransport` with the given options
     // and sets up dependency injection.
-    TwirpAngularModule.forRoot({
+    TwirpModule.forRoot({
       // the base url is taken from the environment
       baseUrl: environment.apiEndpoint,
       // for production, we use the binary format, otherwise, JSON
