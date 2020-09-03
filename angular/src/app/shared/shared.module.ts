@@ -25,6 +25,7 @@ import { Nl2brPipe } from '@shared/pipe/nl2br.pipe';
     ReactiveFormsModule,
     RouterModule,
     FlexLayoutModule,
+    TranslateModule,
   ],
   declarations: [
     AlertComponent,

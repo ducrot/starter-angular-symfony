@@ -1,6 +1,7 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
-import {Subscription} from 'rxjs';
-import {AlertService} from '@shared/service/alert.service';
+import { Subscription } from 'rxjs';
+import { AlertService } from '@shared/service/alert.service';
+import { TranslateService } from '@ngx-translate/core';
 
 interface AlertMessageInterface {
   cssClass: string;
@@ -18,26 +19,32 @@ export class AlertComponent implements OnInit, OnDestroy {
   private subscription: Subscription;
   message: AlertMessageInterface;
 
-  constructor(private alertService: AlertService) { }
+  constructor(
+    private alertService: AlertService,
+    private translate: TranslateService,
+  ) {
+  }
 
   ngOnInit() {
     this.subscription = this.alertService.getAlert()
       .subscribe(message => {
-        switch (message && message.type) {
-          case 'success':
-            message.cssClass = 'alert alert-success';
-            break;
-          case 'warning':
-            message.cssClass = 'alert alert-warning';
-            break;
-          case 'info':
-            message.cssClass = 'alert alert-info';
-            break;
-          case 'error':
-            message.cssClass = 'alert alert-danger';
-            break;
+        if (message) {
+          // Set CSS class based on message.type
+          switch (message.type) {
+            case 'success':
+              message.cssClass = 'alert alert-success';
+              break;
+            case 'warning':
+              message.cssClass = 'alert alert-warning';
+              break;
+            case 'info':
+              message.cssClass = 'alert alert-info';
+              break;
+            case 'error':
+              message.cssClass = 'alert alert-danger';
+              break;
+          }
         }
-
         this.message = message;
       });
   }
