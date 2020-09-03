@@ -45,7 +45,7 @@ class AuthenticationService implements AuthenticationServiceInterface
 
         $success = $this->manager->validateLogin($credentials);
         if (!$success) {
-            throw new HttpException(Response::HTTP_UNAUTHORIZED, 'Login failed');
+            throw new HttpException(Response::HTTP_UNAUTHORIZED, 'app.auth.login.login_failed');
         }
 
         $response = new LoginResponse();
