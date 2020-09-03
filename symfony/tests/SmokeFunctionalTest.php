@@ -28,7 +28,7 @@ class SmokeFunctionalTest extends WebTestCase
     }
 
     /**
-     * Test if all endpoints with authentication are really secured.
+     * Test if all endpoints with authentication are secured against wrong credentials.
      *
      * @dataProvider secureUrlApiProvider
      */
@@ -45,7 +45,7 @@ class SmokeFunctionalTest extends WebTestCase
      */
     public function secureUrlApiProvider()
     {
-        yield ['GET', '/api/app.TestService/luckyNumber', Response::HTTP_METHOD_NOT_ALLOWED];
+        yield ['GET',  '/api/app.TestService/luckyNumber', Response::HTTP_METHOD_NOT_ALLOWED];
         yield ['POST', '/api/app.TestService/luckyNumber', Response::HTTP_UNAUTHORIZED];
     }
 
@@ -66,16 +66,18 @@ class SmokeFunctionalTest extends WebTestCase
      */
     public function urlApiProvider()
     {
-        yield ['GET', '/api', false, Response::HTTP_NOT_FOUND];
+        yield ['GET',  '/api', false, Response::HTTP_NOT_FOUND];
         yield ['POST', '/api', false, Response::HTTP_NOT_FOUND];
-        yield ['GET', '/api/does-not-exists', false, Response::HTTP_NOT_FOUND];
+        yield ['GET',  '/api/does-not-exists', false, Response::HTTP_NOT_FOUND];
         yield ['POST', '/api/does-not-exists', false, Response::HTTP_NOT_FOUND];
 
-        yield ['GET', '/api/app.TestService/luckyNumber', true, Response::HTTP_METHOD_NOT_ALLOWED];
+        yield ['GET',  '/api/app.TestService/luckyNumber', false, Response::HTTP_METHOD_NOT_ALLOWED];
+        yield ['POST', '/api/app.TestService/luckyNumber', false, Response::HTTP_UNAUTHORIZED];
+        yield ['GET',  '/api/app.TestService/luckyNumber', true, Response::HTTP_METHOD_NOT_ALLOWED];
         yield ['POST', '/api/app.TestService/luckyNumber', true, Response::HTTP_OK];
-        yield ['GET', '/api/app.AuthenticationService/login', false, Response::HTTP_METHOD_NOT_ALLOWED];
+        yield ['GET',  '/api/app.AuthenticationService/login', false, Response::HTTP_METHOD_NOT_ALLOWED];
         yield ['POST', '/api/app.AuthenticationService/login', false, Response::HTTP_BAD_REQUEST];
-        yield ['GET', '/api/app.AuthenticationService/login', true, Response::HTTP_METHOD_NOT_ALLOWED];
+        yield ['GET',  '/api/app.AuthenticationService/login', true, Response::HTTP_METHOD_NOT_ALLOWED];
         yield ['POST', '/api/app.AuthenticationService/login', true, Response::HTTP_BAD_REQUEST];
     }
 
