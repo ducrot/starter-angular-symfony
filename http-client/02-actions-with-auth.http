@@ -11,6 +11,10 @@ Content-Type: application/json
 
 ### Test action
 POST {{endpoint}}/app.TestService/luckyNumber
+Content-Type: application/json
 Accept: application/json
 Authorization: Bearer {{token}}
+
+{
+}
 ###
