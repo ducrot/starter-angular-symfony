@@ -30,10 +30,10 @@ class AuthenticationService implements AuthenticationServiceInterface
     public function login(LoginRequest $request): LoginResponse
     {
         if (empty($request->getUsername())) {
-            throw new TwirpError("missing username", TwirpError::INVALID_ARGUMENT);
+            throw new TwirpError("app.auth.login.missing_parameter", TwirpError::INVALID_ARGUMENT);
         }
         if (empty($request->getPassword())) {
-            throw new TwirpError("missing password", TwirpError::INVALID_ARGUMENT);
+            throw new TwirpError("app.auth.login.missing_parameter", TwirpError::INVALID_ARGUMENT);
         }
 
         $credentials = new LoginCredentials(
@@ -43,7 +43,7 @@ class AuthenticationService implements AuthenticationServiceInterface
 
         $success = $this->manager->validateLogin($credentials);
         if (!$success) {
-            throw new TwirpError("missing password", TwirpError::UNAUTHENTICATED);
+            throw new TwirpError("app.auth.login.login_failed", TwirpError::UNAUTHENTICATED);
         }
 
         $response = new LoginResponse();
