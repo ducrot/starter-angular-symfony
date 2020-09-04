@@ -22,6 +22,7 @@ import { AuthenticationServiceClient } from '@pb/app/authentication-service';
     ReactiveFormsModule,
     RouterModule,
     FlexLayoutModule,
+    TranslateModule,
   ],
   declarations: [
     AlertComponent,

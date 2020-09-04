@@ -20,11 +20,12 @@
     },
     "auth": {
       "login": {
-        "title": "Anmelden",
+        "title": "Anmeldung",
         "username": "Benutzername",
         "password": "Kennwort",
         "submit": "Absenden",
-        "session_expired": "Ihre Sitzung ist abgelaufen. Bitte loggen Sie sich erneut ein."
+        "session_expired": "Ihre Sitzung ist abgelaufen. Bitte loggen Sie sich erneut ein.",
+        "login_failed": "Benutzername oder Kennwort sind ungültig."
       },
       "logout": {
         "title": "Bis zum nächsten Mal!",

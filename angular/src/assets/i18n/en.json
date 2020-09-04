@@ -24,11 +24,12 @@
         "username": "Username",
         "password": "Password",
         "submit": "Submit",
-        "session_expired": "Your session has expired. Please login again."
+        "session_expired": "Your session has expired. Please login again.",
+        "login_failed": "Wrong username or password."
       },
       "logout": {
         "title": "Hope to see you again soon!",
-        "continue": "Continue to the home page..."
+        "continue": "Continue to home page..."
       }
     },
     "authenticated": {
