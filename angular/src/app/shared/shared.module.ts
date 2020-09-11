@@ -15,6 +15,7 @@ import { ProtobufRpcHandler } from '@app/service/protobuf-rpc-handler.service';
 import { AuthenticationServiceClientImpl } from '@pb/app/authentication-service';
 import { AUTH_SERVICE, TEST_SERVICE } from '@shared/service-tokens';
 import { Nl2brPipe } from '@shared/pipe/nl2br.pipe';
+import { LogPipe } from '@shared/pipe/log.pipe';
 
 
 
@@ -32,6 +33,7 @@ import { Nl2brPipe } from '@shared/pipe/nl2br.pipe';
     ErrorDonkeyComponent,
     LuckyNumberComponent,
     Nl2brPipe,
+    LogPipe,
   ],
   exports: [
     CommonModule,
@@ -47,6 +49,7 @@ import { Nl2brPipe } from '@shared/pipe/nl2br.pipe';
     ErrorDonkeyComponent,
     LuckyNumberComponent,
     Nl2brPipe,
+    LogPipe,
   ],
   providers: [
     {
