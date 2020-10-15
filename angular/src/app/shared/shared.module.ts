@@ -16,6 +16,7 @@ import { AuthenticationServiceClientImpl } from '@pb/app/authentication-service'
 import { AUTH_SERVICE, TEST_SERVICE } from '@shared/service-tokens';
 import { Nl2brPipe } from '@shared/pipe/nl2br.pipe';
 import { LogPipe } from '@shared/pipe/log.pipe';
+import { LocalizedDatePipe } from '@shared/pipe/localized-date.pipe';
 
 
 
@@ -34,6 +35,7 @@ import { LogPipe } from '@shared/pipe/log.pipe';
     LuckyNumberComponent,
     Nl2brPipe,
     LogPipe,
+    LocalizedDatePipe,
   ],
   exports: [
     CommonModule,
@@ -50,6 +52,7 @@ import { LogPipe } from '@shared/pipe/log.pipe';
     LuckyNumberComponent,
     Nl2brPipe,
     LogPipe,
+    LocalizedDatePipe,
   ],
   providers: [
     {
