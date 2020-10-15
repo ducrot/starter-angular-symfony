@@ -10,6 +10,13 @@ import { ConstantsService } from '@app/service/constants.service';
 import { TranslateLoader, TranslateModule } from '@ngx-translate/core';
 import { TranslateHttpLoader } from '@ngx-translate/http-loader';
 import { I18nService } from '@app/service/i18n.service';
+import localeEn from '@angular/common/locales/en';
+import localeDe from '@angular/common/locales/de';
+import localeDeExtra from '@angular/common/locales/extra/de';
+import { registerLocaleData } from '@angular/common';
+
+registerLocaleData(localeEn, 'en');
+registerLocaleData(localeDe, 'de', localeDeExtra);
 
 export function HttpLoaderFactory(http: HttpClient) {
   return new TranslateHttpLoader(http);
