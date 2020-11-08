@@ -93,11 +93,11 @@
     "doctrine/sql-formatter": {
         "version": "1.1.0"
     },
+    "fakerphp/faker": {
+        "version": "v1.10.1"
+    },
     "firebase/php-jwt": {
         "version": "v5.0.0"
-    },
-    "fzaninotto/faker": {
-        "version": "v1.9.1"
     },
     "google/protobuf": {
         "version": "v3.13.0"
