@@ -13,6 +13,8 @@ import { ErrorDonkeyComponent } from '@shared/component/error-donkey/error-donke
 import { Nl2brPipe } from '@shared/pipe/nl2br.pipe';
 import { TestServiceClient } from '@pb/app/test-service';
 import { AuthenticationServiceClient } from '@pb/app/authentication-service';
+import { LogPipe } from '@shared/pipe/log.pipe';
+import { LocalizedDatePipe } from '@shared/pipe/localized-date.pipe';
 
 
 @NgModule({
@@ -29,6 +31,8 @@ import { AuthenticationServiceClient } from '@pb/app/authentication-service';
     ErrorDonkeyComponent,
     LuckyNumberComponent,
     Nl2brPipe,
+    LogPipe,
+    LocalizedDatePipe,
   ],
   exports: [
     CommonModule,
@@ -44,6 +48,8 @@ import { AuthenticationServiceClient } from '@pb/app/authentication-service';
     ErrorDonkeyComponent,
     LuckyNumberComponent,
     Nl2brPipe,
+    LogPipe,
+    LocalizedDatePipe,
   ],
   providers: [
     TestServiceClient,
