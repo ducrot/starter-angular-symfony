@@ -3,7 +3,7 @@
 <mat-card *ngIf="user$ | async as user">
   <mat-card-content>
     <p>{{ 'app.authenticated.hello' | translate: {email: user.username} }}</p>
-    <p>{{ 'app.authenticated.lastlogin' | translate: {date: user.lastLogin | date:'short'} }}</p>
+    <p>{{ 'app.authenticated.lastlogin' | translate: {date: user.lastLogin | localizedDate:'short'} }}</p>
   </mat-card-content>
 </mat-card>
 
