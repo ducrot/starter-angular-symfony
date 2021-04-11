@@ -26,6 +26,9 @@
     "doctrine/dbal": {
         "version": "v2.10.1"
     },
+    "doctrine/deprecations": {
+        "version": "v0.5.3"
+    },
     "doctrine/doctrine-bundle": {
         "version": "2.0",
         "recipe": {
@@ -98,6 +101,9 @@
     },
     "firebase/php-jwt": {
         "version": "v5.0.0"
+    },
+    "friendsofphp/proxy-manager-lts": {
+        "version": "v1.0.3"
     },
     "google/protobuf": {
         "version": "v3.13.0"
@@ -249,6 +255,9 @@
     },
     "symfony/dependency-injection": {
         "version": "v5.0.4"
+    },
+    "symfony/deprecation-contracts": {
+        "version": "v2.2.0"
     },
     "symfony/doctrine-bridge": {
         "version": "v5.0.5"
