@@ -1,11 +1,12 @@
 // Adjust material design components
 
 // -----------------------------------------------------------------------------------------------------
-// Card
+// Forms
 // -----------------------------------------------------------------------------------------------------
-.mat-card {
-  padding: 32px!important;
-  @include media-breakpoint('xs') {
-    padding: 16px!important;
-  }
+mat-radio-button .mat-radio-label-content {
+  white-space: normal;
+}
+
+mat-radio-button .mat-radio-label {
+  align-items: normal;
 }

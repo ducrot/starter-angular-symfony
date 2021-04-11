@@ -1,0 +1,11 @@
+@import "src/scss/app";
+
+@mixin app-header-component-theme($theme) {
+  $foreground: map-get($theme, foreground);
+
+  app-header {
+    mat-toolbar {
+      border-bottom: 1px solid mat-color($foreground, divider);
+    }
+  }
+}

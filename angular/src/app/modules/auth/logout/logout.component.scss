@@ -1,3 +1,5 @@
+@import "src/scss/app";
+
 :host {
   display: flex;
   height: 100%;
@@ -19,8 +21,15 @@
   height: auto;
 
   max-width: 336px;
-  @media (max-width: 514px) {
+  @include media-breakpoint('xs') {
     max-width: 240px;
+  }
+}
+
+.mat-card {
+  padding: 32px !important;
+  @include media-breakpoint('xs') {
+    padding: 16px !important;
   }
 }
 

@@ -4,10 +4,7 @@ footer {
   width: 100%;
   max-width: 1140px;
   margin: 0 auto;
-  padding: 16px 32px;
-  @media (max-width: 599px) {
-    padding: 16px;
-  }
+  padding: 16px;
 }
 
 .mat-button {

@@ -5,6 +5,7 @@
 // import custom component themes
 @import 'src/scss/themes/styles-reset.scss-theme';
 @import 'layout/content-layout/content-layout.component.scss-theme';
+@import 'layout/components/header/header.component.scss-theme';
 @import 'modules/admin/page/users-page/users-page.component.scss-theme';
 @import 'shared/component/alert/alert.component.scss-theme';
 
@@ -12,6 +13,7 @@
 @mixin custom-components-theme($theme) {
   @include app-styles-reset-theme($theme);
   @include app-content-layout-component-theme($theme);
+  @include app-header-component-theme($theme);
   @include app-users-page-component-theme($theme);
   @include app-alert-component-theme($theme);
 }
