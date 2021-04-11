@@ -9,10 +9,10 @@ describe('LuckyNumberComponent', () => {
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ LuckyNumberComponent ],
-      imports: [ HttpClientModule ]
+      declarations: [LuckyNumberComponent],
+      imports: [HttpClientModule]
     })
-    .compileComponents();
+      .compileComponents();
   }));
 
   beforeEach(() => {

@@ -1,19 +1,22 @@
-import {ModuleWithProviders, NgModule, Optional, SkipSelf} from '@angular/core';
-import {HTTP_INTERCEPTORS, HttpClient, HttpClientModule} from '@angular/common/http';
+import { ModuleWithProviders, NgModule, Optional, SkipSelf } from '@angular/core';
+import { HTTP_INTERCEPTORS, HttpClient, HttpClientModule } from '@angular/common/http';
 
-import {throwIfAlreadyLoaded} from '@app/guard/module-import.guard';
-import {environment} from '@env';
-import {ConstantsService} from '@app/service/constants.service';
-import {TranslateLoader, TranslateModule} from '@ngx-translate/core';
-import {TranslateHttpLoader} from '@ngx-translate/http-loader';
-import {I18nService} from '@app/service/i18n.service';
+import { throwIfAlreadyLoaded } from '@app/guard/module-import.guard';
+import { environment } from '@env';
+import { ConstantsService } from '@app/service/constants.service';
+import { TranslateLoader, TranslateModule } from '@ngx-translate/core';
+import { TranslateHttpLoader } from '@ngx-translate/http-loader';
+import { I18nService } from '@app/service/i18n.service';
 import localeEn from '@angular/common/locales/en';
 import localeDe from '@angular/common/locales/de';
 import localeDeExtra from '@angular/common/locales/extra/de';
 import { registerLocaleData } from '@angular/common';
-import {PbDatePipeModule, TwirpModule} from '@protobuf-ts/runtime-angular';
-import {AuthenticationInterceptor} from '@app/interceptor/authentication.interceptor';
+import { PbDatePipeModule, TwirpModule } from '@protobuf-ts/runtime-angular';
+import { AuthenticationInterceptor } from '@app/interceptor/authentication.interceptor';
 
+// Register global data to be used internally by Angular. See the
+// ["I18n guide"](https://angular.io/guide/i18n#i18n-pipes) to know
+// how to import additional locale data.
 registerLocaleData(localeEn, 'en');
 registerLocaleData(localeDe, 'de', localeDeExtra);
 

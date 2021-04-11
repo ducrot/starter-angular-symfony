@@ -1,5 +1,5 @@
 import { NgModule } from '@angular/core';
-import { Routes, RouterModule } from '@angular/router';
+import { RouterModule, Routes } from '@angular/router';
 import { PrivacyComponent } from '@modules/general/privacy/privacy.component';
 import { LegalComponent } from '@modules/general/legal/legal.component';
 

@@ -9,10 +9,10 @@ describe('ErrorDonkeyComponent', () => {
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ ErrorDonkeyComponent ],
-      imports: [ HttpClientModule ]
+      declarations: [ErrorDonkeyComponent],
+      imports: [HttpClientModule]
     })
-    .compileComponents();
+      .compileComponents();
   }));
 
   beforeEach(() => {

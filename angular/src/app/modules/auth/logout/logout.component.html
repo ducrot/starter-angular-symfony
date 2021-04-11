@@ -1,9 +1,9 @@
 <div class="container">
   <mat-card>
-    <img [src]="logo" class="logo" alt="{{ companyName }}">
+    <img [src]="logo" alt="{{ companyName }}" class="logo">
     <mat-card-title>{{ 'app.auth.logout.title' | translate }}</mat-card-title>
     <mat-card-content>
-      <a mat-raised-button color="primary" routerLink="/">{{ 'app.auth.logout.continue' | translate }}</a>
+      <a color="primary" mat-raised-button routerLink="/">{{ 'app.auth.logout.continue' | translate }}</a>
     </mat-card-content>
   </mat-card>
 </div>

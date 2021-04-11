@@ -1,4 +1,4 @@
-<mat-select [ngModel]="currentLang" (selectionChange)="onLanguageSelect($event)">
+<mat-select (selectionChange)="onLanguageSelect($event)" [ngModel]="currentLang">
   <mat-option *ngFor="let l of languages" [value]="l">
     {{ l.toUpperCase() }}
   </mat-option>

@@ -1,37 +1,37 @@
 <mat-toolbar fxLayout="row">
   <div class="brand" fxFlex="1 1 auto" fxLayout="row" fxLayoutAlign="flex-start center">
-    <img [src]="logo" class="logo" alt="{{ appName }}">
+    <img [src]="logo" alt="{{ appName }}" class="logo">
   </div>
 
   <app-language></app-language>
 </mat-toolbar>
 
 <mat-nav-list>
-  <a routerLink="/features"
-     (click)="toggleSidenav.emit()"
-     routerLinkActive="active"
-     mat-list-item>{{ 'app.menu.features' | translate }}</a>
-
-  <a routerLink="/authenticated"
-     (click)="toggleSidenav.emit()"
-     routerLinkActive="active"
+  <a (click)="toggleSidenav.emit()"
      mat-list-item
-     *ngIf="authService.isAuthenticated">{{ 'app.menu.authenticated' | translate }}</a>
+     routerLink="/features"
+     routerLinkActive="active">{{ 'app.menu.features' | translate }}</a>
 
-  <a routerLink="/admin"
-     (click)="toggleSidenav.emit()"
+  <a (click)="toggleSidenav.emit()"
+     *ngIf="authService.isAuthenticated"
      mat-list-item
-     *ngIf="authService.isAdmin">{{ 'app.menu.admin' | translate }}</a>
+     routerLink="/authenticated"
+     routerLinkActive="active">{{ 'app.menu.authenticated' | translate }}</a>
 
-  <a routerLink="/auth/logout"
-     (click)="toggleSidenav.emit(); onLogoutClick($event)"
+  <a (click)="toggleSidenav.emit()"
+     *ngIf="authService.isAdmin"
      mat-list-item
-     *ngIf="authService.isAuthenticated">{{ 'app.menu.logout' | translate }}</a>
+     routerLink="/admin">{{ 'app.menu.admin' | translate }}</a>
 
-  <a routerLink="/auth/login"
-     (click)="toggleSidenav.emit()"
+  <a (click)="toggleSidenav.emit(); onLogoutClick($event)"
+     *ngIf="authService.isAuthenticated"
      mat-list-item
-     *ngIf="!(authService.isAuthenticated)">{{ 'app.menu.login' | translate }}</a>
+     routerLink="/auth/logout">{{ 'app.menu.logout' | translate }}</a>
+
+  <a (click)="toggleSidenav.emit()"
+     *ngIf="!(authService.isAuthenticated)"
+     mat-list-item
+     routerLink="/auth/login">{{ 'app.menu.login' | translate }}</a>
 </mat-nav-list>
 
 <mat-divider></mat-divider>

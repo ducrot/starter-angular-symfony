@@ -1,6 +1,5 @@
 import { Injectable } from '@angular/core';
 import { BehaviorSubject, Observable } from 'rxjs';
-import { Logger } from '@app/service/logger.service';
 
 const themeKey = 'isDarkTheme';
 const stickyKey = 'isStickyHeader';

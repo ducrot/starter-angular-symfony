@@ -3,10 +3,8 @@ Module Directory
 
 `~/src/app/module`
 
-The modules directory contains a collection of modules which are each
-independent of each other.  This allows Angular to load only the module it
-requires to display the request thereby saving bandwidth and speeding the
-entire application.
+The modules directory contains a collection of modules which are each independent of each other. This allows Angular to
+load only the module it requires to display the request thereby saving bandwidth and speeding the entire application.
 
 To generate a new module with two components run:
 
@@ -19,8 +17,7 @@ ng g component modules/feature-foo/FeatureBar
 In order to accomplish this each module must have its own routing which is a
 `loadChildren` route resource defined in the `AppRoutingModule`.
 
-A route can have children and each child can have a loadChildren property.
-From `app-routing.module.ts`:
+A route can have children and each child can have a loadChildren property. From `app-routing.module.ts`:
 
 ```typescript
   {
@@ -47,8 +44,8 @@ From `app-routing.module.ts`:
   },
 ```
 
-Each child must have its own base path from which it can load children from a
-module in the `modules` directory.  Here is the routing for the About page:
+Each child must have its own base path from which it can load children from a module in the `modules` directory. Here is
+the routing for the About page:
 
 ```typescript
   import { NgModule } from '@angular/core';
@@ -72,8 +69,6 @@ module in the `modules` directory.  Here is the routing for the About page:
 
 It is necessary to add the child routes to the RouterModule through `forChild`.
 
-Besides routing any module inside the `modules` directory can be as simple or
-complicated as you wish.
-
+Besides routing any module inside the `modules` directory can be as simple or complicated as you wish.
 
 This module is recommended for a `path alias` to **@module**

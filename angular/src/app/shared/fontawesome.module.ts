@@ -7,7 +7,6 @@ import { FaIconLibrary, FontAwesomeModule } from '@fortawesome/angular-fontaweso
  * https://fontawesome.com/how-to-use/on-the-web/using-with/angular
  * https://fontawesome.com/icons
  */
-
 // fas free-solid-svg-icons
 import {
   faAngleDown,
@@ -32,9 +31,7 @@ import {
 
 
 // far free-regular-svg-icons
-import {
-  faSmile,
-} from '@fortawesome/free-regular-svg-icons';
+import { faSmile, } from '@fortawesome/free-regular-svg-icons';
 
 
 // fab free-brands-svg-icons

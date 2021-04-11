@@ -1,15 +1,15 @@
-import {ChangeDetectionStrategy, ChangeDetectorRef, Component, OnInit} from '@angular/core';
-import {AuthService} from '@app/service/auth.service';
-import {ActivatedRoute} from '@angular/router';
-import {AuthenticationRoutingService} from '@app/service/authentication-routing.service';
-import {FormBuilder, FormGroup, Validators} from '@angular/forms';
-import {AlertService} from '@shared/service/alert.service';
-import {HeaderService} from '@shared/service/header.service';
-import {ConstantsService} from '@app/service/constants.service';
-import {ThemeService} from '@app/service/theme.service';
-import {Logger} from '@app/service/logger.service';
-import {TranslateService} from '@ngx-translate/core';
-import {AuthenticationServiceClient} from '@pb/app/authentication-service';
+import { ChangeDetectionStrategy, ChangeDetectorRef, Component, OnInit } from '@angular/core';
+import { AuthService } from '@app/service/auth.service';
+import { ActivatedRoute } from '@angular/router';
+import { AuthenticationRoutingService } from '@app/service/authentication-routing.service';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { AlertService } from '@shared/service/alert.service';
+import { HeaderService } from '@shared/service/header.service';
+import { ConstantsService } from '@app/service/constants.service';
+import { ThemeService } from '@app/service/theme.service';
+import { Logger } from '@app/service/logger.service';
+import { TranslateService } from '@ngx-translate/core';
+import { AuthenticationServiceClient } from '@pb/app/authentication-service';
 
 
 const log = new Logger('LoginComponent');

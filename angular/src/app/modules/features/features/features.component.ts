@@ -11,7 +11,8 @@ export class FeaturesComponent {
 
   features: Feature[] = features;
 
-  constructor() { }
+  constructor() {
+  }
 
   openLink(link: string) {
     window.open(link, '_blank');

@@ -1,6 +1,6 @@
-import {NgModule} from '@angular/core';
-import {Routes, RouterModule} from '@angular/router';
-import {NotFoundComponent} from '@modules/error-page/not-found/not-found.component';
+import { NgModule } from '@angular/core';
+import { RouterModule, Routes } from '@angular/router';
+import { NotFoundComponent } from '@modules/error-page/not-found/not-found.component';
 
 
 const routes: Routes = [

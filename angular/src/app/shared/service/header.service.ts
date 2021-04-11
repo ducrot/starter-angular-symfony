@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { Subject, Observable } from 'rxjs';
+import { Observable, Subject } from 'rxjs';
 
 @Injectable({
   providedIn: 'root',
@@ -8,7 +8,8 @@ export class HeaderService {
 
   private title = new Subject<string>();
 
-  constructor() { }
+  constructor() {
+  }
 
   setTitle(title: string) {
     this.title.next(title);

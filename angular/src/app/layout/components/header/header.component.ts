@@ -4,7 +4,6 @@ import { AuthService } from '@app/service/auth.service';
 import { I18nService } from '@app/service/i18n.service';
 import { ThemeService } from '@app/service/theme.service';
 import { Observable } from 'rxjs';
-import { User } from '@pb/app/user';
 
 
 @Component({

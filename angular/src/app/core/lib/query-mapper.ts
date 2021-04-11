@@ -1,5 +1,5 @@
-import {Params} from "@angular/router";
-import {BehaviorSubject, Observable, ReplaySubject} from "rxjs";
+import { Params } from '@angular/router';
+import { BehaviorSubject, Observable, ReplaySubject } from 'rxjs';
 
 
 export class QueryMapper<T extends object> {

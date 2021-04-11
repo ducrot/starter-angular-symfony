@@ -13,7 +13,8 @@ export class ContentLayoutComponent implements OnInit {
 
   constructor(
     private themeService: ThemeService,
-  ) {}
+  ) {
+  }
 
   ngOnInit() {
     this.stickyHeader$ = this.themeService.getStickyHeader();

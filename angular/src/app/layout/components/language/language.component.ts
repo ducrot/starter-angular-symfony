@@ -21,7 +21,7 @@ export class LanguageComponent {
     this.languages = this.i18nService.supportedLanguages;
   }
 
-  onLanguageSelect({ value: language }): void {
+  onLanguageSelect({value: language}): void {
     this.i18nService.language = language;
   }
 

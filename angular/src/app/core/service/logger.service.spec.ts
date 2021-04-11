@@ -11,14 +11,17 @@ describe('Logger', () => {
     savedConsole = [];
     logMethods.forEach((m) => {
       savedConsole[m] = console[m];
-      console[m] = () => {};
+      console[m] = () => {
+      };
     });
     savedLevel = Logger.level;
     savedOutputs = Logger.outputs;
   });
 
   afterAll(() => {
-    logMethods.forEach((m) => { console[m] = savedConsole[m]; });
+    logMethods.forEach((m) => {
+      console[m] = savedConsole[m];
+    });
     Logger.level = savedLevel;
     Logger.outputs = savedOutputs;
   });
@@ -38,7 +41,7 @@ describe('Logger', () => {
     log.debug('d');
     log.info('i');
     log.warn('w');
-    log.error('e', { error: true });
+    log.error('e', {error: true});
 
     // Assert
     expect(outputSpy).toHaveBeenCalled();
@@ -46,7 +49,7 @@ describe('Logger', () => {
     expect(outputSpy).toHaveBeenCalledWith('test', LogLevel.Debug, 'd');
     expect(outputSpy).toHaveBeenCalledWith('test', LogLevel.Info, 'i');
     expect(outputSpy).toHaveBeenCalledWith('test', LogLevel.Warning, 'w');
-    expect(outputSpy).toHaveBeenCalledWith('test', LogLevel.Error, 'e', { error: true });
+    expect(outputSpy).toHaveBeenCalledWith('test', LogLevel.Error, 'e', {error: true});
   });
 
   it('should add a new LogOutput and receives only production log entries', () => {
@@ -61,12 +64,12 @@ describe('Logger', () => {
     log.debug('d');
     log.info('i');
     log.warn('w');
-    log.error('e', { error: true });
+    log.error('e', {error: true});
 
     // Assert
     expect(outputSpy).toHaveBeenCalled();
     expect(outputSpy.calls.count()).toBe(2);
     expect(outputSpy).toHaveBeenCalledWith('test', LogLevel.Warning, 'w');
-    expect(outputSpy).toHaveBeenCalledWith('test', LogLevel.Error, 'e', { error: true });
+    expect(outputSpy).toHaveBeenCalledWith('test', LogLevel.Error, 'e', {error: true});
   });
 });

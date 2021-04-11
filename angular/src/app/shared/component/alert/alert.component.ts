@@ -1,4 +1,4 @@
-import { Component, OnInit, OnDestroy } from '@angular/core';
+import { Component, OnDestroy, OnInit } from '@angular/core';
 import { Subscription } from 'rxjs';
 import { AlertService } from '@shared/service/alert.service';
 import { TranslateService } from '@ngx-translate/core';
@@ -16,8 +16,8 @@ interface AlertMessageInterface {
 })
 export class AlertComponent implements OnInit, OnDestroy {
 
-  private subscription: Subscription;
   message: AlertMessageInterface;
+  private subscription: Subscription;
 
   constructor(
     private alertService: AlertService,

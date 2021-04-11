@@ -1,12 +1,12 @@
-import {Injectable} from '@angular/core';
-import {HttpErrorResponse, HttpEvent, HttpHandler, HttpInterceptor, HttpRequest} from '@angular/common/http';
-import {Observable, throwError} from 'rxjs';
-import {AuthService} from '@app/service/auth.service';
-import {environment} from '@env';
-import {bearerTokenParse} from '@app/lib/bearer-token';
-import {catchError} from 'rxjs/operators';
-import {AuthenticationRoutingService} from '@app/service/authentication-routing.service';
-import {ActivatedRoute, Router} from '@angular/router';
+import { Injectable } from '@angular/core';
+import { HttpErrorResponse, HttpEvent, HttpHandler, HttpInterceptor, HttpRequest } from '@angular/common/http';
+import { Observable, throwError } from 'rxjs';
+import { AuthService } from '@app/service/auth.service';
+import { environment } from '@env';
+import { bearerTokenParse } from '@app/lib/bearer-token';
+import { catchError } from 'rxjs/operators';
+import { AuthenticationRoutingService } from '@app/service/authentication-routing.service';
+import { ActivatedRoute, Router } from '@angular/router';
 
 @Injectable()
 export class AuthenticationInterceptor implements HttpInterceptor {

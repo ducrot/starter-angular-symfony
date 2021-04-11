@@ -6,13 +6,12 @@ import { FlexLayoutModule } from '@angular/flex-layout';
 import { FontawesomeModule } from '@shared/fontawesome.module';
 import { MaterialModule } from '@shared/material.module';
 import { TranslateModule } from '@ngx-translate/core';
-
+import { AuthenticationServiceClient } from '@pb/app/authentication-service';
+import { TestServiceClient } from '@pb/app/test-service';
 import { AlertComponent } from '@shared/component/alert/alert.component';
 import { LuckyNumberComponent } from '@shared/component/lucky-number/lucky-number.component';
 import { ErrorDonkeyComponent } from '@shared/component/error-donkey/error-donkey.component';
 import { Nl2brPipe } from '@shared/pipe/nl2br.pipe';
-import { TestServiceClient } from '@pb/app/test-service';
-import { AuthenticationServiceClient } from '@pb/app/authentication-service';
 import { LogPipe } from '@shared/pipe/log.pipe';
 import { LocalizedDatePipe } from '@shared/pipe/localized-date.pipe';
 

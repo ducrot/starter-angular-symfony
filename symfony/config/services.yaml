@@ -48,6 +48,7 @@ services:
             $frontendDir: '%kernel.project_dir%/%env(string:FRONTEND_DIR)%'
 
 
+    # register twirp error subscriber
     SymfonyTwirpHandler\TwirpErrorSubscriber:
         arguments:
             $requestTagAttribute: "_request_id"

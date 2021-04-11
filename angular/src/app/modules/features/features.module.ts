@@ -13,4 +13,5 @@ import { FeaturesComponent } from './features/features.component';
     FeaturesRoutingModule
   ]
 })
-export class FeaturesModule { }
+export class FeaturesModule {
+}

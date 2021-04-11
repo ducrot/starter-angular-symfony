@@ -1,25 +1,25 @@
 <h1>{{ 'app.admin.users.title' | translate }}</h1>
 
 <mat-toolbar>
-  <button mat-button (click)="onCreateClick()">Create new user</button>
+  <button (click)="onCreateClick()" mat-button>Create new user</button>
 
   <div *ngIf="query.valueChange$ | async as qv">
-    <mat-button-toggle [checked]=" qv.disabled === disabledNo" (change)=" onEnabledButtonChange(qv) ">
+    <mat-button-toggle (change)=" onEnabledButtonChange(qv) " [checked]=" qv.disabled === disabledNo">
       Enabled ({{ (response$ | async)?.status?.summary?.enabledCount }})
     </mat-button-toggle>
-    <mat-button-toggle [checked]=" qv.disabled === disabledYes" (change)=" onDisabledButtonChange(qv) ">
+    <mat-button-toggle (change)=" onDisabledButtonChange(qv) " [checked]=" qv.disabled === disabledYes">
       Disabled ({{ (response$ | async)?.status?.summary?.disabledCount }})
     </mat-button-toggle>
   </div>
 
   <mat-form-field class="example-form-field">
     <mat-label>Search</mat-label>
-    <input #searchInput matInput type="text"
-           [value]=" (query.valueChange$ | async)?.searchText "
-           (change)="onSearchChange(searchInput.value)">
-    <button mat-button *ngIf=" (query.valueChange$ | async)?.searchText.length > 0 "
-            matSuffix mat-icon-button aria-label="Clear"
-            (click)="onClearSearchButton()">
+    <input #searchInput (change)="onSearchChange(searchInput.value)" [value]=" (query.valueChange$ | async)?.searchText "
+           matInput
+           type="text">
+    <button (click)="onClearSearchButton()" *ngIf=" (query.valueChange$ | async)?.searchText.length > 0 "
+            aria-label="Clear" mat-button mat-icon-button
+            matSuffix>
       <mat-icon>close</mat-icon>
     </button>
   </mat-form-field>
@@ -33,11 +33,11 @@
     {{ item.id }} {{item.username}}
   </div>
 
-  <mat-paginator [length]=" response.status.count "
+  <mat-paginator (page)="onPaginatorPage($event)"
+                 [length]=" response.status.count "
                  [pageIndex]="response.status.page -1"
-                 [pageSize]="response.status.pageSize"
-                 (page)="onPaginatorPage($event)"
-                 [pageSizeOptions]="[5, 10, 25, 100]">
+                 [pageSizeOptions]="[5, 10, 25, 100]"
+                 [pageSize]="response.status.pageSize">
   </mat-paginator>
 
 </ng-container>

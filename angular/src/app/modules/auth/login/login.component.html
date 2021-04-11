@@ -1,6 +1,6 @@
 <div class="container">
   <mat-card>
-    <img [src]="logo" class="logo" alt="{{ companyName }}">
+    <img [src]="logo" alt="{{ companyName }}" class="logo">
     <mat-card-title><h1>{{ 'app.auth.login.title' | translate }}</h1></mat-card-title>
     <mat-card-content>
       <app-alert></app-alert>
@@ -8,17 +8,18 @@
         {{ 'app.auth.login.username' | translate }}: testuser@domain.tld<br>
         {{ 'app.auth.login.password' | translate }}: A#Very$ecretPwd
       </div>
-      <form [formGroup]="formGroup" (ngSubmit)="onSubmit()">
+      <form (ngSubmit)="onSubmit()" [formGroup]="formGroup">
         <mat-form-field appearance="fill">
           <mat-label>{{ 'app.auth.login.username' | translate }}</mat-label>
-          <input matInput formControlName="username" autocomplete="username">
+          <input autocomplete="username" formControlName="username" matInput>
         </mat-form-field>
         <mat-form-field appearance="fill">
           <mat-label>{{ 'app.auth.login.password' | translate }}</mat-label>
-          <input type="password" matInput formControlName="password" autocomplete="current-password">
+          <input autocomplete="current-password" formControlName="password" matInput type="password">
         </mat-form-field>
         <div class="submit">
-          <button mat-raised-button color="accent" type="submit" class="button" [disabled]="!formGroup.valid">{{ 'app.auth.login.submit' | translate }}</button>
+          <button [disabled]="!formGroup.valid" class="button" color="accent" mat-raised-button
+                  type="submit">{{ 'app.auth.login.submit' | translate }}</button>
         </div>
       </form>
     </mat-card-content>

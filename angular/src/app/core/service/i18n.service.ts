@@ -34,10 +34,12 @@ export class I18nService {
     });
   }
 
-  destroy() {
-    if (this.langChangeSubscription) {
-      this.langChangeSubscription.unsubscribe();
-    }
+  /**
+   * Gets the current language.
+   * @return The current language code.
+   */
+  get language(): string {
+    return this.translateService.currentLang;
   }
 
   /**
@@ -71,12 +73,10 @@ export class I18nService {
     this.translateService.use(language);
   }
 
-  /**
-   * Gets the current language.
-   * @return The current language code.
-   */
-  get language(): string {
-    return this.translateService.currentLang;
+  destroy() {
+    if (this.langChangeSubscription) {
+      this.langChangeSubscription.unsubscribe();
+    }
   }
 
 }

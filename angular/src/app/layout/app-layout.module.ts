@@ -25,4 +25,5 @@ import { StickyHeaderToggleComponent } from './components/sticky-header-toggle/s
     SharedModule,
   ]
 })
-export class AppLayoutModule { }
+export class AppLayoutModule {
+}

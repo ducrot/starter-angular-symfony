@@ -1,35 +1,36 @@
-
-
-<mat-toolbar [style.position]="(stickyHeader$ | async) ? 'fixed' : 'inherit'" [class.mat-elevation-z4]="(stickyHeader$ | async)">
+<mat-toolbar [class.mat-elevation-z4]="(stickyHeader$ | async)"
+             [style.position]="(stickyHeader$ | async) ? 'fixed' : 'inherit'">
 
   <div class="container" fxLayout="row">
 
-    <a routerLink="/" class="brand" fxFlex="1 1 auto" fxLayout="row" fxLayoutAlign="flex-start center">
-      <img [src]="logo" class="logo" alt="{{ companyName }}">
+    <a class="brand" fxFlex="1 1 auto" fxLayout="row" fxLayoutAlign="flex-start center" routerLink="/">
+      <img [src]="logo" alt="{{ companyName }}" class="logo">
       <span>{{ appName }}</span>
     </a>
 
     <div fxLayoutAlign="flex-end center">
 
-      <div fxShow="true" fxHide.lt-md>
-        <a routerLink="/features"
-           routerLinkActive="mat-flat-button"
-           mat-button>{{ 'app.menu.features' | translate }}</a>
+      <div fxHide.lt-md fxShow="true">
+        <a mat-button
+           routerLink="/features"
+           routerLinkActive="mat-flat-button">{{ 'app.menu.features' | translate }}</a>
 
-        <a routerLink="/authenticated"
-           routerLinkActive="mat-flat-button"
+        <a [disabled]="!(authService.isAuthenticated)"
            mat-button
-           [disabled]="!(authService.isAuthenticated)">{{ 'app.menu.authenticated' | translate }}</a>
+           routerLink="/authenticated"
+           routerLinkActive="mat-flat-button">{{ 'app.menu.authenticated' | translate }}</a>
       </div>
 
-      <div fxShow="true" fxHide.lt-md *ngIf="authService.isAuthenticated">
-        <a routerLink="/admin"
-           routerLinkActive="mat-flat-button"
+      <div *ngIf="authService.isAuthenticated" fxHide.lt-md fxShow="true">
+        <a *ngIf="authService.isAdmin"
            mat-button
-           *ngIf="authService.isAdmin">{{ 'app.menu.admin' | translate }}</a>
+           routerLink="/admin"
+           routerLinkActive="mat-flat-button">{{ 'app.menu.admin' | translate }}</a>
       </div>
 
-      <button mat-button [matMenuTriggerFor]="configMenu" fxHide.lt-md><fa-icon icon="sliders-h"></fa-icon></button>
+      <button [matMenuTriggerFor]="configMenu" fxHide.lt-md mat-button>
+        <fa-icon icon="sliders-h"></fa-icon>
+      </button>
       <mat-menu #configMenu="matMenu" yPosition="above">
         <app-theme-toggle [label]="'app.menu.darkmode' | translate"></app-theme-toggle>
         <app-sticky-header-toggle [label]="'app.menu.stickyheader' | translate"></app-sticky-header-toggle>
@@ -38,19 +39,19 @@
       <app-language fxHide.lt-md></app-language>
 
       <div class="auth">
-        <button routerLink="/auth/login"
+        <button *ngIf="!(authService.isAuthenticated)"
+                color="accent"
                 mat-raised-button
-                color="accent"
-                *ngIf="!(authService.isAuthenticated)">{{ 'app.menu.login' | translate }}</button>
+                routerLink="/auth/login">{{ 'app.menu.login' | translate }}</button>
 
-        <button routerLink="/auth/logout"
-                (click)="onLogoutClick($event)"
-                mat-stroked-button
+        <button (click)="onLogoutClick($event)"
+                *ngIf="(authService.isAuthenticated)"
                 color="accent"
-                *ngIf="(authService.isAuthenticated)">{{ 'app.menu.logout' | translate }}</button>
+                mat-stroked-button
+                routerLink="/auth/logout">{{ 'app.menu.logout' | translate }}</button>
       </div>
 
-      <button mat-icon-button (click)="toggleSidenav.emit()" fxShow="true" fxHide.gt-sm>
+      <button (click)="toggleSidenav.emit()" fxHide.gt-sm fxShow="true" mat-icon-button>
         <fa-icon class="bars" icon="bars"></fa-icon>
       </button>
 

@@ -1,18 +1,16 @@
-import {Injectable} from '@angular/core';
-import {ActivatedRoute, NavigationExtras, Router} from '@angular/router';
+import { Injectable } from '@angular/core';
+import { ActivatedRoute, NavigationExtras, Router } from '@angular/router';
 
 @Injectable({
   providedIn: 'root'
 })
 export class AuthenticationRoutingService {
 
-  constructor(private router: Router) {
-  }
-
-
   private readonly homeUrl = '/';
   private readonly loginUrl = '/auth/login';
 
+  constructor(private router: Router) {
+  }
 
   onNotAuthenticated(backUrl?: string): void {
     const e: NavigationExtras = {

@@ -1,1 +1,2 @@
-<mat-slide-toggle [checked]="isStickyHeader$ | async" (change)="toggleStickyHeader($event.checked)">{{ label }}</mat-slide-toggle>
+<mat-slide-toggle (change)="toggleStickyHeader($event.checked)"
+                  [checked]="isStickyHeader$ | async">{{ label }}</mat-slide-toggle>

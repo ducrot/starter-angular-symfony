@@ -1,1 +1,1 @@
-<mat-slide-toggle [checked]="isDarkTheme$ | async" (change)="toggleTheme($event.checked)">{{ label }}</mat-slide-toggle>
+<mat-slide-toggle (change)="toggleTheme($event.checked)" [checked]="isDarkTheme$ | async">{{ label }}</mat-slide-toggle>

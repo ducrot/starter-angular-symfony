@@ -1,5 +1,3 @@
-
-
 export function bearerTokenParse(header: string | null): BearerToken | null {
   if (!header) {
     return null;

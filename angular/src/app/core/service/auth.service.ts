@@ -12,13 +12,23 @@ export class AuthService {
 
 
   readonly user$: Observable<User>;
+  // we want to prevent the user from entering a route *before* his token expires
+  private readonly sessionEagerExpirationSeconds = 10;
+  private readonly sessionKey = 'user_session';
+  private readonly userSubject = new ReplaySubject<User>(1);
 
+  constructor() {
+    this.user$ = this.userSubject;
+    const sess = this.readSession();
+    if (sess) {
+      this.userSubject.next(sess.user);
+    }
+  }
 
   get user(): User | undefined {
     const sess = this.readSession();
     return sess ? sess.user : undefined;
   }
-
 
   get state(): 'empty' | 'valid' | 'expired' {
     const sess = this.readSession();
@@ -30,7 +40,6 @@ export class AuthService {
     }
     return 'valid';
   }
-
 
   get token(): string | undefined {
     const sess = this.readSession();
@@ -44,22 +53,6 @@ export class AuthService {
   get isAdmin(): boolean {
     return this.user ? this.user.isAdmin : false;
   }
-
-
-  // we want to prevent the user from entering a route *before* his token expires
-  private readonly sessionEagerExpirationSeconds = 10;
-  private readonly sessionKey = 'user_session';
-  private readonly userSubject = new ReplaySubject<User>(1);
-
-
-  constructor() {
-    this.user$ = this.userSubject;
-    const sess = this.readSession();
-    if (sess) {
-      this.userSubject.next(sess.user);
-    }
-  }
-
 
   acceptSession(session: LoginResponse): void {
     if (session.user === undefined) {
