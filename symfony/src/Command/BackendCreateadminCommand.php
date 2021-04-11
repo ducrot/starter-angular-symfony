@@ -93,7 +93,9 @@ class BackendCreateadminCommand extends Command
         $user
             ->setUsername($username)
             ->setPassword($this->passwordEncoder->encodePassword($user, $password))
-            ->setRoles(['ROLE_ADMIN']);
+            ->setRoles(['ROLE_ADMIN'])
+            ->setCreated(new \DateTime())
+            ->setUpdated(new \DateTime());
 
         $this->userRepository->persist($user);
 
