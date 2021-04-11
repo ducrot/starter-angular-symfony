@@ -11,6 +11,8 @@ service AuthenticationService {
 
     rpc Login (LoginRequest) returns (LoginResponse);
 
+    rpc ChangePassword (ChangePasswordRequest) returns (ChangePasswordResponse);
+
 }
 
 
@@ -26,3 +28,14 @@ message LoginResponse {
     User user = 3;
 }
 
+
+message ChangePasswordRequest {
+    string currentPassword = 1;
+    string newPassword = 2;
+    string newPasswordConfirm = 3;
+}
+
+
+message ChangePasswordResponse {
+    bool valid = 1;
+}

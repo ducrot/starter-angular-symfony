@@ -4,6 +4,7 @@
     "menu": {
       "login": "Login",
       "logout": "Logout",
+      "account": "My account",
       "home": "Home",
       "legal": "Corporate Information",
       "privacy": "Privacy Notice",
@@ -66,7 +67,24 @@
       },
       "logout": {
         "title": "Hope to see you again soon!",
-        "continue": "Continue to home page..."
+        "continue": "Continue to the home page..."
+      },
+      "account": {
+        "title": "My account",
+        "username":  "Username",
+        "gender": "Gender",
+        "first_name": "First name",
+        "last_name": "Last name",
+        "change_password": "Change password",
+        "password": "Password",
+        "current_password": "Current password",
+        "new_password": "New password",
+        "new_password_confirm":  "Confirm new password",
+        "current_password_not_valid":  "Invalid current password.",
+        "new_password_is_equal_current_password": "The new password is identical to the current password",
+        "new_password_not_equal_confirm_password": "The new passwords are different",
+        "new_password_bad_password_strength": "The new password must be at least 8 characters long and contain one letter, one number and one special character.",
+        "password_changed": "The password has been changed."
       }
     },
     "authenticated": {

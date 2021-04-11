@@ -1,8 +1,10 @@
 import { NgModule } from '@angular/core';
-import { RouterModule, Routes } from '@angular/router';
+import { Routes, RouterModule } from '@angular/router';
 
 import { LoginComponent } from './login/login.component';
 import { LogoutComponent } from './logout/logout.component';
+import { AccountComponent } from './account/account.component';
+import { AuthGuard } from '../../core/guard/auth.guard';
 
 const routes: Routes = [
   {
@@ -20,6 +22,11 @@ const routes: Routes = [
       {
         path: 'logout',
         component: LogoutComponent
+      },
+      {
+        path: 'account',
+        component: AccountComponent,
+        canActivate: [AuthGuard],
       }
     ]
   }
@@ -29,5 +36,4 @@ const routes: Routes = [
   imports: [RouterModule.forChild(routes)],
   exports: [RouterModule]
 })
-export class AuthRoutingModule {
-}
+export class AuthRoutingModule { }

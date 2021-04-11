@@ -1,0 +1,93 @@
+<!-- HEADER -->
+<div class="header mb-32"
+     fxLayout="column" fxLayout.gt-xs="row"
+     fxLayoutAlign="center center" fxLayoutAlign.gt-xs="space-between center">
+
+  <!-- PAGE TITLE -->
+  <h1 class="logo mb-24 mb-sm-0" fxLayout="row" fxLayoutAlign="start center">
+    <fa-icon class="mr-16" icon="user"></fa-icon>
+    <span>{{ 'app.auth.account.title' | translate }}</span>
+  </h1>
+  <!-- / PAGE TITLE -->
+
+</div>
+<!-- / HEADER -->
+
+<!-- DATA -->
+<mat-card *ngIf="user$ | async as user" class="mb-32">
+  <mat-list>
+    <mat-list-item>
+      <div mat-line>{{ 'app.auth.account.username' | translate }}</div>
+      <div mat-line>{{user.username}}</div>
+    </mat-list-item>
+    <mat-list-item>
+      <div mat-line>{{ 'app.auth.account.first_name' | translate }}</div>
+      <div mat-line>{{user.firstName}}</div>
+    </mat-list-item>
+    <mat-list-item>
+      <div mat-line>{{ 'app.auth.account.last_name' | translate }}</div>
+      <div mat-line>{{user.lastName}}</div>
+    </mat-list-item>
+  </mat-list>
+</mat-card>
+<!-- / DATA -->
+
+<!-- CHANGE PASSWORD -->
+<mat-accordion #changePasswordAccordion="matAccordion">
+  <mat-expansion-panel
+    (closed)="panelOpenState = false"
+    (opened)="panelOpenState = true">
+    <mat-expansion-panel-header>
+      <mat-panel-title>
+        {{ 'app.auth.account.change_password' | translate }}
+      </mat-panel-title>
+    </mat-expansion-panel-header>
+
+    <app-alert></app-alert>
+
+    <form #changePasswordForm="ngForm" (ngSubmit)="onSubmit()" [formGroup]="formGroup">
+      <p>
+        <mat-form-field appearance="fill">
+          <mat-label>{{ 'app.auth.account.current_password' | translate }}</mat-label>
+          <input autocomplete="current-password" formControlName="currentPassword" matInput type="password">
+          <mat-error *ngIf="formGroup.controls.currentPassword.hasError('required')">
+            <strong>{{ 'app.form.required' | translate }}</strong>
+          </mat-error>
+        </mat-form-field>
+      </p>
+
+      <p>
+        <mat-form-field appearance="fill">
+          <mat-label>{{ 'app.auth.account.new_password' | translate }}</mat-label>
+          <input autocomplete="new-password" formControlName="newPassword" matInput type="password">
+          <mat-error *ngIf="formGroup.controls.newPassword.hasError('required')">
+            <strong>{{ 'app.form.required' | translate }}</strong>
+          </mat-error>
+          <mat-error *ngIf="formGroup.controls.newPassword.hasError('newPasswordIsEqualCurrentPassword')">
+            <strong>{{ 'app.auth.account.new_password_is_equal_current_password' | translate }}</strong>
+          </mat-error>
+        </mat-form-field>
+      </p>
+
+      <p>
+        <mat-form-field appearance="fill">
+          <mat-label>{{ 'app.auth.account.new_password_confirm' | translate }}</mat-label>
+          <input autocomplete="new-password" formControlName="newPasswordConfirm" matInput type="password">
+          <mat-error *ngIf="formGroup.controls.newPasswordConfirm.hasError('required')">
+            <strong>{{ 'app.form.required' | translate }}</strong>
+          </mat-error>
+          <mat-error *ngIf="formGroup.controls.newPasswordConfirm.hasError('newPasswordNotEqualConfirmPassword')">
+            <strong>{{ 'app.auth.account.new_password_not_equal_confirm_password' | translate }}</strong>
+          </mat-error>
+        </mat-form-field>
+      </p>
+
+      <div class="submit">
+        <button [disabled]="!formGroup.valid" class="button" color="accent" mat-raised-button
+                type="submit">{{ 'app.auth.login.submit' | translate }}</button>
+      </div>
+    </form>
+
+  </mat-expansion-panel>
+</mat-accordion>
+<!-- / CHANGE PASSWORD -->

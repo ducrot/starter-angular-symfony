@@ -44,12 +44,17 @@
                 color="accent"
                 mat-raised-button
                 routerLink="/auth/login">{{ 'app.menu.login' | translate }}</button>
+      </div>
 
-        <button (click)="onLogoutClick($event)"
-                *ngIf="(authService.isAuthenticated)"
-                color="accent"
-                mat-stroked-button
-                routerLink="/auth/logout">{{ 'app.menu.logout' | translate }}</button>
+      <div *ngIf="(authService.isAuthenticated)" fxHide.lt-md>
+        <button mat-button [matMenuTriggerFor]="userMenu"><fa-icon icon="user"></fa-icon></button>
+        <mat-menu #userMenu="matMenu" yPosition="above">
+          <a mat-menu-item
+             routerLink="/auth/account">{{ 'app.menu.account' | translate }}</a>
+          <a mat-menu-item
+             routerLink="/auth/logout"
+             (click)="onLogoutClick($event)">{{ 'app.menu.logout' | translate }}</a>
+        </mat-menu>
       </div>
 
       <button (click)="toggleSidenav.emit()" fxHide.gt-sm fxShow="true" mat-icon-button>
