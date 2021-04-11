@@ -1,37 +1,90 @@
-<h1>{{ 'app.admin.users.title' | translate }}</h1>
+<!-- HEADER -->
+<div class="header mb-32"
+     fxLayout="column" fxLayout.gt-xs="row"
+     fxLayoutAlign="center center" fxLayoutAlign.gt-xs="space-between center">
 
-<mat-toolbar>
-  <button (click)="onCreateClick()" mat-button>Create new user</button>
+  <!-- PAGE TITLE -->
+  <h1 class="logo mb-24 mb-sm-0" fxLayout="row" fxLayoutAlign="start center">
+    <mat-icon class="mr-16" inline="true">perm_identity</mat-icon>
+    <span>{{ 'app.admin.users.title' | translate }}</span>
 
-  <div *ngIf="query.valueChange$ | async as qv">
-    <mat-button-toggle (change)=" onEnabledButtonChange(qv) " [checked]=" qv.disabled === disabledNo">
-      Enabled ({{ (response$ | async)?.status?.summary?.enabledCount }})
-    </mat-button-toggle>
-    <mat-button-toggle (change)=" onDisabledButtonChange(qv) " [checked]=" qv.disabled === disabledYes">
-      Disabled ({{ (response$ | async)?.status?.summary?.disabledCount }})
-    </mat-button-toggle>
-  </div>
-
-  <mat-form-field class="example-form-field">
-    <mat-label>Search</mat-label>
-    <input #searchInput (change)="onSearchChange(searchInput.value)" [value]=" (query.valueChange$ | async)?.searchText "
-           matInput
-           type="text">
-    <button (click)="onClearSearchButton()" *ngIf=" (query.valueChange$ | async)?.searchText.length > 0 "
-            aria-label="Clear" mat-button mat-icon-button
-            matSuffix>
-      <mat-icon>close</mat-icon>
+    <!-- CREATE BUTTON -->
+    <button (click)="onCreateClick()" class="ml-16"
+            color="accent"
+            color="accent"
+            mat-fab>
+      <mat-icon>add</mat-icon>
     </button>
-  </mat-form-field>
 
-</mat-toolbar>
+    <!-- / CREATE BUTTON -->
+  </h1>
+  <!-- / PAGE TITLE -->
 
+  <!-- SEARCH -->
+  <div class="search-wrapper ml-sm-64">
+    <div class="search" fxFlex fxLayout="row" fxLayoutAlign="start center">
+      <mat-icon>search</mat-icon>
+      <input #searchInput (change)="onSearchChange(searchInput.value)" [value]=" (query.valueChange$ | async)?.searchText "
+             matInput
+             placeholder="{{ 'app.admin.users.search' | translate }}"
+             type="text">
+      <button (click)="onClearSearchButton()" *ngIf=" (query.valueChange$ | async)?.searchText.length > 0 "
+              aria-label="Clear" mat-button mat-icon-button
+              matSuffix>
+        <mat-icon>close</mat-icon>
+      </button>
+    </div>
+  </div>
+  <!-- / SEARCH -->
 
+</div>
+<!-- / HEADER -->
+
+<!-- FILTER -->
+<mat-button-toggle-group (change)=" onDisabledFilterChange($event) " *ngIf="query.valueChange$ | async as qv" [value]="qv.disabled"
+                         class="mb-16">
+  <mat-button-toggle [value]="disabledAny">
+    {{ 'app.admin.users.filter.all' | translate }}
+  </mat-button-toggle>
+  <mat-button-toggle [value]="disabledNo">
+    {{ 'app.admin.users.filter.enabled' | translate }} ({{ (response$ | async)?.status?.summary?.enabledCount }})
+  </mat-button-toggle>
+  <mat-button-toggle [value]="disabledYes">
+    {{ 'app.admin.users.filter.disabled' | translate }} ({{ (response$ | async)?.status?.summary?.disabledCount }})
+  </mat-button-toggle>
+</mat-button-toggle-group>
+<!-- / FILTER -->
+
+<!-- DATA TABLE -->
 <ng-container *ngIf="response$ | async as response">
 
-  <div *ngFor="let item of response.items">
-    {{ item.id }} {{item.username}}
-  </div>
+  <table [dataSource]="response.items"
+         class="mat-elevation-z8"
+         mat-table>
+
+    <tr *matHeaderRowDef="columnsToDisplay"
+        mat-header-row></tr>
+
+    <tr (click)=" onEditClick(row) "
+        *matRowDef="let row; columns: columnsToDisplay"
+        mat-row></tr>
+
+    <ng-container matColumnDef="username">
+      <th *matHeaderCellDef mat-header-cell>{{ 'app.admin.users.field.username' | translate }}</th>
+      <td *matCellDef="let user" mat-cell>{{user.username}}</td>
+    </ng-container>
+
+    <ng-container matColumnDef="name">
+      <th *matHeaderCellDef mat-header-cell>{{ 'app.admin.users.field.name' | translate }}</th>
+      <td *matCellDef="let user" mat-cell>{{user.firstName}} {{user.lastName}}</td>
+    </ng-container>
+
+    <ng-container matColumnDef="lastLogin">
+      <th *matHeaderCellDef mat-header-cell>{{ 'app.admin.users.field.last_login' | translate }}</th>
+      <td *matCellDef="let user" mat-cell>{{user.lastLogin | localizedDate:'short'}}</td>
+    </ng-container>
+
+  </table>
 
   <mat-paginator (page)="onPaginatorPage($event)"
                  [length]=" response.status.count "
@@ -41,4 +94,4 @@
   </mat-paginator>
 
 </ng-container>
-
+<!-- / DATA TABLE -->

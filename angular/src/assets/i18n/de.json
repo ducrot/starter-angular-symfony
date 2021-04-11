@@ -15,8 +15,45 @@
     },
     "admin": {
       "users": {
-        "title": "Anwender"
+        "title": "Anwender",
+        "create": "Neuer Benutzer",
+        "update": "Benutzer bearbeiten",
+        "search": "Suche",
+        "filter": {
+          "all": "Alle",
+          "enabled": "Aktiviert",
+          "disabled":  "Deaktiviert"
+        },
+        "field": {
+          "username": "Benutzername",
+          "name": "Name",
+          "password": "Kennwort",
+          "gender": "Geschlecht",
+          "first_name": "Vorname",
+          "last_name": "Nachname",
+          "last_login":  "Letzte Anmeldung",
+          "admin":  "Admin"
+        }
       }
+    },
+    "enum": {
+      "gender":{
+        "none":  "ohne",
+        "female": "weiblich",
+        "male":  "männlich",
+        "misc": "divers"
+      }
+    },
+    "form": {
+      "required": "erfoderlich",
+      "invalid": "ungültig",
+      "missing_parameters": "Fehlende Parameter",
+      "error": "Bitte überprüfen Sie das Formular.",
+      "submit": "Absenden",
+      "save_success": "Daten gespeichert",
+      "invalid_format": "Ungültiges Format",
+      "fill_mandatory_field": "Füllen Sie alle Pflichtfelder (*) aus",
+      "mandatory_field": "Pflichtfeld"
     },
     "auth": {
       "login": {
@@ -25,8 +62,7 @@
         "password": "Kennwort",
         "submit": "Absenden",
         "session_expired": "Ihre Sitzung ist abgelaufen. Bitte loggen Sie sich erneut ein.",
-        "login_failed": "Benutzername oder Kennwort sind ungültig.",
-        "missing_parameter": "Benutzername oder Kennwort fehlen."
+        "login_failed": "Benutzername oder Kennwort sind ungültig."
       },
       "logout": {
         "title": "Bis zum nächsten Mal!",

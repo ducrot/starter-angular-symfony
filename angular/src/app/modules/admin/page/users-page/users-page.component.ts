@@ -1,20 +1,24 @@
 import { ChangeDetectionStrategy, Component } from '@angular/core';
 import { User } from '@pb/app/user';
 import {
-  ListRequest,
-  ListRequest_Disabled,
-  ListResponse,
+  ListUserRequest,
+  ListUserRequest_Disabled,
+  ListUserResponse,
   UserManagementServiceClient
 } from '@pb/app/user-management-service';
 import { MatDialog } from '@angular/material/dialog';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { PageEvent } from '@angular/material/paginator';
 import { from, Observable } from 'rxjs';
-import { CreateUserDialogComponent } from '@modules/admin/component/create-user-dialog/create-user-dialog.component';
+import { UserDialogComponent } from '@modules/admin/component/user-dialog/user-dialog.component';
 import { ActivatedRoute, Router } from '@angular/router';
 import { QueryMapper } from '@app/lib/query-mapper';
-import { map, shareReplay, switchMap } from 'rxjs/operators';
+import { map, shareReplay, switchMap, tap } from 'rxjs/operators';
+import { MatButtonToggleChange } from '@angular/material/button-toggle';
+import { Logger } from '@app/service/logger.service';
+import { TranslateService } from '@ngx-translate/core';
 
+const log = new Logger('UsersPageComponent');
 
 @Component({
   selector: 'app-users-page',
@@ -24,17 +28,19 @@ import { map, shareReplay, switchMap } from 'rxjs/operators';
 })
 export class UsersPageComponent {
 
-  readonly response$: Observable<ListResponse>;
+  readonly response$: Observable<ListUserResponse>;
+  readonly columnsToDisplay: string[] = ['username', 'name', 'lastLogin'];
 
-  // this thing translates between parameters in the url and a ListRequest
-  readonly query = new QueryMapper<ListRequest>(ListRequest.create({
+  // this thing translates between parameters in the url and a ListUserRequest
+  readonly query = new QueryMapper<ListUserRequest>(ListUserRequest.create({
     page: 1,
     pageSize: 10,
-    disabled: ListRequest_Disabled.NO
+    disabled: ListUserRequest_Disabled.NO
   }));
 
-  readonly disabledYes = ListRequest_Disabled.YES;
-  readonly disabledNo = ListRequest_Disabled.NO;
+  readonly disabledAny = ListUserRequest_Disabled.ANY;
+  readonly disabledYes = ListUserRequest_Disabled.YES;
+  readonly disabledNo = ListUserRequest_Disabled.NO;
 
 
   constructor(
@@ -42,17 +48,19 @@ export class UsersPageComponent {
     private readonly snackBar: MatSnackBar,
     private readonly router: Router,
     private readonly route: ActivatedRoute,
+    private translate: TranslateService,
     private readonly client: UserManagementServiceClient
   ) {
 
     // whenever the parameters in the url change, we parse them
     route.params.subscribe(pm => this.query.parse(pm));
 
-    // whenever the parsed parameters lead to a different ListRequest,
+    // whenever the parsed parameters lead to a different ListUserRequest,
     // we execute that request, so the display updates.
     this.response$ = this.query.valueChange$.pipe(
       switchMap(request => from(client.list(request))),
       map(finishedCall => finishedCall.response),
+      tap(x => log.debug('ListUserResponse:', x)),
       shareReplay(1)
     );
 
@@ -68,10 +76,35 @@ export class UsersPageComponent {
 
 
   async onCreateClick() {
-    const dialogRef = this.matDialog.open(CreateUserDialogComponent);
+    const dialogRef = this.matDialog.open(UserDialogComponent, {
+      panelClass: 'user-dialog',
+      data: {
+        action: 'create'
+      }
+    });
     const user = await dialogRef.afterClosed().toPromise() as User | undefined;
     if (user) {
-      this.snackBar.open(`User "${user.username}" created.`);
+      this.translate.get('app.form.save_success').subscribe((res: string) => {
+        this.snackBar.open(res);
+      });
+      // url parameters did not change, but we want to refresh the list anyway
+      this.query.forceValueChange();
+    }
+  }
+
+  async onEditClick(row: User) {
+    const dialogRef = this.matDialog.open(UserDialogComponent, {
+      panelClass: 'user-dialog',
+      data: {
+        user: row,
+        action: 'update'
+      }
+    });
+    const user = await dialogRef.afterClosed().toPromise() as User | undefined;
+    if (user) {
+      this.translate.get('app.form.save_success').subscribe((res: string) => {
+        this.snackBar.open(res);
+      });
       // url parameters did not change, but we want to refresh the list anyway
       this.query.forceValueChange();
     }
@@ -85,32 +118,36 @@ export class UsersPageComponent {
   }
 
 
-  onEnabledButtonChange(request: ListRequest) {
+  onEnabledButtonChange(request: ListUserRequest) {
     switch (request.disabled) {
-      case ListRequest_Disabled.YES:
-        this.query.update({disabled: ListRequest_Disabled.NO, page: 1});
+      case ListUserRequest_Disabled.YES:
+        this.query.update({disabled: ListUserRequest_Disabled.NO, page: 1});
         break;
-      case ListRequest_Disabled.NO:
-        this.query.update({disabled: ListRequest_Disabled.ANY});
+      case ListUserRequest_Disabled.NO:
+        this.query.update({disabled: ListUserRequest_Disabled.ANY});
         break;
-      case ListRequest_Disabled.ANY:
-        this.query.update({disabled: ListRequest_Disabled.NO, page: 1});
+      case ListUserRequest_Disabled.ANY:
+        this.query.update({disabled: ListUserRequest_Disabled.NO, page: 1});
         break;
     }
   }
 
-  onDisabledButtonChange(request: ListRequest) {
+  onDisabledButtonChange(request: ListUserRequest) {
     switch (request.disabled) {
-      case ListRequest_Disabled.YES:
-        this.query.update({disabled: ListRequest_Disabled.ANY});
+      case ListUserRequest_Disabled.YES:
+        this.query.update({disabled: ListUserRequest_Disabled.ANY});
         break;
-      case ListRequest_Disabled.NO:
-        this.query.update({disabled: ListRequest_Disabled.YES, page: 1});
+      case ListUserRequest_Disabled.NO:
+        this.query.update({disabled: ListUserRequest_Disabled.YES, page: 1});
         break;
-      case ListRequest_Disabled.ANY:
-        this.query.update({disabled: ListRequest_Disabled.YES, page: 1});
+      case ListUserRequest_Disabled.ANY:
+        this.query.update({disabled: ListUserRequest_Disabled.YES, page: 1});
         break;
     }
+  }
+
+  onDisabledFilterChange(change: MatButtonToggleChange) {
+    this.query.update({disabled: change.value, page: 1});
   }
 
   onClearSearchButton() {

@@ -21,11 +21,12 @@
            routerLinkActive="mat-flat-button">{{ 'app.menu.authenticated' | translate }}</a>
       </div>
 
-      <div *ngIf="authService.isAuthenticated" fxHide.lt-md fxShow="true">
-        <a *ngIf="authService.isAdmin"
-           mat-button
-           routerLink="/admin"
-           routerLinkActive="mat-flat-button">{{ 'app.menu.admin' | translate }}</a>
+      <div *ngIf="authService.isAuthenticated && authService.isAdmin" fxHide.lt-md fxShow="true">
+        <button mat-button [matMenuTriggerFor]="adminMenu">{{ 'app.menu.admin' | translate }}</button>
+        <mat-menu #adminMenu="matMenu" yPosition="above">
+          <a mat-menu-item
+             routerLink="/admin/users">{{ 'app.admin.users.title' | translate }}</a>
+        </mat-menu>
       </div>
 
       <button [matMenuTriggerFor]="configMenu" fxHide.lt-md mat-button>

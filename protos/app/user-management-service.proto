@@ -3,44 +3,57 @@ syntax = "proto3";
 package app;
 option php_generic_services = true;
 
+import "app/gender.proto";
 import "app/user.proto";
 import "common/list-status.proto";
 
 
 service UserManagementService {
 
-    rpc Create (CreateRequest) returns (CreateResponse);
+    rpc Create (CreateUserRequest) returns (CreateUserResponse);
 
-    rpc Update (UpdateRequest) returns (UpdateResponse);
+    rpc Update (UpdateUserRequest) returns (UpdateUserResponse);
 
-    rpc List (ListRequest) returns (ListResponse);
+    rpc List (ListUserRequest) returns (ListUserResponse);
 
 }
 
 
-message CreateRequest {
+message CreateUserRequest {
     string username = 1;
     string password = 2;
-    bool is_admin = 3;
+    string first_name = 3;
+    string last_name = 4;
+    Gender gender = 5;
+    bool is_admin = 6;
 }
 
 
-message CreateResponse {
+message CreateUserResponse {
     app.User user = 1;
 }
 
 
-message UpdateRequest {
+message UpdateUserRequest {
+    string id = 1;
+    string username = 2;
+    string password = 3;
+    string password_repeat = 4;
+    string password_confirmation = 5;
+    repeated string roles = 6;
+    string first_name = 7;
+    string last_name = 8;
+    Gender gender = 9;
+    bool is_admin = 10;
+}
+
+
+message UpdateUserResponse {
     app.User user = 1;
 }
 
 
-message UpdateResponse {
-    app.User user = 1;
-}
-
-
-message ListRequest {
+message ListUserRequest {
     string search_text = 1;
     Disabled disabled = 2;
     int32 page = 3;
@@ -54,7 +67,7 @@ message ListRequest {
 }
 
 
-message ListResponse {
+message ListUserResponse {
     repeated app.User items = 1;
     common.ListStatus status = 2;
 }

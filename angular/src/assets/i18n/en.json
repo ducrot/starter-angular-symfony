@@ -15,8 +15,45 @@
     },
     "admin": {
       "users": {
-        "title": "Users"
+        "title": "Users",
+        "create": "New User",
+        "update": "Edit User",
+        "search": "Search",
+        "filter": {
+          "all": "All",
+          "enabled": "Enabled",
+          "disabled":  "Disabled"
+        },
+        "field": {
+          "username": "Username",
+          "name": "Name",
+          "password": "Password",
+          "gender": "Gender",
+          "first_name": "First name",
+          "last_name": "Last name",
+          "last_login":  "Last Login",
+          "admin":  "Admin"
+        }
       }
+    },
+    "enum": {
+      "gender":{
+        "none":  "none",
+        "female": "female",
+        "male":  "male",
+        "misc": "misc"
+      }
+    },
+    "form": {
+      "required": "required",
+      "invalid": "invalid",
+      "missing_parameters": "Missing parameters",
+      "submit": "Submit",
+      "error": "Please check the form.",
+      "save_success": "Data saved",
+      "invalid_format": "Invalid format",
+      "fill_mandatory_field": "Fill in all mandatory fields (*)",
+      "mandatory_field": "Mandatory field"
     },
     "auth": {
       "login": {
@@ -25,8 +62,7 @@
         "password": "Password",
         "submit": "Submit",
         "session_expired": "Your session has expired. Please login again.",
-        "login_failed": "Wrong username or password.",
-        "missing_parameter": "Username or password missing."
+        "login_failed": "Wrong username or password."
       },
       "logout": {
         "title": "Hope to see you again soon!",

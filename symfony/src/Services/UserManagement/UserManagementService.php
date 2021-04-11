@@ -1,74 +1,88 @@
 <?php
-
+declare(strict_types=1);
 
 namespace App\Services\UserManagement;
 
 
-use App\CreateRequest;
-use App\CreateResponse;
+use App\CreateUserRequest;
+use App\CreateUserResponse;
 use App\Entity\User;
-use App\ListRequest;
-use App\ListResponse;
-use SymfonyTwirpHandler\TwirpError;
-use App\UpdateRequest;
-use App\UpdateResponse;
+use App\ListUserRequest;
+use App\ListUserResponse;
+use App\UpdateUserRequest;
+use App\UpdateUserResponse;
 use App\UserManagementServiceInterface;
-use Psr\Log\LoggerInterface;
+use SymfonyTwirpHandler\TwirpError;
 
 class UserManagementService implements UserManagementServiceInterface
 {
 
-
     private UserListBuilder $listBuilder;
-    private UserCreator $creator;
-    private LoggerInterface $logger;
+    private UserDto $userDto;
 
-
-    public function __construct(UserListBuilder $listBuilder, UserCreator $creator, LoggerInterface $logger)
+    public function __construct(UserListBuilder $listBuilder, UserDto $userDto)
     {
         $this->listBuilder = $listBuilder;
-        $this->creator = $creator;
-        $this->logger = $logger;
+        $this->userDto = $userDto;
     }
 
-
-    public function create(CreateRequest $request): CreateResponse
+    public function create(CreateUserRequest $request): CreateUserResponse
     {
-        $this->creator->reset();
-        $this->creator->setUsername($request->getUsername());
-        $this->creator->setPassword($request->getPassword());
-        $this->creator->setAdmin($request->getIsAdmin());
+        $this->userDto->reset();
+        $this->userDto->create();
+        $this->userDto->setUsername($request->getUsername());
+        $this->userDto->setPassword($request->getPassword());
+        $this->userDto->setFirstName($request->getFirstName());
+        $this->userDto->setLastName($request->getLastName());
+        $this->userDto->setGender($request->getGender());
+        $this->userDto->setAdmin($request->getIsAdmin());
 
-        if ($this->creator->create()) {
-            $response = new CreateResponse();
+        if ($this->userDto->save()) {
+            $response = new CreateUserResponse();
             $response->setUser(
-                $this->creator->getUser()->toProtobuf()
+                $this->userDto->getUser()->toProtobuf()
             );
             return $response;
         }
 
-        $e = $this->creator->getErrors()->get(0);
-        $msg = $e->getPropertyPath() . ': ' . $e->getMessage() . " " . $e->getInvalidValue();
-        throw new TwirpError($msg, TwirpError::INVALID_ARGUMENT);
+        throw new TwirpError($this->getErrorMessage(), TwirpError::INVALID_ARGUMENT);
     }
 
-
-    public function update(UpdateRequest $request): UpdateResponse
+    public function update(UpdateUserRequest $request): UpdateUserResponse
     {
-        throw new TwirpError("not implemented", TwirpError::UNIMPLEMENTED);
+        $this->userDto->reset();
+        $this->userDto->load($request->getId());
+        $this->userDto->setUsername($request->getUsername());
+        $this->userDto->setFirstName($request->getFirstName());
+        $this->userDto->setLastName($request->getLastName());
+        $this->userDto->setGender($request->getGender());
+        $this->userDto->setAdmin($request->getIsAdmin());
+
+        if ($this->userDto->save()) {
+            $response = new UpdateUserResponse();
+            $response->setUser(
+                $this->userDto->getUser()->toProtobuf()
+            );
+            return $response;
+        }
+
+        throw new TwirpError($this->getErrorMessage(), TwirpError::INVALID_ARGUMENT);
     }
 
+//    public function delete(DeleteRequest $request): DeleteResponse
+//    {
+//        throw new LogicException('not implemented');
+//    }
 
-    public function list(ListRequest $request): ListResponse
+    public function list(ListUserRequest $request): ListUserResponse
     {
-
         $this->listBuilder->reset();
         $this->listBuilder->search = $request->getSearchText();
         switch ($request->getDisabled()) {
-            case ListRequest\Disabled::YES:
+            case ListUserRequest\Disabled::YES:
                 $this->listBuilder->disabled = true;
                 break;
-            case ListRequest\Disabled::NO:
+            case ListUserRequest\Disabled::NO:
                 $this->listBuilder->disabled = false;
                 break;
             default:
@@ -83,7 +97,7 @@ class UserManagementService implements UserManagementServiceInterface
         }
 
 
-        $response = new ListResponse();
+        $response = new ListUserResponse();
         $response->setStatus(
             $this->listBuilder->getStatus()
         );
@@ -92,6 +106,16 @@ class UserManagementService implements UserManagementServiceInterface
         );
 
         return $response;
+    }
+
+    public function getErrorMessage()
+    {
+        $error = $this->userDto->getErrors()->get(0);
+        return sprintf(
+            '%s%s',
+            $error->getMessage(),
+            in_array($error->getPropertyPath(), ['password', 'password_repeat', 'password_confirm']) ? '' : (' ' . $error->getInvalidValue())
+        );
     }
 
 }

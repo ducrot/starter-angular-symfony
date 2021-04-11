@@ -1,0 +1,76 @@
+<div class="dialog-content-wrapper">
+
+  <mat-toolbar class="mat-accent m-0" matDialogTitle>
+    <mat-toolbar-row fxLayout="row" fxLayoutAlign="space-between center">
+      <span class="title dialog-title">{{ dialogTitle | translate }}</span>
+      <button (click)="dialogRef.close()" aria-label="Close dialog" mat-icon-button>
+        <mat-icon>close</mat-icon>
+      </button>
+    </mat-toolbar-row>
+  </mat-toolbar>
+
+
+  <div class="p-24 pb-0 m-0" mat-dialog-content>
+
+    <form [formGroup]="formGroup" class="form">
+
+      <mat-form-field class="full-width">
+        <mat-label>{{ 'app.admin.users.field.username' | translate }}</mat-label>
+        <input formControlName="username" matInput required>
+        <mat-error
+          *ngIf="formGroup.controls.username.hasError('email')">{{ 'app.form.invalid' | translate }}</mat-error>
+        <mat-error
+          *ngIf="formGroup.controls.username.hasError('required')">{{ 'app.form.required' | translate }}</mat-error>
+      </mat-form-field>
+
+      <mat-form-field *ngIf="action === 'create'" class="full-width">
+        <mat-label>{{ 'app.admin.users.field.password' | translate }}</mat-label>
+        <input formControlName="password" matInput required type="password">
+        <mat-error
+          *ngIf="formGroup.controls.password.hasError('required')">{{ 'app.form.required' | translate }}</mat-error>
+      </mat-form-field>
+
+      <p>
+        <mat-radio-group formControlName="gender" required>
+          <mat-label>{{ 'app.admin.users.field.gender' | translate }}</mat-label>
+          <mat-radio-button [value]="gender.NONE">{{ 'app.enum.gender.none' | translate }}</mat-radio-button>
+          <mat-radio-button [value]="gender.FEMALE">{{ 'app.enum.gender.female' | translate }}</mat-radio-button>
+          <mat-radio-button [value]="gender.MALE">{{ 'app.enum.gender.male' | translate }}</mat-radio-button>
+          <mat-radio-button [value]="gender.MISC">{{ 'app.enum.gender.misc' | translate }}</mat-radio-button>
+        </mat-radio-group>
+        <mat-error
+          *ngIf="formGroup.controls.gender.hasError('required')">{{ 'app.form.required' | translate }}</mat-error>
+      </p>
+
+      <mat-form-field class="full-width">
+        <mat-label>{{ 'app.admin.users.field.first_name' | translate }}</mat-label>
+        <input formControlName="firstName" matInput>
+        <mat-error
+          *ngIf="formGroup.controls.firstName.hasError('required')">{{ 'app.form.required' | translate }}</mat-error>
+      </mat-form-field>
+
+      <mat-form-field class="full-width">
+        <mat-label>{{ 'app.admin.users.field.last_name' | translate }}</mat-label>
+        <input formControlName="lastName" matInput>
+        <mat-error
+          *ngIf="formGroup.controls.lastName.hasError('required')">{{ 'app.form.required' | translate }}</mat-error>
+      </mat-form-field>
+
+      <div class="full-width">
+        <mat-checkbox formControlName="isAdmin">{{ 'app.admin.users.field.admin' | translate }}</mat-checkbox>
+      </div>
+
+    </form>
+
+  </div>
+
+  <div class="m-0 p-16" fxLayout="row" fxLayoutAlign="end center" mat-dialog-actions>
+
+    <button (click)="onCreateSubmitClick()" *ngIf="action === 'create'" color="accent"
+            mat-raised-button>{{ 'app.form.submit' | translate }}</button>
+
+    <button (click)="onUpdateSubmitClick()" *ngIf="action === 'update'" color="accent"
+            mat-raised-button>{{ 'app.form.submit' | translate }}</button>
+
+  </div>
+</div>

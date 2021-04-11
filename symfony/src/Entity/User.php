@@ -14,7 +14,6 @@ use Symfony\Component\Validator\Constraints as Assert;
 
 /**
  * @ORM\Entity(repositoryClass="App\Repository\UserRepository")
- * @UniqueEntity(fields={"username", "id"}, repositoryMethod="checkUniqueEmail", message="Die E-Mail-Adresse ist schon vergeben.")
  * @ORM\HasLifecycleCallbacks()
  */
 class User implements UserInterface
@@ -49,9 +48,8 @@ class User implements UserInterface
     /**
      * @var string
      * @ORM\Column(type="string", length=100)
-     * @Assert\NotBlank(message="Kennwort mit mindestens 10 Zeichen muss eingegeben werden.")
      * @Assert\Length(max=4096)
-     * @RollerworksPassword\PasswordRequirements(minLength=10, requireLetters=true, requireNumbers=true, requireSpecialCharacter=true)
+     * @RollerworksPassword\PasswordRequirements(minLength=8, requireLetters=true, requireNumbers=true, requireSpecialCharacter=true)
      */
     private $password;
 
@@ -118,18 +116,6 @@ class User implements UserInterface
      * @ORM\Column(type="datetime", nullable=true)
      */
     private $lastLogin;
-
-
-    /**
-     * New record (INSERT)
-     *
-     * @ORM\PrePersist
-     */
-    public function onPrePersist()
-    {
-        $this->created = $this->created ?: new \DateTime();
-        $this->updated = $this->updated ?: $this->created;
-    }
 
     /**
      * Update record (UPDATE)
