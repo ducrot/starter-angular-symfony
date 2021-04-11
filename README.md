@@ -2,11 +2,11 @@ starter-angular-symfony
 =======================
 
 
-# features
+## features
 
 - authentication via JWT, login, logout, session expiration support
 - angular production builds delivered by symfony (with proper caching)
-- all data exchange between server and frontend uses [Twirp](https://twitchtv.github.io/twirp/docs/intro.html)
+- all data exchange between server and frontend uses [Twirp](https://twitchtv.github.io/twirp/docs/intro.html) and [Protocol buffers](https://developers.google.com/protocol-buffers)
 - automatic formatting of exceptions for angular client (stack traces if symfony debug = true)
 - each request is tagged with a unique id, id is logged with every log record, delivered to client
 
@@ -15,15 +15,15 @@ starter-angular-symfony
 
 ```shell script
 # Clone with SSH
-git clone --depth=1 git@git.ducrot.de:websolutions/starter-angular-symfony.git my-project
+git clone git@github.com:ducrot/starter-gulp-html.git my-project
 # Clone with HTTPS
-git clone --depth=1 https://git.ducrot.de/mediatoolbox/alko.git my-project
-cd !$
+git clone https://github.com/ducrot/starter-angular-symfony.git my-project
+cd my-project
 make install
 ```
 
 
-# protobuf and twirp
+## protobuf and twirp
 
 For exchanging data between server and frontend, [Twirp](https://twitchtv.github.io/twirp/docs/intro.html)
 is used. It is a very simple protocol based on HTTP/1 that serializes all data 
@@ -51,7 +51,7 @@ To add a new service:
   your choice. See `shared.module.ts` for examples. 
 
 
-# symfony
+## symfony
 
 The symfony part is located in the `symfony` directory. 
 
@@ -91,7 +91,7 @@ symfony console hautelook:fixtures:load
 ```
 
 
-# angular
+## angular
 
 The angular part is located in the `angular` directory. 
 
@@ -109,7 +109,7 @@ node_modules/.bin/ng serve
 If your have the angular CLI globally installed, you can simply run `ng serve`.
 
 
-# production builds
+## production builds
 
 Make angular production build: 
 
@@ -120,7 +120,7 @@ node_modules/.bin/ng build --prod --deleteOutputPath=false
 Production builds are automatically delivered by symfony. See FrontendController.php.
 
 
-# testing
+## testing
 
 ```shell script
 # run all tests of the application
@@ -132,3 +132,10 @@ php bin/phpunit tests/Foo
 # Run all tests in the Foo class 
 php bin/phpunit tests/Foo/FooTest.php
 ```
+
+
+## credits
+
+- The ACME logo was created by [Acme Logos - Professional Placeholder Logos](http://acmelogos.com/).
+- Used ideas on best practices from [Angular Folder Structure](https://github.com/mathisGarberg/angular-folder-structure).
+- Special thanks for the support and the fantastic protobuf-ts goes to [timostamm/protobuf-ts](https://github.com/timostamm/protobuf-ts).
