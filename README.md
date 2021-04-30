@@ -15,7 +15,7 @@ starter-angular-symfony
 
 ```shell script
 # Clone with SSH
-git clone git@github.com:ducrot/starter-gulp-html.git my-project
+git clone git@github.com:ducrot/starter-angular-symfony.git my-project
 # Clone with HTTPS
 git clone https://github.com/ducrot/starter-angular-symfony.git my-project
 cd my-project
