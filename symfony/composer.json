@@ -1,7 +1,7 @@
 {
     "name": "starter/symfony",
+    "description": "A best practice project with Angular powered by Symfony",
     "type": "project",
-
     "require": {
         "php": "^7.4",
         "ext-ctype": "*",
