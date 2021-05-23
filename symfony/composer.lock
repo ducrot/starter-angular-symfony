@@ -81,16 +81,16 @@
         },
         {
             "name": "doctrine/annotations",
-            "version": "1.13.0",
+            "version": "1.13.1",
             "source": {
                 "type": "git",
                 "url": "https://github.com/doctrine/annotations.git",
-                "reference": "03cb2123a67d4be806554fe670d0adc298199808"
+                "reference": "e6e7b7d5b45a2f2abc5460cc6396480b2b1d321f"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/doctrine/annotations/zipball/03cb2123a67d4be806554fe670d0adc298199808",
-                "reference": "03cb2123a67d4be806554fe670d0adc298199808",
+                "url": "https://api.github.com/repos/doctrine/annotations/zipball/e6e7b7d5b45a2f2abc5460cc6396480b2b1d321f",
+                "reference": "e6e7b7d5b45a2f2abc5460cc6396480b2b1d321f",
                 "shasum": ""
             },
             "require": {
@@ -103,7 +103,7 @@
                 "doctrine/cache": "^1.11 || ^2.0",
                 "doctrine/coding-standard": "^6.0 || ^8.1",
                 "phpstan/phpstan": "^0.12.20",
-                "phpunit/phpunit": "^7.5 || ^9.1.5",
+                "phpunit/phpunit": "^7.5 || ^8.0 || ^9.1.5",
                 "symfony/cache": "^4.4 || ^5.2"
             },
             "type": "library",
@@ -147,22 +147,22 @@
             ],
             "support": {
                 "issues": "https://github.com/doctrine/annotations/issues",
-                "source": "https://github.com/doctrine/annotations/tree/1.13.0"
+                "source": "https://github.com/doctrine/annotations/tree/1.13.1"
             },
-            "time": "2021-04-29T07:39:39+00:00"
+            "time": "2021-05-16T18:07:53+00:00"
         },
         {
             "name": "doctrine/cache",
-            "version": "1.11.0",
+            "version": "1.11.2",
             "source": {
                 "type": "git",
                 "url": "https://github.com/doctrine/cache.git",
-                "reference": "a9c1b59eba5a08ca2770a76eddb88922f504e8e0"
+                "reference": "9c53086695937c50c47936ed86d96150ffbcf60d"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/doctrine/cache/zipball/a9c1b59eba5a08ca2770a76eddb88922f504e8e0",
-                "reference": "a9c1b59eba5a08ca2770a76eddb88922f504e8e0",
+                "url": "https://api.github.com/repos/doctrine/cache/zipball/9c53086695937c50c47936ed86d96150ffbcf60d",
+                "reference": "9c53086695937c50c47936ed86d96150ffbcf60d",
                 "shasum": ""
             },
             "require": {
@@ -232,7 +232,7 @@
             ],
             "support": {
                 "issues": "https://github.com/doctrine/cache/issues",
-                "source": "https://github.com/doctrine/cache/tree/1.11.0"
+                "source": "https://github.com/doctrine/cache/tree/1.11.2"
             },
             "funding": [
                 {
@@ -248,7 +248,7 @@
                     "type": "tidelift"
                 }
             ],
-            "time": "2021-04-13T14:46:17+00:00"
+            "time": "2021-05-20T14:57:29+00:00"
         },
         {
             "name": "doctrine/collections",
@@ -1595,22 +1595,22 @@
         },
         {
             "name": "friendsofphp/proxy-manager-lts",
-            "version": "v1.0.3",
+            "version": "v1.0.5",
             "source": {
                 "type": "git",
                 "url": "https://github.com/FriendsOfPHP/proxy-manager-lts.git",
-                "reference": "121af47c9aee9c03031bdeca3fac0540f59aa5c3"
+                "reference": "006aa5d32f887a4db4353b13b5b5095613e0611f"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/FriendsOfPHP/proxy-manager-lts/zipball/121af47c9aee9c03031bdeca3fac0540f59aa5c3",
-                "reference": "121af47c9aee9c03031bdeca3fac0540f59aa5c3",
+                "url": "https://api.github.com/repos/FriendsOfPHP/proxy-manager-lts/zipball/006aa5d32f887a4db4353b13b5b5095613e0611f",
+                "reference": "006aa5d32f887a4db4353b13b5b5095613e0611f",
                 "shasum": ""
             },
             "require": {
                 "laminas/laminas-code": "~3.4.1|^4.0",
                 "php": ">=7.1",
-                "symfony/filesystem": "^4.4.17|^5.0"
+                "symfony/filesystem": "^4.4.17|^5.0|^6.0"
             },
             "conflict": {
                 "laminas/laminas-stdlib": "<3.2.1",
@@ -1621,7 +1621,7 @@
             },
             "require-dev": {
                 "ext-phar": "*",
-                "symfony/phpunit-bridge": "^5.2"
+                "symfony/phpunit-bridge": "^5.2|^6.0"
             },
             "type": "library",
             "extra": {
@@ -1661,7 +1661,7 @@
             ],
             "support": {
                 "issues": "https://github.com/FriendsOfPHP/proxy-manager-lts/issues",
-                "source": "https://github.com/FriendsOfPHP/proxy-manager-lts/tree/v1.0.3"
+                "source": "https://github.com/FriendsOfPHP/proxy-manager-lts/tree/v1.0.5"
             },
             "funding": [
                 {
@@ -1673,7 +1673,7 @@
                     "type": "tidelift"
                 }
             ],
-            "time": "2021-01-14T21:52:44+00:00"
+            "time": "2021-05-22T16:11:15+00:00"
         },
         {
             "name": "google/protobuf",
@@ -2341,16 +2341,16 @@
         },
         {
             "name": "rollerworks/password-strength-validator",
-            "version": "v1.3.3",
+            "version": "v1.3.4",
             "source": {
                 "type": "git",
                 "url": "https://github.com/rollerworks/PasswordStrengthValidator.git",
-                "reference": "9c3dde3ca652ad29c11bbf1293a5f6121f9606ba"
+                "reference": "8d54b8735131d27c829e5f83ef01bc922ef71d49"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/rollerworks/PasswordStrengthValidator/zipball/9c3dde3ca652ad29c11bbf1293a5f6121f9606ba",
-                "reference": "9c3dde3ca652ad29c11bbf1293a5f6121f9606ba",
+                "url": "https://api.github.com/repos/rollerworks/PasswordStrengthValidator/zipball/8d54b8735131d27c829e5f83ef01bc922ef71d49",
+                "reference": "8d54b8735131d27c829e5f83ef01bc922ef71d49",
                 "shasum": ""
             },
             "require": {
@@ -2405,9 +2405,9 @@
             ],
             "support": {
                 "issues": "https://github.com/rollerworks/PasswordStrengthValidator/issues",
-                "source": "https://github.com/rollerworks/PasswordStrengthValidator/tree/v1.3.3"
+                "source": "https://github.com/rollerworks/PasswordStrengthValidator/tree/v1.3.4"
             },
-            "time": "2021-05-07T10:45:16+00:00"
+            "time": "2021-05-19T08:54:01+00:00"
         },
         {
             "name": "sensio/framework-extra-bundle",
@@ -3517,16 +3517,16 @@
         },
         {
             "name": "symfony/flex",
-            "version": "v1.12.2",
+            "version": "v1.13.3",
             "source": {
                 "type": "git",
                 "url": "https://github.com/symfony/flex.git",
-                "reference": "e472606b4b3173564f0edbca8f5d32b52fc4f2c9"
+                "reference": "2597d0dda8042c43eed44a9cd07236b897e427d7"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/symfony/flex/zipball/e472606b4b3173564f0edbca8f5d32b52fc4f2c9",
-                "reference": "e472606b4b3173564f0edbca8f5d32b52fc4f2c9",
+                "url": "https://api.github.com/repos/symfony/flex/zipball/2597d0dda8042c43eed44a9cd07236b897e427d7",
+                "reference": "2597d0dda8042c43eed44a9cd07236b897e427d7",
                 "shasum": ""
             },
             "require": {
@@ -3543,7 +3543,7 @@
             "type": "composer-plugin",
             "extra": {
                 "branch-alias": {
-                    "dev-main": "1.12-dev"
+                    "dev-main": "1.13-dev"
                 },
                 "class": "Symfony\\Flex\\Flex"
             },
@@ -3565,7 +3565,7 @@
             "description": "Composer plugin for Symfony",
             "support": {
                 "issues": "https://github.com/symfony/flex/issues",
-                "source": "https://github.com/symfony/flex/tree/v1.12.2"
+                "source": "https://github.com/symfony/flex/tree/v1.13.3"
             },
             "funding": [
                 {
@@ -3581,7 +3581,7 @@
                     "type": "tidelift"
                 }
             ],
-            "time": "2021-02-16T14:05:05+00:00"
+            "time": "2021-05-19T07:19:15+00:00"
         },
         {
             "name": "symfony/framework-bundle",
@@ -7276,16 +7276,16 @@
         },
         {
             "name": "symfony/phpunit-bridge",
-            "version": "v5.2.8",
+            "version": "v5.2.9",
             "source": {
                 "type": "git",
                 "url": "https://github.com/symfony/phpunit-bridge.git",
-                "reference": "b3cf2c3f7f6196fb498002920c1ae9036d9e5619"
+                "reference": "ea24e42c1ee04792f5d814da6f0814b20ece2907"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/symfony/phpunit-bridge/zipball/b3cf2c3f7f6196fb498002920c1ae9036d9e5619",
-                "reference": "b3cf2c3f7f6196fb498002920c1ae9036d9e5619",
+                "url": "https://api.github.com/repos/symfony/phpunit-bridge/zipball/ea24e42c1ee04792f5d814da6f0814b20ece2907",
+                "reference": "ea24e42c1ee04792f5d814da6f0814b20ece2907",
                 "shasum": ""
             },
             "require": {
@@ -7339,7 +7339,7 @@
             "description": "Provides utilities for PHPUnit, especially user deprecation notices management",
             "homepage": "https://symfony.com",
             "support": {
-                "source": "https://github.com/symfony/phpunit-bridge/tree/v5.2.8"
+                "source": "https://github.com/symfony/phpunit-bridge/tree/v5.2.9"
             },
             "funding": [
                 {
@@ -7355,7 +7355,7 @@
                     "type": "tidelift"
                 }
             ],
-            "time": "2021-05-07T12:56:09+00:00"
+            "time": "2021-05-16T13:07:46+00:00"
         },
         {
             "name": "symfony/test-pack",
