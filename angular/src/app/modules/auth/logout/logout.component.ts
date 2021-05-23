@@ -12,7 +12,7 @@ import { ConstantsService } from '@app/service/constants.service';
 })
 export class LogoutComponent implements OnInit {
 
-  public logo: string;
+  public logo = '';
   public companyName: string;
 
   constructor(

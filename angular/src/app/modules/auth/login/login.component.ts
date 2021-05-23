@@ -24,7 +24,7 @@ export class LoginComponent implements OnInit {
 
   public companyName: string;
   public title: string;
-  public logo: string;
+  public logo: string | undefined;
   readonly formGroup: FormGroup;
 
   constructor(

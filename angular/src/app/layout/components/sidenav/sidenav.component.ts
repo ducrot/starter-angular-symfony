@@ -18,8 +18,8 @@ export class SidenavComponent implements OnInit {
   public appName: string;
   public currentLang: string;
   public languages: Array<string>;
-  public isDarkTheme$: Observable<boolean>;
-  public logo: string;
+  public isDarkTheme$!: Observable<boolean>;
+  public logo!: string;
 
   constructor(
     public authService: AuthService,
@@ -40,7 +40,7 @@ export class SidenavComponent implements OnInit {
     });
   }
 
-  onLanguageSelect({value: language}): void {
+  onLanguageSelect({value: language}: {value: string}): void {
     this.i18nService.language = language;
   }
 

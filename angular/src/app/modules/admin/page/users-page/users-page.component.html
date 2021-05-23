@@ -21,14 +21,14 @@
   <!-- / PAGE TITLE -->
 
   <!-- SEARCH -->
-  <div class="search-wrapper ml-sm-64">
+  <div class="search-wrapper ml-sm-64" *ngIf="(query.valueChange$ | async) as request">
     <div class="search" fxFlex fxLayout="row" fxLayoutAlign="start center">
       <mat-icon>search</mat-icon>
-      <input #searchInput (change)="onSearchChange(searchInput.value)" [value]=" (query.valueChange$ | async)?.searchText "
+      <input #searchInput (change)="onSearchChange(searchInput.value)" [value]=" request.searchText "
              matInput
              placeholder="{{ 'app.admin.users.search' | translate }}"
              type="text">
-      <button (click)="onClearSearchButton()" *ngIf=" (query.valueChange$ | async)?.searchText.length > 0 "
+      <button (click)="onClearSearchButton()" *ngIf=" request.searchText.length > 0 "
               aria-label="Clear" mat-button mat-icon-button
               matSuffix>
         <mat-icon>close</mat-icon>
@@ -86,12 +86,13 @@
 
   </table>
 
-  <mat-paginator (page)="onPaginatorPage($event)"
-                 [length]=" response.status.count "
-                 [pageIndex]="response.status.page -1"
-                 [pageSizeOptions]="[5, 10, 25, 100]"
-                 [pageSize]="response.status.pageSize">
-  </mat-paginator>
+<mat-paginator *ngIf="response.status"
+               (page)="onPaginatorPage($event)"
+               [length]=" response.status.count "
+               [pageIndex]="response.status.page -1"
+               [pageSizeOptions]="[5, 10, 25, 100]"
+               [pageSize]="response.status.pageSize">
+</mat-paginator>
 
 </ng-container>
 <!-- / DATA TABLE -->

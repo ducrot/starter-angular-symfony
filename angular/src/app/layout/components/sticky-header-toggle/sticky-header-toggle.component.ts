@@ -10,8 +10,8 @@ import { ThemeService } from '@app/service/theme.service';
 })
 export class StickyHeaderToggleComponent implements OnInit {
 
-  @Input() label;
-  public isStickyHeader$: Observable<boolean>;
+  @Input() label = '';
+  public isStickyHeader$!: Observable<boolean>;
 
   constructor(
     private themeService: ThemeService,

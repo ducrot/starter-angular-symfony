@@ -24,14 +24,14 @@ export class QueryMapper<T extends object> {
   }
 
 
-  forceValueChange() {
+  forceValueChange(): void {
     this.valueSubject.next(this.valueSubject.getValue());
   }
 
 
   update(update: Partial<T>): void {
     const newVal = Object.assign({}, this.valueSubject.getValue(), update);
-    if (this.areEqual(newVal, this.valueSubject.getValue())) {
+    if (this.areEqual(  newVal, this.valueSubject.getValue())) {
       return;
     }
     const pm = this.toParams(newVal);
@@ -52,7 +52,7 @@ export class QueryMapper<T extends object> {
   private fromParams(pm: Params): Partial<T> {
     const r: { [index: string]: any } = {};
     const d: { [index: string]: any } = this.defaultValue;
-    for (let k in d) {
+    for (const k in d) {
       if (!pm.hasOwnProperty(k) || pm[k] === null) {
         continue;
       }
@@ -60,7 +60,7 @@ export class QueryMapper<T extends object> {
       if (t === 'string') {
         r[k] = pm[k].toString();
       } else if (t === 'number') {
-        r[k] = parseInt(pm[k].toString());
+        r[k] = parseInt(pm[k].toString(), 10);
       } else if (t === 'boolean') {
         r[k] = pm[k] === 'true';
       } else {
@@ -74,7 +74,7 @@ export class QueryMapper<T extends object> {
     const d: { [index: string]: any } = this.defaultValue;
     const v: { [index: string]: any } = value;
     const pm: Params = {};
-    for (let k in d) {
+    for (const k in d) {
       if (v[k] !== d[k]) {
         pm[k] = v[k].toString();
       }
@@ -82,9 +82,9 @@ export class QueryMapper<T extends object> {
     return pm;
   }
 
-  private areEqual(a: T, b: T): boolean {
+  private areEqual(a: { [index: string]: any }, b: { [index: string]: any }): boolean {
     const d: { [index: string]: any } = this.defaultValue;
-    for (let k in d) {
+    for (const k in d) {
       if (a[k] !== b[k]) {
         return false;
       }

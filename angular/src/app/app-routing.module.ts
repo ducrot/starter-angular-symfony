@@ -7,6 +7,7 @@ import { ContentLayoutComponent } from './layout/content-layout/content-layout.c
 
 const config: ExtraOptions = {
   scrollPositionRestoration: 'top',
+  relativeLinkResolution: 'legacy'
 };
 
 const routes: Routes = [

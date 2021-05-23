@@ -1,9 +1,9 @@
 import { Logger, LogLevel, LogOutput } from './logger.service';
 
-const logMethods = ['log', 'info', 'warn', 'error'];
+const logMethods = ['log', 'info', 'warn', 'error'] as const;
 
 describe('Logger', () => {
-  let savedConsole: Function[];
+  let savedConsole: Record<string, any>;
   let savedLevel: LogLevel;
   let savedOutputs: LogOutput[];
 

@@ -2,7 +2,7 @@ import { ChangeDetectionStrategy, ChangeDetectorRef, Component, ViewChild } from
 import { Observable } from 'rxjs';
 import { AuthService } from '@app/service/auth.service';
 import { User } from '@pb/app/user';
-import { FormBuilder, FormGroup, NgForm, Validators } from '@angular/forms';
+import { AbstractControl, FormBuilder, FormGroup, NgForm, Validators } from '@angular/forms';
 import { PasswordChangeValidators } from '@modules/auth/account/password-change.validators';
 import { AuthenticationServiceClient } from '@pb/app/authentication-service.client';
 import { AlertService } from '@shared/service/alert.service';
@@ -25,8 +25,8 @@ export class AccountComponent {
   panelOpenState = false;
   readonly formGroup: FormGroup;
 
-  @ViewChild('changePasswordAccordion') changePasswordAccordion: MatAccordion;
-  @ViewChild('changePasswordForm') changePasswordForm: NgForm;
+  @ViewChild('changePasswordAccordion') changePasswordAccordion!: MatAccordion;
+  @ViewChild('changePasswordForm') changePasswordForm!: NgForm;
 
   constructor(
     private readonly authService: AuthService,
@@ -44,22 +44,22 @@ export class AccountComponent {
       newPassword: [null, Validators.required],
       newPasswordConfirm: [null, Validators.required],
     }, {
-      validator: Validators.compose([
+      validator: [
         PasswordChangeValidators.newPasswordIsEqualCurrentPassword,
         PasswordChangeValidators.newPasswordNotEqualConfirmPassword
-      ])
+      ]
     });
   }
 
-  get currentPassword() {
+  get currentPassword(): AbstractControl | null {
     return this.formGroup.get('currentPassword');
   }
 
-  get newPassword() {
+  get newPassword(): AbstractControl | null {
     return this.formGroup.get('newPassword');
   }
 
-  get newPasswordConfirm() {
+  get newPasswordConfirm(): AbstractControl | null {
     return this.formGroup.get('newPasswordConfirm');
   }
 

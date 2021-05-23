@@ -10,8 +10,8 @@ import { ThemeService } from '@app/service/theme.service';
 })
 export class ThemeToggleComponent implements OnInit {
 
-  @Input() label;
-  public isDarkTheme$: Observable<boolean>;
+  @Input() label = '';
+  public isDarkTheme$!: Observable<boolean>;
 
   constructor(
     private themeService: ThemeService,

@@ -21,10 +21,10 @@ const log = new Logger('UserDialogComponent');
 export class UserDialogComponent {
 
   action: string;
-  dialogTitle: string;
+  dialogTitle!: string;
   readonly formGroup: FormGroup;
   readonly gender = Gender;
-  private user: User;
+  private user!: User;
 
   constructor(
     private fb: FormBuilder,

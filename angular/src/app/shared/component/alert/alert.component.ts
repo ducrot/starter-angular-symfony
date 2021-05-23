@@ -16,8 +16,8 @@ interface AlertMessageInterface {
 })
 export class AlertComponent implements OnInit, OnDestroy {
 
-  message: AlertMessageInterface;
-  private subscription: Subscription;
+  message: AlertMessageInterface | undefined;
+  private subscription!: Subscription;
 
   constructor(
     private alertService: AlertService,

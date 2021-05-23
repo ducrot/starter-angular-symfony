@@ -9,7 +9,7 @@ import { ThemeService } from '@app/service/theme.service';
 })
 export class ContentLayoutComponent implements OnInit {
 
-  public stickyHeader$: Observable<boolean>;
+  public stickyHeader$!: Observable<boolean>;
 
   constructor(
     private themeService: ThemeService,

@@ -17,8 +17,8 @@ export class HeaderComponent implements OnInit {
 
   public appName: string;
   public companyName: string;
-  public logo: string;
-  public stickyHeader$: Observable<boolean>;
+  public logo!: string;
+  public stickyHeader$!: Observable<boolean>;
 
   constructor(
     public authService: AuthService,
