@@ -95,9 +95,9 @@ symfony console hautelook:fixtures:load
 
 The angular part is located in the `angular` directory. 
 
-The project was setup with node version v12.12.0 and npm version 6.11.3. 
+The project was tested with node v12.x and yarn v1.x.
 
-Run `npm install` to install dependencies. 
+Run `yarn install` to install dependencies. 
 
 To start a development server, run the following command:
 

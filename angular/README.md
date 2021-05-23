@@ -1,7 +1,5 @@
 # Angular
 
-This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 9.0.3.
-
 ## Folder Structure
 
 [Angular Folder Structure](https://angular-folder-structure.readthedocs.io/en/latest/index.html)
