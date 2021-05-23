@@ -4,7 +4,7 @@ import { AuthService } from '@app/service/auth.service';
 import { User } from '@pb/app/user';
 import { FormBuilder, FormGroup, NgForm, Validators } from '@angular/forms';
 import { PasswordChangeValidators } from '@modules/auth/account/password-change.validators';
-import { AuthenticationServiceClient } from '@pb/app/authentication-service';
+import { AuthenticationServiceClient } from '@pb/app/authentication-service.client';
 import { AlertService } from '@shared/service/alert.service';
 import { Logger } from '@app/service/logger.service';
 import { MatSnackBar } from '@angular/material/snack-bar';

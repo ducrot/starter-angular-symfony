@@ -9,7 +9,7 @@ import { ConstantsService } from '@app/service/constants.service';
 import { ThemeService } from '@app/service/theme.service';
 import { Logger } from '@app/service/logger.service';
 import { TranslateService } from '@ngx-translate/core';
-import { AuthenticationServiceClient } from '@pb/app/authentication-service';
+import { AuthenticationServiceClient } from '@pb/app/authentication-service.client';
 
 
 const log = new Logger('LoginComponent');

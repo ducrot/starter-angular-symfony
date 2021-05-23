@@ -3,9 +3,9 @@ import { User } from '@pb/app/user';
 import {
   ListUserRequest,
   ListUserRequest_Disabled,
-  ListUserResponse,
-  UserManagementServiceClient
+  ListUserResponse
 } from '@pb/app/user-management-service';
+import { UserManagementServiceClient } from '@pb/app/user-management-service.client';
 import { MatDialog } from '@angular/material/dialog';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { PageEvent } from '@angular/material/paginator';

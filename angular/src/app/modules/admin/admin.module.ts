@@ -5,7 +5,7 @@ import { AdminRoutingModule } from '@modules/admin/admin.routing';
 import { UsersPageComponent } from './page/users-page/users-page.component';
 import { UserDialogComponent } from './component/user-dialog/user-dialog.component';
 import { MatInputModule } from '@angular/material/input';
-import { UserManagementServiceClient } from '@pb/app/user-management-service';
+import { UserManagementServiceClient } from '@pb/app/user-management-service.client';
 
 
 @NgModule({

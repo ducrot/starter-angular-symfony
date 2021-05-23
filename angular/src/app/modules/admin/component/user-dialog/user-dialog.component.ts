@@ -4,7 +4,8 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { Gender } from '@pb/app/gender';
 import { User } from '@pb/app/user';
-import { CreateUserRequest, UpdateUserRequest, UserManagementServiceClient } from '@pb/app/user-management-service';
+import { CreateUserRequest, UpdateUserRequest } from '@pb/app/user-management-service';
+import { UserManagementServiceClient } from '@pb/app/user-management-service.client';
 import { TranslateService } from '@ngx-translate/core';
 import { Logger } from '@app/service/logger.service';
 
