@@ -13,7 +13,7 @@ default: install test build
 install: install-ng generate install-php
 
 install-ng:
-	@pushd angular/ && yarn i >/dev/null --silent && popd
+	@pushd angular/ && yarn install >/dev/null --silent && popd
 
 install-php:
 	@pushd symfony/ && composer install && popd
