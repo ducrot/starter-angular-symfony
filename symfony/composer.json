@@ -25,6 +25,7 @@
         "symfony/mime": "5.3.*",
         "symfony/monolog-bundle": "^3.7",
         "symfony/proxy-manager-bridge": "5.3.*",
+        "symfony/runtime": "5.3.*",
         "symfony/security-bundle": "5.3.*",
         "symfony/translation": "5.3.*",
         "symfony/validator": "5.3.*",
