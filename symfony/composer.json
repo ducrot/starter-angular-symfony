@@ -27,7 +27,7 @@
         "symfony/translation": "5.2.*",
         "symfony/validator": "5.2.*",
         "symfony/yaml": "5.2.*",
-        "timostamm/symfony-twirp-handler": "v0.0.2"
+        "timostamm/symfony-twirp-handler": "v0.0.4"
     },
     "require-dev": {
         "doctrine/doctrine-fixtures-bundle": "^3.3",
