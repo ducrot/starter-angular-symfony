@@ -66,7 +66,7 @@ class AuthenticationManager
     private function getUserByCredentials(LoginCredentials $credentials): ?User
     {
         try {
-            $user = $this->userProvider->loadUserByUsername($credentials->getUsername());
+            $user = $this->userProvider->loadUserByIdentifier($credentials->getUsername());
             $encoder = $this->encoderFactory->getEncoder($user);
             $valid = $encoder->isPasswordValid($user->getPassword(), $credentials->getPassword(), $user->getSalt());
             if (!$valid) {

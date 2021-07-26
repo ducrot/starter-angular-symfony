@@ -40,10 +40,16 @@ class UserRepository extends ServiceEntityRepository implements UserLoaderInterf
         return $qb->getQuery()->getResult();
     }
 
-
-    public function loadUserByUsername(string $username): ?UserInterface
+    /**
+     * Loads the user for the given user identifier (e.g. username or email).
+     * This method must return null if the user is not found.
+     * @param string $username
+     * @return UserInterface|null
+     * @throws \Doctrine\ORM\NonUniqueResultException
+     */
+    public function loadUserByIdentifier(string $identifier): ?UserInterface
     {
-        if (!is_string($username)) {
+        if (!is_string($identifier)) {
             throw new \LogicException();
         }
 
@@ -51,11 +57,18 @@ class UserRepository extends ServiceEntityRepository implements UserLoaderInterf
             ->where('u.username = :username')
             ->andWhere('u.deleted = :deleted')
             ->andWhere('u.disabled = :disabled')
-            ->setParameter('username', $username)
+            ->setParameter('username', $identifier)
             ->setParameter('deleted', false)
             ->setParameter('disabled', false)
             ->getQuery()
             ->getOneOrNullResult();
+    }
+
+    public function loadUserByUsername(string $username)
+    {
+        trigger_deprecation('symfony/doctrine-bridge', '5.3', 'Method "%s()" is deprecated, use loadUserByIdentifier() instead.', __METHOD__);
+
+        return $this->loadUserByIdentifier($username);
     }
 
     public function refreshUser(UserInterface $user)

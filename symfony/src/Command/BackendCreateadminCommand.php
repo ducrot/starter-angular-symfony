@@ -82,7 +82,7 @@ class BackendCreateadminCommand extends Command
             return 1;
         }
 
-        $userExists = $this->userRepository->loadUserByUsername($username);
+        $userExists = $this->userRepository->loadUserByIdentifier($username);
         if ($userExists) {
             $io->error(sprintf('A user with username "%s" already exists.', $username));
 

@@ -90,7 +90,7 @@ class UserTokenAuthenticator extends AbstractBearerTokenAuthenticator
 
     protected function getTokenUser(string $username): ?UserInterface
     {
-        return $this->userProvider->loadUserByUsername($username);
+        return $this->userProvider->loadUserByIdentifier($username);
     }
 
 
