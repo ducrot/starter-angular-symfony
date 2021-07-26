@@ -1,3 +1,4 @@
+@use '~@angular/material' as mat;
 // import custom themes
 @import 'src/scss/themes/light-theme';
 @import 'src/scss/themes/dark-theme';
@@ -19,11 +20,11 @@
 }
 
 .app-light-theme {
-  @include angular-material-theme($app-light-theme);
+  @include mat.all-component-themes($app-light-theme);
   @include custom-components-theme($app-light-theme);
 }
 
 .app-dark-theme {
-  @include angular-material-theme($app-dark-theme);
+  @include mat.all-component-themes($app-dark-theme);
   @include custom-components-theme($app-dark-theme);
 }

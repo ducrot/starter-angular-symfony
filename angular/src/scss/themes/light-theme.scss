@@ -1,8 +1,9 @@
-$app-light-primary: mat-palette($mat-grey);
-$app-light-accent: mat-palette($mat-blue-grey);
-$app-light-warn: mat-palette($mat-deep-orange);
+@use '~@angular/material' as mat;
+$app-light-primary: mat.define-palette(mat.$grey-palette);
+$app-light-accent: mat.define-palette(mat.$blue-grey-palette);
+$app-light-warn: mat.define-palette(mat.$deep-orange-palette);
 
-$app-light-theme: mat-light-theme(
+$app-light-theme: mat.define-light-theme(
     $app-light-primary,
     $app-light-accent,
     $app-light-warn

@@ -1,3 +1,4 @@
+@use '~@angular/material' as mat;
 @import "src/scss/app";
 
 @mixin app-header-component-theme($theme) {
@@ -5,7 +6,7 @@
 
   app-header {
     mat-toolbar {
-      border-bottom: 1px solid mat-color($foreground, divider);
+      border-bottom: 1px solid mat.get-color-from-palette($foreground, divider);
     }
   }
 }
