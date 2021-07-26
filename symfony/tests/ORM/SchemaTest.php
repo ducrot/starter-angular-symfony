@@ -15,7 +15,7 @@ class SchemaTest extends KernelTestCase
 {
     use DatabaseSetupTrait;
 
-    protected function setUp()
+    protected function setUp(): void
     {
         $this->setUpEntityManager();
         $this->createSchema();

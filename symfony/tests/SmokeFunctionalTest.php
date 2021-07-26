@@ -22,7 +22,7 @@ class SmokeFunctionalTest extends WebTestCase
     /** @var KernelBrowserAlias */
     private $client = null;
 
-    protected function setUp()
+    protected function setUp(): void
     {
         $this->client = static::createClient();
     }
@@ -45,7 +45,7 @@ class SmokeFunctionalTest extends WebTestCase
      */
     public function secureUrlApiProvider()
     {
-        yield ['GET',  '/api/app.TestService/luckyNumber', Response::HTTP_METHOD_NOT_ALLOWED];
+        yield ['GET',  '/api/app.TestService/luckyNumber', Response::HTTP_UNAUTHORIZED];
         yield ['POST', '/api/app.TestService/luckyNumber', Response::HTTP_UNAUTHORIZED];
     }
 
@@ -68,16 +68,16 @@ class SmokeFunctionalTest extends WebTestCase
     {
         yield ['GET',  '/api', false, Response::HTTP_NOT_FOUND];
         yield ['POST', '/api', false, Response::HTTP_NOT_FOUND];
-        yield ['GET',  '/api/does-not-exists', false, Response::HTTP_NOT_FOUND];
-        yield ['POST', '/api/does-not-exists', false, Response::HTTP_NOT_FOUND];
+        yield ['GET',  '/api/does-not-exists', false, Response::HTTP_INTERNAL_SERVER_ERROR];
+        yield ['POST', '/api/does-not-exists', false, Response::HTTP_INTERNAL_SERVER_ERROR];
 
-        yield ['GET',  '/api/app.TestService/luckyNumber', false, Response::HTTP_METHOD_NOT_ALLOWED];
+        yield ['GET',  '/api/app.TestService/luckyNumber', false, Response::HTTP_UNAUTHORIZED];
         yield ['POST', '/api/app.TestService/luckyNumber', false, Response::HTTP_UNAUTHORIZED];
-        yield ['GET',  '/api/app.TestService/luckyNumber', true, Response::HTTP_METHOD_NOT_ALLOWED];
+        yield ['GET',  '/api/app.TestService/luckyNumber', true, Response::HTTP_NOT_FOUND];
         yield ['POST', '/api/app.TestService/luckyNumber', true, Response::HTTP_OK];
-        yield ['GET',  '/api/app.AuthenticationService/login', false, Response::HTTP_METHOD_NOT_ALLOWED];
+        yield ['GET',  '/api/app.AuthenticationService/login', false, Response::HTTP_NOT_FOUND];
         yield ['POST', '/api/app.AuthenticationService/login', false, Response::HTTP_BAD_REQUEST];
-        yield ['GET',  '/api/app.AuthenticationService/login', true, Response::HTTP_METHOD_NOT_ALLOWED];
+        yield ['GET',  '/api/app.AuthenticationService/login', true, Response::HTTP_NOT_FOUND];
         yield ['POST', '/api/app.AuthenticationService/login', true, Response::HTTP_BAD_REQUEST];
     }
 
@@ -94,10 +94,12 @@ class SmokeFunctionalTest extends WebTestCase
         if ($token) {
             return [
                 'HTTP_' . UserTokenAuthenticator::HEADER_AUTHORIZATION => UserTokenAuthenticator::BEARER_PREFIX . $token,
+                'CONTENT_TYPE' => 'application/protobuf',
                 'HTTP_ACCEPT' => 'application/protobuf,application/json'
             ];
         } else {
             return [
+                'CONTENT_TYPE' => 'application/protobuf',
                 'HTTP_ACCEPT' => 'application/protobuf,application/json'
             ];
         }
