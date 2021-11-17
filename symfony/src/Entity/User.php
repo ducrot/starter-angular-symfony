@@ -184,6 +184,10 @@ class User implements UserInterface
         return $pb;
     }
 
+    public function getUserIdentifier(): string
+    {
+        return $this->getUsername();
+    }
 
     /******************************************************************************************
      * auto generated:
