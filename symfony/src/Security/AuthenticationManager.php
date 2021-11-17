@@ -9,7 +9,7 @@ use Exception;
 use LogicException;
 use Psr\Log\LoggerInterface;
 use Symfony\Component\Security\Core\Encoder\EncoderFactoryInterface;
-use Symfony\Component\Security\Core\Exception\UsernameNotFoundException;
+use Symfony\Component\Security\Core\Exception\UserNotFoundException;
 use Symfony\Component\Security\Core\User\UserProviderInterface;
 
 class AuthenticationManager
@@ -78,7 +78,7 @@ class AuthenticationManager
             }
             return $user;
 
-        } catch (UsernameNotFoundException $exception) {
+        } catch (UserNotFoundException $exception) {
             $this->logger->warning(sprintf('Failed login attempt with username "%s". No user with this name found.', $credentials->getUsername()));
             return null;
         }

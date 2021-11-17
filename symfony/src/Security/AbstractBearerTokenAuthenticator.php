@@ -9,7 +9,7 @@ use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpKernel\Exception\UnauthorizedHttpException;
 use Symfony\Component\Security\Core\Authentication\Token\TokenInterface;
 use Symfony\Component\Security\Core\Exception\AuthenticationException;
-use Symfony\Component\Security\Core\Exception\UsernameNotFoundException;
+use Symfony\Component\Security\Core\Exception\UserNotFoundException;
 use Symfony\Component\Security\Core\User\UserInterface;
 use Symfony\Component\Security\Core\User\UserProviderInterface;
 use Symfony\Component\Security\Guard\AbstractGuardAuthenticator;
@@ -74,17 +74,17 @@ abstract class AbstractBearerTokenAuthenticator extends AbstractGuardAuthenticat
      *
      *
      * The default behaviour of the security component is to call this method
-     * when the UserProviderInterface threw a UsernameNotFoundException. The
-     * original UsernameNotFoundException will be lost.
+     * when the UserProviderInterface threw a UserNotFoundException. The
+     * original UserNotFoundException will be lost.
      *
      * For bearer token based authentication, it should be okay to present
      * some information about why the authentication failed (other than username
      * password authentication).
      *
-     * The AbstractBearerTokenAuthenticator will catch UsernameNotFoundException
+     * The AbstractBearerTokenAuthenticator will catch UserNotFoundException
      * in getUser() and call this method. The default behaviour is to prepare
      * a HTTP 401 Unauthorized response with the message of the
-     * UsernameNotFoundException included in the body.
+     * UserNotFoundException included in the body.
      *
      *
      *
@@ -152,7 +152,7 @@ abstract class AbstractBearerTokenAuthenticator extends AbstractGuardAuthenticat
 
             return $this->getTokenUser($username);
 
-        } catch (UsernameNotFoundException $exception) {
+        } catch (UserNotFoundException $exception) {
             $this->start(null, $exception);
         }
 
@@ -167,7 +167,7 @@ abstract class AbstractBearerTokenAuthenticator extends AbstractGuardAuthenticat
 
     protected function provideMessageForAuthenticationException(AuthenticationException $exception): string
     {
-        if ($exception instanceof UsernameNotFoundException) {
+        if ($exception instanceof UserNotFoundException) {
             return 'Authentication failed: ' . $exception->getMessage();
         }
         return $exception->getMessage();
