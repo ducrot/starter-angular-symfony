@@ -10,4 +10,10 @@ The shared module is a good place to import and export the ``FormsModule``
 and the ``ReactiveFormsModule``. It is also good for the ``FontAwesomeModule``
 and any other resource used by some modules some of the time but not all modules all of the time.
 
+To generate a new shared component run:
+
+```bash
+ng g component shared/component/FeatureFoo --module=shared/shared.module.ts
+```
+
 This module is recommended for a `path alias` to **@shared**
