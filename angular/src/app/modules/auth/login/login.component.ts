@@ -57,7 +57,7 @@ export class LoginComponent implements OnInit {
 
     // Show alert if session is expired
     if (this.route.snapshot.queryParamMap.get('expired') === 'true') {
-      this.translate.get('session_expired').subscribe((res: string) => {
+      this.translate.get('app.auth.login.session_expired').subscribe((res: string) => {
         this.alertService.warning(res);
       });
     }
