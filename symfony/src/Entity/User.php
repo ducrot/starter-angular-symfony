@@ -25,9 +25,10 @@ class User implements UserInterface
         GENDER_MISC = 3;
 
     /**
+     * @var int|null
      * @ORM\Id
-     * @ORM\GeneratedValue(strategy="UUID")
-     * @ORM\Column(type="guid")
+     * @ORM\GeneratedValue()
+     * @ORM\Column(type="integer")
      */
     private $id;
 
@@ -193,7 +194,10 @@ class User implements UserInterface
      * auto generated:
      */
 
-    public function getId(): ?string
+    /**
+     * @return int|null
+     */
+    public function getId(): ?int
     {
         return $this->id;
     }

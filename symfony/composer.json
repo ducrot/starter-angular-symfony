@@ -34,7 +34,7 @@
     },
     "require-dev": {
         "doctrine/doctrine-fixtures-bundle": "^3.3",
-        "hautelook/alice-bundle": "^2.7",
+        "hautelook/alice-bundle": "^2.9",
         "symfony/browser-kit": "^5.3",
         "symfony/css-selector": "^5.3",
         "symfony/maker-bundle": "^1.14",
@@ -45,7 +45,11 @@
         "preferred-install": {
             "*": "dist"
         },
-        "sort-packages": true
+        "sort-packages": true,
+        "allow-plugins": {
+            "symfony/flex": true,
+            "symfony/runtime": true
+        }
     },
     "autoload": {
         "psr-4": {

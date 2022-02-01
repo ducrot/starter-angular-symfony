@@ -75,7 +75,8 @@ Set database credentials in `.env.local` and create database tables/schema:
 
 ```shell script
 symfony console doctrine:database:create
-symfony console doctrine:schema:update --force
+symfony console doctrine:schema:create
+symfony console doctrine:schema:validate
 ```
 
 Create a first admin account. Additional users can be created in the application.
