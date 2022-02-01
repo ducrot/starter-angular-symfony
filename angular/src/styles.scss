@@ -3,3 +3,8 @@
 
 // App theme
 @import 'app/app.theme';
+
+// Tailwind (import after Material)
+@tailwind base;
+@tailwind components;
+@tailwind utilities;

@@ -13,6 +13,7 @@ export const environment = {
     angularCli: packageJson.devDependencies['@angular/cli'],
     material: packageJson.dependencies['@angular/material'],
     flexLayout: packageJson.dependencies['@angular/flex-layout'],
+    tailwind: packageJson.devDependencies.tailwindcss,
     rxjs: packageJson.dependencies.rxjs,
     ngxtranslate: packageJson.dependencies['@ngx-translate/core'],
     fontAwesome: packageJson.dependencies['@fortawesome/free-solid-svg-icons'],

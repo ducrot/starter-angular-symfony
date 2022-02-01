@@ -102,6 +102,7 @@
       "angular": "Modern powerful framework",
       "angular-cli": "A command line interface for Angular",
       "angular-material": "Material design component library",
+      "tailwind": "A utility-first CSS framework for rapid UI development",
       "documentation": "Docs",
       "folderstructure.description": "Based on best practices for projects big or small",
       "folderstructure.title": "Angular Folder Structure",

@@ -1,11 +1,11 @@
 <!-- HEADER -->
-<div class="header mb-32"
+<div class="header mb-8"
      fxLayout="column" fxLayout.gt-xs="row"
      fxLayoutAlign="center center" fxLayoutAlign.gt-xs="space-between center">
 
   <!-- PAGE TITLE -->
-  <h1 class="logo mb-24 mb-sm-0" fxLayout="row" fxLayoutAlign="start center">
-    <fa-icon class="mr-16" icon="user"></fa-icon>
+  <h1 class="logo mb-6 sm:mb-0" fxLayout="row" fxLayoutAlign="start center">
+    <fa-icon class="mr-4" icon="user"></fa-icon>
     <span>{{ 'app.auth.account.title' | translate }}</span>
   </h1>
   <!-- / PAGE TITLE -->
@@ -14,7 +14,7 @@
 <!-- / HEADER -->
 
 <!-- DATA -->
-<mat-card *ngIf="user$ | async as user" class="mb-32">
+<mat-card *ngIf="user$ | async as user" class="mb-8">
   <mat-list>
     <mat-list-item>
       <div mat-line>{{ 'app.auth.account.username' | translate }}</div>

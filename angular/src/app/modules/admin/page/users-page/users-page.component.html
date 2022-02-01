@@ -1,16 +1,15 @@
 <!-- HEADER -->
-<div class="header mb-32"
+<div class="header mb-8"
      fxLayout="column" fxLayout.gt-xs="row"
      fxLayoutAlign="center center" fxLayoutAlign.gt-xs="space-between center">
 
   <!-- PAGE TITLE -->
-  <h1 class="logo mb-24 mb-sm-0" fxLayout="row" fxLayoutAlign="start center">
-    <mat-icon class="mr-16" inline="true">perm_identity</mat-icon>
+  <h1 class="logo mb-6 sm:mb-0" fxLayout="row" fxLayoutAlign="start center">
+    <mat-icon class="mr-4" inline="true">perm_identity</mat-icon>
     <span>{{ 'app.admin.users.title' | translate }}</span>
 
     <!-- CREATE BUTTON -->
-    <button (click)="onCreateClick()" class="ml-16"
-            color="accent"
+    <button (click)="onCreateClick()" class="ml-4"
             color="accent"
             mat-fab>
       <mat-icon>add</mat-icon>
@@ -21,7 +20,7 @@
   <!-- / PAGE TITLE -->
 
   <!-- SEARCH -->
-  <div class="search-wrapper ml-sm-64" *ngIf="(query.valueChange$ | async) as request">
+  <div class="search-wrapper sm:ml-16" *ngIf="(query.valueChange$ | async) as request">
     <div class="search" fxFlex fxLayout="row" fxLayoutAlign="start center">
       <mat-icon>search</mat-icon>
       <input #searchInput (change)="onSearchChange(searchInput.value)" [value]=" request.searchText "
@@ -42,7 +41,7 @@
 
 <!-- FILTER -->
 <mat-button-toggle-group (change)=" onDisabledFilterChange($event) " *ngIf="query.valueChange$ | async as qv" [value]="qv.disabled"
-                         class="mb-16">
+                         class="mb-4">
   <mat-button-toggle [value]="disabledAny">
     {{ 'app.admin.users.filter.all' | translate }}
   </mat-button-toggle>

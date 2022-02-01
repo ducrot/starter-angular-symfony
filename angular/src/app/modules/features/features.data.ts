@@ -39,6 +39,13 @@ export const features: Feature[] = [
     documentation: 'https://github.com/angular/flex-layout/wiki/API-Documentation'
   },
   {
+    name: 'Tailwind',
+    version: env.versions.tailwind,
+    description: 'app.features.tailwind',
+    github: 'https://github.com/tailwindlabs/tailwindcss',
+    documentation: 'https://tailwindcss.com/docs/installation'
+  },
+  {
     name: 'RxJS',
     version: env.versions.rxjs,
     description: 'app.features.rxjs',
