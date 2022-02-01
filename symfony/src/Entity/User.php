@@ -14,16 +14,11 @@ use Symfony\Component\Validator\Constraints as Assert;
 
 /**
  * @ORM\Entity(repositoryClass="App\Repository\UserRepository")
+ * @UniqueEntity("username", message="invalid_unique_entity_username")
  * @ORM\HasLifecycleCallbacks()
  */
 class User implements UserInterface
 {
-    const
-        GENDER_NONE = 0,
-        GENDER_MALE = 1,
-        GENDER_FEMALE = 2,
-        GENDER_MISC = 3;
-
     /**
      * @var int|null
      * @ORM\Id
@@ -35,8 +30,8 @@ class User implements UserInterface
     /**
      * @var string
      * @ORM\Column(type="string", length=255, unique=true)
-     * @Assert\NotBlank(message="Eine gültige E-Mail-Adresse muss eingegeben werden.")
-     * @Assert\Email(message="Eine gültige E-Mail-Adresse muss eingegeben werden.")
+     * @Assert\NotBlank(message="invalid_assert_not_blank_username")
+     * @Assert\Email(message="invalid_assert_email_username")
      */
     private $username;
 
@@ -55,7 +50,7 @@ class User implements UserInterface
     private $password;
 
     /**
-     * @var string
+     * @var string|null
      * @ORM\Column(type="string", length=50, nullable=true)
      * @Assert\Length(max=50)
      */
@@ -63,7 +58,8 @@ class User implements UserInterface
 
     /**
      * @var string
-     * @ORM\Column(type="string", length=50, nullable=true)
+     * @ORM\Column(type="string", length=50)
+     * @Assert\NotBlank(message="invalid_assert_not_blank_last_name")
      * @Assert\Length(max=50)
      */
     private $lastName;
@@ -71,23 +67,23 @@ class User implements UserInterface
     /**
      * @var integer
      * @ORM\Column(type="smallint", options={"unsigned"=true, "default"=0})
-     * @Assert\Choice(callback={"App\Entity\User", "getGenders"})
+     * @Assert\Choice(callback={"App\Entity\User", "getGenders"}, message="invalid_assert_choice_gender")
      *
-     * 0: none
-     * 1: male
-     * 2: female
-     * 3: misc
+     * 0: GENDER_NONE
+     * 1: GENDER_MALE
+     * 2: GENDER_FEMALE
+     * 3: GENDER_MISC
      */
-    private $gender = self::GENDER_NONE;
+    private $gender = Gender::GENDER_NONE;
 
     /**
-     * @var int
+     * @var bool
      * @ORM\Column(type="boolean")
      */
     private $disabled = false;
 
     /**
-     * @var int
+     * @var bool
      * @ORM\Column(type="boolean")
      */
     private $deleted = false;
@@ -139,14 +135,9 @@ class User implements UserInterface
         return $this->username;
     }
 
-    /**
-     * Roles helper function.
-     *
-     * @return array
-     */
     public static function getGenders(): array
     {
-        return [self::GENDER_NONE, self::GENDER_MALE, self::GENDER_FEMALE, self::GENDER_MISC];
+        return [Gender::GENDER_NONE, Gender::GENDER_MALE, Gender::GENDER_FEMALE, Gender::GENDER_MISC];
     }
 
     private function isAdmin(): bool
@@ -175,7 +166,7 @@ class User implements UserInterface
         $pb->setRoles($this->getRoles());
         $pb->setFirstName($this->getFirstName() ?? "");
         $pb->setLastName($this->getLastName() ?? "");
-        $pb->setGender($this->getGender() ?? Gender::NONE);
+        $pb->setGender($this->getGender() ?? Gender::GENDER_NONE);
         $pb->setIsAdmin($this->isAdmin());
         if ($this->getLastLogin()) {
             $lastLogin = new Timestamp();
@@ -190,6 +181,25 @@ class User implements UserInterface
         return $this->getUsername();
     }
 
+    public function getRoles(): array
+    {
+        $roles = $this->roles;
+        // guarantee every user at least has ROLE_USER
+        $roles[] = 'ROLE_USER';
+
+        return array_unique($roles);
+    }
+
+    public function setRoles(array $roles): User
+    {
+        $this->roles = $roles;
+        return $this;
+    }
+
+
+
+
+
     /******************************************************************************************
      * auto generated:
      */
@@ -202,152 +212,201 @@ class User implements UserInterface
         return $this->id;
     }
 
-    public function getUsername(): ?string
+    /**
+     * @return string
+     */
+    public function getUsername(): string
     {
         return $this->username;
     }
 
-    public function setUsername(string $username): self
+    /**
+     * @param string $username
+     * @return User
+     */
+    public function setUsername(string $username): User
     {
         $this->username = $username;
-
         return $this;
     }
 
-    public function getRoles(): array
-    {
-        $roles = $this->roles;
-        // guarantee every user at least has ROLE_USER
-        $roles[] = 'ROLE_USER';
-
-        return array_unique($roles);
-    }
-
-    public function setRoles(array $roles): self
-    {
-        $this->roles = $roles;
-
-        return $this;
-    }
-
-    public function getPassword(): ?string
+    /**
+     * @return string
+     */
+    public function getPassword(): string
     {
         return $this->password;
     }
 
-    public function setPassword(string $password): self
+    /**
+     * @param string $password
+     * @return User
+     */
+    public function setPassword(string $password): User
     {
         $this->password = $password;
-
         return $this;
     }
 
+    /**
+     * @return string|null
+     */
     public function getFirstName(): ?string
     {
         return $this->firstName;
     }
 
-    public function setFirstName(string $firstName): self
+    /**
+     * @param string|null $firstName
+     * @return User
+     */
+    public function setFirstName(?string $firstName): User
     {
         $this->firstName = $firstName;
-
         return $this;
     }
 
-    public function getLastName(): ?string
+    /**
+     * @return string
+     */
+    public function getLastName(): string
     {
         return $this->lastName;
     }
 
-    public function setLastName(string $lastName): self
+    /**
+     * @param string $lastName
+     * @return User
+     */
+    public function setLastName(string $lastName): User
     {
         $this->lastName = $lastName;
-
         return $this;
     }
 
-    public function getGender(): ?int
+    /**
+     * @return int
+     */
+    public function getGender(): int
     {
         return $this->gender;
     }
 
-    public function setGender(int $gender): self
+    /**
+     * @param int $gender
+     * @return User
+     */
+    public function setGender(int $gender): User
     {
         $this->gender = $gender;
-
         return $this;
     }
 
-    public function getDisabled(): ?int
+    /**
+     * @return bool
+     */
+    public function isDisabled(): bool
     {
         return $this->disabled;
     }
 
-    public function setDisabled(int $disabled): self
+    /**
+     * @param bool $disabled
+     * @return User
+     */
+    public function setDisabled(bool $disabled): User
     {
         $this->disabled = $disabled;
-
         return $this;
     }
 
-    public function getDeleted(): ?int
+    /**
+     * @return bool
+     */
+    public function isDeleted(): bool
     {
         return $this->deleted;
     }
 
-    public function setDeleted(int $deleted): self
+    /**
+     * @param bool $deleted
+     * @return User
+     */
+    public function setDeleted(bool $deleted): User
     {
         $this->deleted = $deleted;
-
         return $this;
     }
 
-    public function getCreated(): ?\DateTimeInterface
+    /**
+     * @return \DateTime
+     */
+    public function getCreated(): \DateTime
     {
         return $this->created;
     }
 
-    public function setCreated(\DateTimeInterface $created): self
+    /**
+     * @param \DateTime $created
+     * @return User
+     */
+    public function setCreated(\DateTime $created): User
     {
         $this->created = $created;
-
         return $this;
     }
 
-    public function getUpdated(): ?\DateTimeInterface
+    /**
+     * @return \DateTime
+     */
+    public function getUpdated(): \DateTime
     {
         return $this->updated;
     }
 
-    public function setUpdated(\DateTimeInterface $updated): self
+    /**
+     * @param \DateTime $updated
+     * @return User
+     */
+    public function setUpdated(\DateTime $updated): User
     {
         $this->updated = $updated;
-
         return $this;
     }
 
-    public function getPasswordChanged(): ?\DateTimeInterface
+    /**
+     * @return \DateTime|null
+     */
+    public function getPasswordChanged(): ?\DateTime
     {
         return $this->passwordChanged;
     }
 
-    public function setPasswordChanged(?\DateTimeInterface $passwordChanged): self
+    /**
+     * @param \DateTime|null $passwordChanged
+     * @return User
+     */
+    public function setPasswordChanged(?\DateTime $passwordChanged): User
     {
         $this->passwordChanged = $passwordChanged;
-
         return $this;
     }
 
-    public function getLastLogin(): ?\DateTimeInterface
+    /**
+     * @return \DateTime|null
+     */
+    public function getLastLogin(): ?\DateTime
     {
         return $this->lastLogin;
     }
 
-    public function setLastLogin(?\DateTimeInterface $lastLogin): self
+    /**
+     * @param \DateTime|null $lastLogin
+     * @return User
+     */
+    public function setLastLogin(?\DateTime $lastLogin): User
     {
         $this->lastLogin = $lastLogin;
-
         return $this;
     }
-
 }

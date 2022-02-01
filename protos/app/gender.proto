@@ -4,9 +4,8 @@ package app;
 
 
 enum Gender {
-    NONE = 0;
-    MALE = 1;
-    FEMALE = 2;
-    MISC = 3;
+    GENDER_NONE = 0;
+    GENDER_MALE = 1;
+    GENDER_FEMALE = 2;
+    GENDER_MISC = 3;
 }
-
