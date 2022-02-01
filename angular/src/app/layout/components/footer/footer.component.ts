@@ -3,7 +3,7 @@ import { ConstantsService } from '@app/service/constants.service';
 
 
 @Component({
-  selector: 'app-footer',
+  selector: 'app-footer, [app-footer]',
   templateUrl: './footer.component.html',
   styleUrls: ['./footer.component.scss']
 })

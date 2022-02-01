@@ -1,14 +1,14 @@
-<mat-sidenav-container fullscreen>
+<mat-sidenav-container [ngClass]="{'authenticated': authService.isAuthenticated}">
 
-  <mat-sidenav-content fxLayout="column">
+  <mat-sidenav-content class="flex flex-col min-h-screen overflow-x-hidden">
 
-    <app-header (toggleSidenav)="sidenav.toggle()" fxFlex="0 0 auto"></app-header>
+    <header app-header (toggleSidenav)="sidenav.toggle()"></header>
 
-    <div [class.sticky-header]="(stickyHeader$ | async)" fullscreen fxFlex="1 0 auto" id="content" role="main">
+    <main [class.sticky-header]="(stickyHeader$ | async)" class="mb-auto" role="main">
       <router-outlet></router-outlet>
-    </div>
+    </main>
 
-    <app-footer fxFlexOffset="auto"></app-footer>
+    <footer app-footer></footer>
 
   </mat-sidenav-content>
 

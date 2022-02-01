@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Observable } from 'rxjs';
 import { ThemeService } from '@app/service/theme.service';
+import { AuthService } from '@app/service/auth.service';
 
 @Component({
   selector: 'app-home-page',
@@ -13,6 +14,7 @@ export class ContentLayoutComponent implements OnInit {
 
   constructor(
     private themeService: ThemeService,
+    public readonly authService: AuthService,
   ) {
   }
 
