@@ -1,4 +1,4 @@
-@use '~@angular/material' as mat;
+@use '@angular/material' as mat;
 $app-dark-primary: mat.define-palette(mat.$grey-palette);
 $app-dark-accent: mat.define-palette(mat.$blue-grey-palette);
 $app-dark-warn: mat.define-palette(mat.$deep-orange-palette);
