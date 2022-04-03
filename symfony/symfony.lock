@@ -160,15 +160,6 @@
     "nikic/php-parser": {
         "version": "v4.12.0"
     },
-    "ocramius/package-versions": {
-        "version": "1.7.0"
-    },
-    "ocramius/proxy-manager": {
-        "version": "2.7.0"
-    },
-    "php": {
-        "version": "7.4"
-    },
     "psr/cache": {
         "version": "1.0.1"
     },
@@ -311,9 +302,6 @@
             "src/Kernel.php"
         ]
     },
-    "symfony/http-client-contracts": {
-        "version": "v2.4.0"
-    },
     "symfony/http-foundation": {
         "version": "v5.3.3"
     },
@@ -349,9 +337,6 @@
             "config/packages/prod/monolog.yaml",
             "config/packages/test/monolog.yaml"
         ]
-    },
-    "symfony/orm-pack": {
-        "version": "v1.0.8"
     },
     "symfony/password-hasher": {
         "version": "v5.3.3"
@@ -450,9 +435,6 @@
     "symfony/string": {
         "version": "v5.3.3"
     },
-    "symfony/test-pack": {
-        "version": "v1.0.6"
-    },
     "symfony/translation": {
         "version": "5.3",
         "recipe": {
@@ -503,7 +485,7 @@
     "timostamm/symfony-twirp-handler": {
         "version": "v0.0.4"
     },
-    "webimpress/safe-writer": {
-        "version": "2.0.0"
+    "webmozart/assert": {
+        "version": "1.10.0"
     }
 }
