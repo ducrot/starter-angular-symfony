@@ -84,8 +84,12 @@ export class AccountComponent {
         });
       }
 
-    } catch (error) {
-      this.alertService.error(error.message ?? error);
+    } catch (error: unknown) {
+      if (error instanceof Error) {
+        this.alertService.error(error.message);
+      } else {
+        console.log('Unknow error:', error);
+      }
     }
     this.cdr.markForCheck();
   }

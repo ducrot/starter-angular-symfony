@@ -22,8 +22,10 @@ export class ErrorDonkeyComponent {
 
     try {
       await this.client.badRequestError({});
-    } catch (e) {
-      this.errorSubject.next(e.toString());
+    } catch (error: unknown) {
+      if (error instanceof Error) {
+        this.errorSubject.next(error.toString());
+      }
     }
   }
 
@@ -31,8 +33,10 @@ export class ErrorDonkeyComponent {
   async processingError(): Promise<void> {
     try {
       await this.client.processingError({});
-    } catch (e) {
-      this.errorSubject.next(e.toString());
+    } catch (error: unknown) {
+      if (error instanceof Error) {
+        this.errorSubject.next(error.toString());
+      }
     }
   }
 
@@ -40,8 +44,10 @@ export class ErrorDonkeyComponent {
   async unexpectedError(): Promise<void> {
     try {
       await this.client.unexpectedError({});
-    } catch (e) {
-      this.errorSubject.next(e.toString());
+    } catch (error: unknown) {
+      if (error instanceof Error) {
+        this.errorSubject.next(error.toString());
+      }
     }
   }
 

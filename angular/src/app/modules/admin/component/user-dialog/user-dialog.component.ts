@@ -87,8 +87,12 @@ export class UserDialogComponent {
       const {response} = await this.client.create(request);
       log.debug('onCreateSubmitClick response', response);
       this.dialogRef.close(response.user);
-    } catch (e) {
-      this.snackBar.open(e.message);
+    } catch (error: unknown) {
+      if (error instanceof Error) {
+        this.snackBar.open(error.message);
+      } else {
+        console.log('Unknow error:', error);
+      }
     }
   }
 
@@ -118,8 +122,12 @@ export class UserDialogComponent {
       const {response} = await this.client.update(request);
       log.debug('onUpdateSubmitClick response', response);
       this.dialogRef.close(response.user);
-    } catch (e) {
-      this.snackBar.open(e.message);
+    } catch (error: unknown) {
+      if (error instanceof Error) {
+        this.snackBar.open(error.message);
+      } else {
+        console.log('Unknow error:', error);
+      }
     }
   }
 
