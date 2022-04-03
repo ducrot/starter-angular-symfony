@@ -6,7 +6,7 @@ pb_ng_out = ./angular/src/pb/
 pb_php_out = ./symfony/src-pb/
 
 
-default: install test build
+default: install build
 	@echo "Done."
 
 
@@ -16,16 +16,7 @@ install-ng:
 	@pushd angular/ && yarn install >/dev/null --silent && popd
 
 install-php:
-	@pushd symfony/ && composer install && popd
-
-
-test: test-ng test-php
-
-test-php:
-	php symfony/bin/phpunit
-
-test-ng:
-	@pushd angular/ && node_modules/.bin/ng test --watch=false && popd
+	@pushd symfony/ && symfony composer install && popd
 
 
 generate: pb-ng pb-php
@@ -47,3 +38,16 @@ pb-php: $(proto_files)
 	@echo generated $@
 
 
+test: test-ng test-php
+
+test-ng:
+	@pushd angular/ && node_modules/.bin/ng test --watch=false && popd
+
+test-php:
+	@pushd symfony/ && symfony php bin/phpunit && popd
+
+
+build: build-ng
+
+build-ng:
+	@pushd angular/ && yarn build && popd
