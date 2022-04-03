@@ -2,7 +2,7 @@
 
 <div class="container" fxFill fxLayout="row wrap" fxLayoutGap="16px 16px grid">
   <div *ngFor="let feature of features" class="wrapper" fxFlex="100%" fxFlex.gt-sm="33.3333%" fxFlex.gt-xs="50%">
-    <mat-card class="border-red p-96">
+    <mat-card>
       <mat-card-title fxLayout="row" fxLayoutAlign="start stretch">
         <div fxFlex="1 1 100%">{{feature.name | translate}}</div>
         <code *ngIf="feature.version" fxFlexAlign="start">{{feature.version}}</code>

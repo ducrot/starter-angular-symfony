@@ -46,6 +46,12 @@ export const features: Feature[] = [
     documentation: 'https://tailwindcss.com/docs/installation'
   },
   {
+    name: 'Tailwind Config Viewer',
+    description: 'app.features.tailwind-config-viewer',
+    github: 'https://github.com/rogden/tailwind-config-viewer',
+    documentation: 'https://tailwindcss.com/docs/installation'
+  },
+  {
     name: 'RxJS',
     version: env.versions.rxjs,
     description: 'app.features.rxjs',

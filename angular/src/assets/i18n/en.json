@@ -103,6 +103,7 @@
       "angular-cli": "A command line interface for Angular",
       "angular-material": "Material design component library",
       "tailwind": "A utility-first CSS framework for rapid UI development",
+      "tailwind-config-viewer": "A local UI tool for visualizing your Tailwind CSS configuration file.",
       "documentation": "Docs",
       "folderstructure.description": "Based on best practices for projects big or small",
       "folderstructure.title": "Angular Folder Structure",

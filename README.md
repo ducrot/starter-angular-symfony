@@ -2,7 +2,7 @@ starter-angular-symfony
 =======================
 
 
-## features
+## Features
 
 - authentication via JWT, login, logout, session expiration support
 - angular production builds delivered by symfony (with proper caching)
@@ -11,7 +11,7 @@ starter-angular-symfony
 - each request is tagged with a unique id, id is logged with every log record, delivered to client
 
 
-# install
+# Install
 
 ```shell script
 # Clone with SSH
@@ -23,7 +23,7 @@ make install
 ```
 
 
-## protobuf and twirp
+## Protobuf and twirp
 
 For exchanging data between server and frontend, [Twirp](https://twitchtv.github.io/twirp/docs/intro.html)
 is used. It is a very simple protocol based on HTTP/1 that serializes all data 
@@ -51,7 +51,7 @@ To add a new service:
   your choice. See `shared.module.ts` for examples. 
 
 
-## symfony
+## Symfony
 
 The symfony part is located in the `symfony` directory. 
 
@@ -92,11 +92,11 @@ symfony console hautelook:fixtures:load
 ```
 
 
-## angular
+## Angular
 
 The angular part is located in the `angular` directory. 
 
-The project was tested with node v12.x and yarn v1.x.
+The project was tested with node v16.x and yarn v1.x.
 
 Run `yarn install` to install dependencies. 
 
@@ -104,13 +104,20 @@ To start a development server, run the following command:
 
 ```shell script
 cd angular
-node_modules/.bin/ng serve 
+node_modules/.bin/ng serve
 ```
 
 If your have the angular CLI globally installed, you can simply run `ng serve`.
 
 
-## production builds
+### Tailwind CSS
+
+The utility-first CSS framework [Tailwind CSS](https://tailwindcss.com) is configured out of the box.
+
+To view all possible classes in your brwoser start the [Tailwind Config Viewer](https://github.com/rogden/tailwind-config-viewer) with `yarn run tailwind-config-viewer`.
+
+
+## Production builds
 
 Make angular production build: 
 
@@ -121,7 +128,7 @@ node_modules/.bin/ng build --prod --deleteOutputPath=false
 Production builds are automatically delivered by symfony. See FrontendController.php.
 
 
-## testing
+## Testing
 
 ```shell script
 # run all tests of the application
