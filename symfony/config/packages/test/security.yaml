@@ -1,7 +1,0 @@
-security:
-
-    # set the password encoder for our user type
-    encoders:
-        App\Entity\User:
-            algorithm: 'bcrypt'
-            cost: 4
