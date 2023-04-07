@@ -1,4 +1,5 @@
-import { Injectable } from '@angular/core';
+import { Inject, Injectable } from '@angular/core';
+import { DOCUMENT } from '@angular/common';
 import { LangChangeEvent, TranslateService } from '@ngx-translate/core';
 import { ConstantsService } from '@app/service/constants.service';
 import { Subscription } from 'rxjs';
@@ -23,6 +24,7 @@ export class I18nService {
   constructor(
     private translateService: TranslateService,
     private constants: ConstantsService,
+    @Inject(DOCUMENT) private document: Document,
   ) {
     this.defaultLanguage = constants.defaultLanguage;
     this.supportedLanguages = constants.supportedLanguages;
@@ -69,14 +71,16 @@ export class I18nService {
       language = this.defaultLanguage;
     }
 
-    log.debug(`Language set to ${language}`);
+    // Set language in html lang tag
+    this.document.documentElement.lang = language;
+
+    log.debug(`Language set to '${language}'`);
     this.translateService.use(language);
   }
 
-  destroy() {
+  destroy(): void {
     if (this.langChangeSubscription) {
       this.langChangeSubscription.unsubscribe();
     }
   }
-
 }
