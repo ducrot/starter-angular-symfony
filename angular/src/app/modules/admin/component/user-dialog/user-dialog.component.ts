@@ -1,6 +1,6 @@
 import { ChangeDetectionStrategy, Component, Inject, ViewEncapsulation } from '@angular/core';
 import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { UntypedFormBuilder, UntypedFormGroup, Validators } from '@angular/forms';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { Gender } from '@pb/app/gender';
 import { User } from '@pb/app/user';
@@ -22,12 +22,12 @@ export class UserDialogComponent {
 
   action: string;
   dialogTitle!: string;
-  readonly formGroup: FormGroup;
+  readonly formGroup: UntypedFormGroup;
   readonly gender = Gender;
   private user!: User;
 
   constructor(
-    private fb: FormBuilder,
+    private fb: UntypedFormBuilder,
     public dialogRef: MatDialogRef<UserDialogComponent>,
     public snackBar: MatSnackBar,
     private translate: TranslateService,
@@ -55,7 +55,7 @@ export class UserDialogComponent {
     this.formGroup = this.createForm();
   }
 
-  createForm(): FormGroup {
+  createForm(): UntypedFormGroup {
     return this.fb.group({
       username: [this.user.username, [Validators.required, Validators.email]],
       password: ['', (this.action === 'create') ? Validators.required : null],
