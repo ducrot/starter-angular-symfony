@@ -1,11 +1,11 @@
 <h1>{{ 'app.features.title' | translate }}</h1>
 
-<div class="container" fxFill fxLayout="row wrap" fxLayoutGap="16px 16px grid">
-  <div *ngFor="let feature of features" class="wrapper" fxFlex="100%" fxFlex.gt-sm="33.3333%" fxFlex.gt-xs="50%">
+<div class="container flex flex-row flex-wrap min-w-full">
+  <div *ngFor="let feature of features" class="wrapper sm:basis-1/3 xs:basis-1/2 pr-4 pb-4">
     <mat-card>
-      <mat-card-title fxLayout="row" fxLayoutAlign="start stretch">
-        <div fxFlex="1 1 100%">{{feature.name | translate}}</div>
-        <code *ngIf="feature.version" fxFlexAlign="start">{{feature.version}}</code>
+      <mat-card-title class="flex flex-row place-content-stretch">
+        <div class="flex-1">{{feature.name | translate}}</div>
+        <code class="self-start" *ngIf="feature.version">{{feature.version}}</code>
       </mat-card-title>
       <mat-card-content>
         <p>

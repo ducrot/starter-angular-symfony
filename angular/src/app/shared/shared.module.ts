@@ -2,7 +2,6 @@ import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { RouterModule } from '@angular/router';
-import { FlexLayoutModule } from '@angular/flex-layout';
 import { FontawesomeModule } from '@shared/fontawesome.module';
 import { MaterialModule } from '@shared/material.module';
 import { TranslateModule } from '@ngx-translate/core';
@@ -22,7 +21,6 @@ import { LocalizedDatePipe } from '@shared/pipe/localized-date.pipe';
     FormsModule,
     ReactiveFormsModule,
     RouterModule,
-    FlexLayoutModule,
     TranslateModule,
   ],
   declarations: [
@@ -38,7 +36,6 @@ import { LocalizedDatePipe } from '@shared/pipe/localized-date.pipe';
     FormsModule,
     ReactiveFormsModule,
     RouterModule,
-    FlexLayoutModule,
     FontawesomeModule,
     MaterialModule,
     TranslateModule,

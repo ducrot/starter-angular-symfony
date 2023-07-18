@@ -1,7 +1,7 @@
 <div class="dialog-content-wrapper">
 
   <mat-toolbar class="mat-accent m-0" matDialogTitle>
-    <mat-toolbar-row fxLayout="row" fxLayoutAlign="space-between center">
+    <mat-toolbar-row class="flex flex-row place-content-between items-center">
       <span class="title dialog-title">{{ dialogTitle | translate }}</span>
       <button (click)="dialogRef.close()" aria-label="Close dialog" mat-icon-button>
         <mat-icon>close</mat-icon>
@@ -64,7 +64,7 @@
 
   </div>
 
-  <div class="m-0 p-4" fxLayout="row" fxLayoutAlign="end center" mat-dialog-actions>
+  <div class="m-0 p-4 flex flex-row place-content-end items-center" mat-dialog-actions>
 
     <button (click)="onCreateSubmitClick()" *ngIf="action === 'create'" color="accent"
             mat-raised-button>{{ 'app.form.submit' | translate }}</button>

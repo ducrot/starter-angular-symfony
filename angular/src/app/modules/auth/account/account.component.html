@@ -1,10 +1,8 @@
 <!-- HEADER -->
-<div class="header mb-8"
-     fxLayout="column" fxLayout.gt-xs="row"
-     fxLayoutAlign="center center" fxLayoutAlign.gt-xs="space-between center">
+<div class="header mb-8 flex flex-col place-content-center items-center xs:flex-row xs:place-content-between">
 
   <!-- PAGE TITLE -->
-  <h1 class="logo mb-6 sm:mb-0" fxLayout="row" fxLayoutAlign="start center">
+  <h1 class="logo mb-6 sm:mb-0 flex flex-row place-content-start items-center">
     <fa-icon class="mr-4" icon="user"></fa-icon>
     <span>{{ 'app.auth.account.title' | translate }}</span>
   </h1>
