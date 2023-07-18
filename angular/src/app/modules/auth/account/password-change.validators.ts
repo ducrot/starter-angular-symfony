@@ -1,15 +1,15 @@
-import { UntypedFormGroup } from '@angular/forms';
+import { FormGroup } from '@angular/forms';
 
 export class PasswordChangeValidators {
 
-  static newPasswordIsEqualCurrentPassword(group: UntypedFormGroup): null {
+  static newPasswordIsEqualCurrentPassword(group: FormGroup): null {
     if (group.controls.currentPassword.value === group.controls.newPassword.value) {
       group.controls.newPassword.setErrors({newPasswordIsEqualCurrentPassword: true});
     }
     return null;
   }
 
-  static newPasswordNotEqualConfirmPassword(group: UntypedFormGroup): null {
+  static newPasswordNotEqualConfirmPassword(group: FormGroup): null {
     if (group.controls.newPassword.value !== group.controls.newPasswordConfirm.value) {
       group.controls.newPasswordConfirm.setErrors({newPasswordNotEqualConfirmPassword: true});
     }

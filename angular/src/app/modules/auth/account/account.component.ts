@@ -2,7 +2,7 @@ import { ChangeDetectionStrategy, ChangeDetectorRef, Component, ViewChild } from
 import { Observable } from 'rxjs';
 import { AuthService } from '@app/service/auth.service';
 import { User } from '@pb/app/user';
-import { AbstractControl, UntypedFormBuilder, UntypedFormGroup, NgForm, Validators } from '@angular/forms';
+import { AbstractControl, FormBuilder, FormGroup, NgForm, Validators } from '@angular/forms';
 import { PasswordChangeValidators } from '@modules/auth/account/password-change.validators';
 import { AuthenticationServiceClient } from '@pb/app/authentication-service.client';
 import { AlertService } from '@shared/service/alert.service';
@@ -23,7 +23,7 @@ export class AccountComponent {
 
   readonly user$: Observable<User>;
   panelOpenState = false;
-  readonly formGroup: UntypedFormGroup;
+  readonly formGroup: FormGroup;
 
   @ViewChild('changePasswordAccordion') changePasswordAccordion!: MatAccordion;
   @ViewChild('changePasswordForm') changePasswordForm!: NgForm;
@@ -32,7 +32,7 @@ export class AccountComponent {
     private readonly authService: AuthService,
     private readonly client: AuthenticationServiceClient,
     private alertService: AlertService,
-    fb: UntypedFormBuilder,
+    fb: FormBuilder,
     public snackBar: MatSnackBar,
     private translate: TranslateService,
     private cdr: ChangeDetectorRef,
