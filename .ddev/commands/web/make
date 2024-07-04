@@ -1,0 +1,13 @@
+#!/bin/bash
+
+## Description: Run make command inside the web container
+## Usage: make [args]
+## Example: "make website-generate" or "make amqp-update"
+## ExecRaw: true
+
+if [ ! -f /usr/bin/make ]; then
+  echo '/usr/bin/make does not exist.'
+  exit 1
+fi
+
+make "$@"

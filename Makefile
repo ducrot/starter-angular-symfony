@@ -1,4 +1,5 @@
-.PHONY: default install install-ng install-php test test-php test-ng generate pb-ng pb-ng
+SHELL = /bin/bash
+.PHONY: default install install-ng install-php generate pb-ng pb-php build build-ng ng-serve db-drop-recreate db-on-change test test-php test-ng
 
 proto_path = ./protos/
 proto_files = $(wildcard $(proto_path)*/*.proto)
@@ -38,6 +39,33 @@ pb-php: $(proto_files)
 	@echo generated $@
 
 
+build: build-ng
+
+build-ng:
+	@pushd angular/ && yarn build && popd
+
+
+ng-serve:
+	@pushd angular/ && node_modules/.bin/ng serve --configuration ddev --host 0.0.0.0 --disable-host-check && popd
+
+
+db-drop-recreate:
+	@pushd symfony/ && ./bin/db-drop-recreate.sh && popd
+
+db-on-change:
+	@pushd symfony/ && ./bin/db-on-change.sh && popd
+
+
+messenger-consume:
+	@pushd symfony/ && symfony console messenger:consume -vv async_priority_high async && popd
+
+messenger-failed-show:
+	@pushd symfony/ && symfony console messenger:failed:show && popd
+
+messenger-failed-retry:
+	@pushd symfony/ && symfony console messenger:failed:retry && popd
+
+
 test: test-ng test-php
 
 test-ng:
@@ -45,9 +73,3 @@ test-ng:
 
 test-php:
 	@pushd symfony/ && symfony php bin/phpunit && popd
-
-
-build: build-ng
-
-build-ng:
-	@pushd angular/ && yarn build && popd

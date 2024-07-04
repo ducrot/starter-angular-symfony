@@ -1,0 +1,14 @@
+#!/bin/bash
+
+## Description: Run Angular ng command inside the web container
+## Usage: ng [args]
+## Example: "make website-generate" or "make amqp-update"
+## ExecRaw: true
+
+if [ ! -f /usr/local/bin/ng ]; then
+  echo '/usr/local/bin/ng does not exist.'
+  exit 1
+fi
+
+cd angular
+/usr/local/bin/ng "$@"

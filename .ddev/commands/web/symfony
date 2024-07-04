@@ -1,0 +1,16 @@
+#!/bin/bash
+
+# This assumes that the symfony command will be in the $PATH; if in vendor/bin/ it will be
+
+## Description: Run Symfony CLI (symfony) command inside the web container
+## Usage: symfony [args]
+## Example: "ddev symfony console" or "ddev symfony console cache:clear"
+## ExecRaw: true
+
+if [ ! -f /usr/bin/symfony ]; then
+  echo '/usr/bin/symfony does not exist.'
+  exit 1
+fi
+
+cd symfony
+symfony "$@"

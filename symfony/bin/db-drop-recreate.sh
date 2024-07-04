@@ -1,4 +1,4 @@
-#!/bin/sh
+#!/usr/bin/env bash
 set -eu
 
 read -p "The entire database will be deleted! Are you sure? [y/N] " -r
@@ -14,8 +14,8 @@ symfony console doctrine:database:drop --force  || {
 
 symfony console doctrine:database:create
 symfony console doctrine:schema:create
-symfony console doctrine:schema:validate
 symfony console doctrine:migrations:version --all --add --no-interaction
+symfony console doctrine:schema:validate
 
 read -p "Load fixtures? [y/N] " -r
 test "${REPLY}" = "n" || {

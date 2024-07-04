@@ -1,5 +1,14 @@
-starter-angular-symfony
-=======================
+# starter-angular-symfony
+
+[GitHub: ducrot/starter-angular-symfony](https://github.com/ducrot/starter-angular-symfony)
+
+This is a demonstration project that follows best practices for an Angular frontend and a Symfony backend,
+using Protobuf for data exchange.
+
+It is recommended to use [DDEV](https://ddev.readthedocs.io/en/stable/) for local development.
+
+If you are unable to use DDEV, you will need to set up a web server with PHP, a database server
+such as MySQL or MariaDB, and a Node setup yourself.
 
 
 ## Features
@@ -11,7 +20,7 @@ starter-angular-symfony
 - each request is tagged with a unique id, id is logged with every log record, delivered to client
 
 
-# Install
+## Install
 
 ```shell script
 # Clone with SSH
@@ -19,7 +28,38 @@ git clone git@github.com:ducrot/starter-angular-symfony.git my-project
 # Clone with HTTPS
 git clone https://github.com/ducrot/starter-angular-symfony.git my-project
 cd my-project
-make install
+cp symfony/.env.ddev symfony/.env.local
+```
+
+Edit `symfony/.env.local` to match your environment (not needed for DDEV).
+
+
+## Development
+
+```shell script
+ddev start
+ddev auth ssh
+ddev make install
+ddev make ng-serve
+```
+
+Website is now available at [https://starter-angular-symfony.ddev.site:4200/](https://starter-angular-symfony.ddev.site:4200/).
+
+To see all services, run `ddev describe`.
+
+
+## Database
+
+To init the database with test data, run:
+
+```shell script
+ddev make db-drop-recreate
+```
+
+To create a new database migration, run:
+
+```shell script
+ddev make db-on-change
 ```
 
 
@@ -30,19 +70,14 @@ is used. It is a very simple protocol based on HTTP/1 that serializes all data
 using [protobuf](https://developers.google.com/protocol-buffers). See `protos/` 
 directory for the message and service definitions. 
 
-For the first installation and after adding or changing a .proto file, run `make generate` to 
+For the first installation and after adding or changing a .proto file, run `ddev make generate` to 
 generate Typescript and PHP code.
-
-You need the protobuf compiler `protoc` for that. Run `brew install protobuf` or 
-`sudo port install protobuf3-cpp` or download a release for your OS 
-[here](https://github.com/protocolbuffers/protobuf/releases) 
-and follow the installation instructions.
 
 This will write PHP files to `symfony/src-pb` and typescript files to `angular/src/pb`.   
 
 To add a new service: 
 - Create the service in a new .proto file in the `/protos/` directory.
-- Run `make generate`.
+- Run `ddev make generate`.
 - A PHP interface for your service has been created in `symfony/src-pb`.
 - Create a new class in `symfony/services/<your-service-name>.php` 
   and implement the generated interface with your logic.
@@ -53,42 +88,18 @@ To add a new service:
 
 ## Symfony
 
-The symfony part is located in the `symfony` directory. 
-
-Run `composer install` to install dependencies.
-
-To install the `symfony` command (standard for symfony v5), run the following 
-command: 
-
-```shell script
-curl -sS https://get.symfony.com/cli/installer | bash
-```
-
-You can start a symfony development server using: 
-
-```shell script
-cd symfony
-symfony server:start
-```
-
-Set database credentials in `.env.local` and create database tables/schema:
-
-```shell script
-symfony console doctrine:database:create
-symfony console doctrine:schema:create
-symfony console doctrine:schema:validate
-```
+The symfony part is located in the `symfony` directory.
 
 Create a first admin account. Additional users can be created in the application.
 
 ```shell script
-symfony console backend:createadmin testuser@domain.tld 'A#Very$ecretPwd'
+ddev symfony console backend:createadmin testuser@domain.tld 'A#Very$ecretPwd'
 ```
 
 Or import fixtures which will be generated with Alice and Faker.
 
 ```shell script
-symfony console hautelook:fixtures:load
+ddev symfony console hautelook:fixtures:load
 ```
 
 
@@ -98,23 +109,20 @@ The angular part is located in the `angular` directory.
 
 The project was tested with node v16.x and yarn v1.x.
 
-Run `yarn install` to install dependencies. 
+Run `ddev yarn install` to install dependencies. 
 
 To start a development server, run the following command:
 
 ```shell script
-cd angular
-node_modules/.bin/ng serve
+ddev make ng-serve
 ```
-
-If your have the angular CLI globally installed, you can simply run `ng serve`.
 
 
 ### Tailwind CSS
 
 The utility-first CSS framework [Tailwind CSS](https://tailwindcss.com) is configured out of the box.
 
-To view all possible classes in your brwoser start the [Tailwind Config Viewer](https://github.com/rogden/tailwind-config-viewer) with `yarn run tailwind-config-viewer`.
+To view all possible classes in your browser start the [Tailwind Config Viewer](https://github.com/rogden/tailwind-config-viewer) with `ddev yarn --cwd angular run tailwind-config-viewer` and open [https://starter-angular-symfony.ddev.site:3000/](https://starter-angular-symfony.ddev.site:3000/).
 
 
 ## Production builds
@@ -122,7 +130,7 @@ To view all possible classes in your brwoser start the [Tailwind Config Viewer](
 Make angular production build: 
 
 ```shell script
-node_modules/.bin/ng build --prod --deleteOutputPath=false
+ddev ng build --prod --deleteOutputPath=false
 ```
 
 Production builds are automatically delivered by symfony. See FrontendController.php.
