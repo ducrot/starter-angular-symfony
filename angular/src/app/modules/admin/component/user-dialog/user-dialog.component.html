@@ -1,7 +1,7 @@
 <div class="dialog-content-wrapper">
 
   <mat-toolbar class="mat-accent m-0" matDialogTitle>
-    <mat-toolbar-row fxLayout="row" fxLayoutAlign="space-between center">
+    <mat-toolbar-row class="flex justify-between items-center">
       <span class="title dialog-title">{{ dialogTitle | translate }}</span>
       <button (click)="dialogRef.close()" aria-label="Close dialog" mat-icon-button>
         <mat-icon>close</mat-icon>
@@ -14,7 +14,7 @@
 
     <form [formGroup]="formGroup" class="form">
 
-      <mat-form-field class="full-width">
+      <mat-form-field class="w-full">
         <mat-label>{{ 'app.admin.users.field.username' | translate }}</mat-label>
         <input formControlName="username" matInput required>
         <mat-error
@@ -23,7 +23,7 @@
           *ngIf="formGroup.controls.username.hasError('required')">{{ 'app.form.required' | translate }}</mat-error>
       </mat-form-field>
 
-      <mat-form-field *ngIf="action === 'create'" class="full-width">
+      <mat-form-field *ngIf="action === 'create'" class="w-full">
         <mat-label>{{ 'app.admin.users.field.password' | translate }}</mat-label>
         <input formControlName="password" matInput required type="password">
         <mat-error
@@ -42,21 +42,21 @@
           *ngIf="formGroup.controls.gender.hasError('required')">{{ 'app.form.required' | translate }}</mat-error>
       </p>
 
-      <mat-form-field class="full-width">
+      <mat-form-field class="w-full">
         <mat-label>{{ 'app.admin.users.field.first_name' | translate }}</mat-label>
         <input formControlName="firstName" matInput>
         <mat-error
           *ngIf="formGroup.controls.firstName.hasError('required')">{{ 'app.form.required' | translate }}</mat-error>
       </mat-form-field>
 
-      <mat-form-field class="full-width">
+      <mat-form-field class="w-full">
         <mat-label>{{ 'app.admin.users.field.last_name' | translate }}</mat-label>
         <input formControlName="lastName" matInput>
         <mat-error
           *ngIf="formGroup.controls.lastName.hasError('required')">{{ 'app.form.required' | translate }}</mat-error>
       </mat-form-field>
 
-      <div class="full-width">
+      <div class="w-full">
         <mat-checkbox formControlName="isAdmin">{{ 'app.admin.users.field.admin' | translate }}</mat-checkbox>
       </div>
 
@@ -64,7 +64,7 @@
 
   </div>
 
-  <div class="m-0 p-4" fxLayout="row" fxLayoutAlign="end center" mat-dialog-actions>
+  <div class="m-0 p-4 flex justify-end items-center" mat-dialog-actions>
 
     <button (click)="onCreateSubmitClick()" *ngIf="action === 'create'" color="accent"
             mat-raised-button>{{ 'app.form.submit' | translate }}</button>

@@ -32,13 +32,6 @@ export const features: Feature[] = [
     documentation: 'https://material.angular.io/'
   },
   {
-    name: 'Angular Flex-Layout',
-    version: env.versions.flexLayout,
-    description: 'app.features.angular-material',
-    github: 'https://github.com/angular/flex-layout',
-    documentation: 'https://github.com/angular/flex-layout/wiki/API-Documentation'
-  },
-  {
     name: 'Tailwind',
     version: env.versions.tailwind,
     description: 'app.features.tailwind',

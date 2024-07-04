@@ -1,10 +1,8 @@
 <!-- HEADER -->
-<div class="header mb-8"
-     fxLayout="column" fxLayout.gt-xs="row"
-     fxLayoutAlign="center center" fxLayoutAlign.gt-xs="space-between center">
+<div class="header mb-8 sm:flex sm:justify-between sm:items-center">
 
   <!-- PAGE TITLE -->
-  <h1 class="logo mb-6 sm:mb-0" fxLayout="row" fxLayoutAlign="start center">
+  <h1 class="logo mb-6 sm:mb-0 flex items-center">
     <mat-icon class="mr-4" inline="true">perm_identity</mat-icon>
     <span>{{ 'app.admin.users.title' | translate }}</span>
 
@@ -21,7 +19,7 @@
 
   <!-- SEARCH -->
   <div class="search-wrapper sm:ml-16" *ngIf="(query.valueChange$ | async) as request">
-    <div class="search" fxFlex fxLayout="row" fxLayoutAlign="start center">
+    <div class="search flex items-center">
       <mat-icon>search</mat-icon>
       <input #searchInput (change)="onSearchChange(searchInput.value)" [value]=" request.searchText "
              matInput
