@@ -130,7 +130,7 @@ To view all possible classes in your browser start the [Tailwind Config Viewer](
 Make angular production build: 
 
 ```shell script
-ddev ng build --prod --deleteOutputPath=false
+ddev ng build --configuration production
 ```
 
 Production builds are automatically delivered by symfony. See FrontendController.php.
