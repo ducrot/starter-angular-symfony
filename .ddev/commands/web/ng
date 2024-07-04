@@ -5,10 +5,10 @@
 ## Example: "make website-generate" or "make amqp-update"
 ## ExecRaw: true
 
-if [ ! -f /usr/local/bin/ng ]; then
-  echo '/usr/local/bin/ng does not exist.'
+if [ ! -f /usr/bin/ng ]; then
+  echo '/usr/bin/ng does not exist.'
   exit 1
 fi
 
 cd angular
-/usr/local/bin/ng "$@"
+/usr/bin/ng "$@"
