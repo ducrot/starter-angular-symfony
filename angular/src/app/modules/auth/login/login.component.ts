@@ -2,7 +2,7 @@ import { ChangeDetectionStrategy, ChangeDetectorRef, Component, OnInit } from '@
 import { AuthService } from '@app/service/auth.service';
 import { ActivatedRoute } from '@angular/router';
 import { AuthenticationRoutingService } from '@app/service/authentication-routing.service';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { UntypedFormBuilder, UntypedFormGroup, Validators } from '@angular/forms';
 import { AlertService } from '@shared/service/alert.service';
 import { HeaderService } from '@shared/service/header.service';
 import { ConstantsService } from '@app/service/constants.service';
@@ -25,14 +25,14 @@ export class LoginComponent implements OnInit {
   public companyName: string;
   public title: string;
   public logo: string | undefined;
-  readonly formGroup: FormGroup;
+  readonly formGroup: UntypedFormGroup;
 
   constructor(
     private readonly client: AuthenticationServiceClient,
     private readonly authService: AuthService,
     private readonly routing: AuthenticationRoutingService,
     private readonly route: ActivatedRoute,
-    fb: FormBuilder,
+    fb: UntypedFormBuilder,
     private alertService: AlertService,
     private constants: ConstantsService,
     private headerService: HeaderService,
