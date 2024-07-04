@@ -56,7 +56,7 @@ export class I18nService {
    * @param language The language code to set (or empty).
    */
   set language(language: string) {
-    language = language || localStorage.getItem(languageKey) || this.translateService.getBrowserCultureLang();
+    language = language || localStorage.getItem(languageKey) || this.translateService.getBrowserCultureLang() || 'en-US';
     let isSupportedLanguage = this.supportedLanguages.includes(language);
 
     // If no exact match is found, search without the region
@@ -71,7 +71,7 @@ export class I18nService {
       language = this.defaultLanguage;
     }
 
-    // Set language in html lang tag
+    // Set active language in html lang tag
     this.document.documentElement.lang = language;
 
     log.debug(`Language set to '${language}'`);
