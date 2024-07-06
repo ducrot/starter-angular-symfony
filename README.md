@@ -103,6 +103,23 @@ ddev symfony console hautelook:fixtures:load
 ```
 
 
+### PHPUnit Tests
+
+```shell script
+ddev symfony php bin/phpunit
+```
+
+### PHP CS Fixer
+
+```shell script
+# Show short summary
+ddev composer phpcs-check
+
+# Fix
+ddev composer phpcs-fix
+```
+
+
 ## Angular
 
 The angular part is located in the `angular` directory. 
@@ -134,20 +151,6 @@ ddev ng build --configuration production
 ```
 
 Production builds are automatically delivered by symfony. See FrontendController.php.
-
-
-## Testing
-
-```shell script
-# run all tests of the application
-php bin/phpunit
-
-# Run all tests in the Foo/ directory
-php bin/phpunit tests/Foo
-
-# Run all tests in the Foo class 
-php bin/phpunit tests/Foo/FooTest.php
-```
 
 
 ## credits

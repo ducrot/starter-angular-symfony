@@ -34,6 +34,7 @@
     },
     "require-dev": {
         "doctrine/doctrine-fixtures-bundle": "^3.3",
+        "friendsofphp/php-cs-fixer": "^3.59",
         "hautelook/alice-bundle": "^2.9",
         "symfony/browser-kit": "^5.4",
         "symfony/css-selector": "^5.4",
@@ -83,7 +84,9 @@
         ],
         "post-update-cmd": [
             "@auto-scripts"
-        ]
+        ],
+        "phpcs-check": "symfony php vendor/bin/php-cs-fixer fix --dry-run --diff --using-cache=yes -v",
+        "phpcs-fix": "symfony php vendor/bin/php-cs-fixer fix --using-cache=yes -v"
     },
     "conflict": {
         "symfony/symfony": "*"
