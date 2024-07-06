@@ -1,12 +1,9 @@
 <?php
 
-
 namespace App\Security;
-
 
 class LoginCredentials
 {
-
     /** @var string */
     private $username;
 
@@ -15,8 +12,6 @@ class LoginCredentials
 
     /**
      * LoginCredentials constructor.
-     * @param string $username
-     * @param string $password
      */
     public function __construct(string $username, string $password)
     {
@@ -24,38 +19,23 @@ class LoginCredentials
         $this->password = $password;
     }
 
-
-    /**
-     * @return string
-     */
     public function getUsername(): string
     {
         return $this->username;
     }
 
-    /**
-     * @param string $username
-     */
     public function setUsername(string $username): void
     {
         $this->username = $username;
     }
 
-    /**
-     * @return string
-     */
     public function getPassword(): string
     {
         return $this->password;
     }
 
-    /**
-     * @param string $password
-     */
     public function setPassword(string $password): void
     {
         $this->password = $password;
     }
-
-
 }

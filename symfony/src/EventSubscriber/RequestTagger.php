@@ -8,15 +8,11 @@
 
 namespace App\EventSubscriber;
 
-
-use Exception;
-use LogicException;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 use Symfony\Component\HttpKernel\Event\FinishRequestEvent;
 use Symfony\Component\HttpKernel\Event\RequestEvent;
 use Symfony\Component\HttpKernel\HttpKernelInterface;
 use Symfony\Component\HttpKernel\KernelEvents;
-
 
 /**
  * Class RequestTagger
@@ -29,7 +25,6 @@ use Symfony\Component\HttpKernel\KernelEvents;
  */
 class RequestTagger implements EventSubscriberInterface
 {
-
     public const REQUEST_ATTRIBUTE_NAME = '_request_id';
     private const LISTENER_PRIORITY = 100;
 
@@ -46,7 +41,6 @@ class RequestTagger implements EventSubscriberInterface
         ];
     }
 
-
     /**
      * This is a monolog record processor.
      */
@@ -56,6 +50,7 @@ class RequestTagger implements EventSubscriberInterface
             return $record;
         }
         $record['extra']['request_id'] = $this->joinTag();
+
         return $record;
     }
 
@@ -73,9 +68,7 @@ class RequestTagger implements EventSubscriberInterface
         array_pop($this->currentRequestTag);
     }
 
-
     private array $currentRequestTag = [];
-
 
     protected function generateTag(bool $forSubRequest): string
     {
@@ -90,17 +83,15 @@ class RequestTagger implements EventSubscriberInterface
             for ($i = 0; $i < $length; ++$i) {
                 $str .= $chars[random_int(0, $max)];
             }
-        } catch (Exception $exception) {
-            throw new LogicException('Failed to generate secure random string: ' . $exception->getMessage(), 0, $exception);
+        } catch (\Exception $exception) {
+            throw new \LogicException('Failed to generate secure random string: '.$exception->getMessage(), 0, $exception);
         }
+
         return $str;
     }
-
 
     protected function joinTag(): string
     {
         return implode('.', $this->currentRequestTag);
     }
-
-
 }

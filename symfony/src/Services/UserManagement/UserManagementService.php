@@ -1,8 +1,8 @@
 <?php
+
 declare(strict_types=1);
 
 namespace App\Services\UserManagement;
-
 
 use App\CreateUserRequest;
 use App\CreateUserResponse;
@@ -16,7 +16,6 @@ use SymfonyTwirpHandler\TwirpError;
 
 class UserManagementService implements UserManagementServiceInterface
 {
-
     private UserListBuilder $listBuilder;
     private UserDto $userDto;
 
@@ -42,6 +41,7 @@ class UserManagementService implements UserManagementServiceInterface
             $response->setUser(
                 $this->userDto->getUser()->toProtobuf()
             );
+
             return $response;
         }
 
@@ -63,16 +63,17 @@ class UserManagementService implements UserManagementServiceInterface
             $response->setUser(
                 $this->userDto->getUser()->toProtobuf()
             );
+
             return $response;
         }
 
         throw new TwirpError($this->getErrorMessage(), TwirpError::INVALID_ARGUMENT);
     }
 
-//    public function delete(DeleteRequest $request): DeleteResponse
-//    {
-//        throw new LogicException('not implemented');
-//    }
+    //    public function delete(DeleteRequest $request): DeleteResponse
+    //    {
+    //        throw new LogicException('not implemented');
+    //    }
 
     public function list(ListUserRequest $request): ListUserResponse
     {
@@ -96,13 +97,12 @@ class UserManagementService implements UserManagementServiceInterface
             $this->listBuilder->pageSize = $request->getPageSize();
         }
 
-
         $response = new ListUserResponse();
         $response->setStatus(
             $this->listBuilder->getStatus()
         );
         $response->setItems(
-            $this->listBuilder->getResultArray(fn(User $u) => $u->toProtobuf())
+            $this->listBuilder->getResultArray(fn (User $u) => $u->toProtobuf())
         );
 
         return $response;
@@ -111,11 +111,11 @@ class UserManagementService implements UserManagementServiceInterface
     public function getErrorMessage()
     {
         $error = $this->userDto->getErrors()->get(0);
+
         return sprintf(
             '%s%s',
             $error->getMessage(),
-            in_array($error->getPropertyPath(), ['password', 'password_repeat', 'password_confirm']) ? '' : (' ' . $error->getInvalidValue())
+            in_array($error->getPropertyPath(), ['password', 'password_repeat', 'password_confirm']) ? '' : (' '.$error->getInvalidValue())
         );
     }
-
 }

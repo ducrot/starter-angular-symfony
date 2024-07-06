@@ -73,6 +73,7 @@ class BackendCreateadminCommand extends Command
             foreach ($errors as $error) {
                 $io->error($error->getMessage());
             }
+
             return 1;
         }
 
@@ -98,7 +99,6 @@ class BackendCreateadminCommand extends Command
             ->setUpdated(new \DateTime());
 
         $this->userRepository->persist($user);
-
 
         $io->success(sprintf('Created admin user with username "%s".', $username));
 

@@ -15,8 +15,6 @@ use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpKernel\Event\ExceptionEvent;
 use Symfony\Component\HttpKernel\Exception\HttpException;
 use Symfony\Component\HttpKernel\KernelEvents;
-use Throwable;
-
 
 /**
  * Class ExceptionLoggerSubscriber
@@ -40,15 +38,12 @@ class ExceptionLoggerSubscriber implements EventSubscriberInterface
         ];
     }
 
-
     private LoggerInterface $logger;
-
 
     public function __construct(LoggerInterface $logger)
     {
         $this->logger = $logger;
     }
-
 
     public function processException(ExceptionEvent $event): void
     {
@@ -66,15 +61,16 @@ class ExceptionLoggerSubscriber implements EventSubscriberInterface
     /**
      * Return NULL to ignore this exception and not log it.
      */
-    protected function getLogLevelForException(Throwable $exception): ?string
+    protected function getLogLevelForException(\Throwable $exception): ?string
     {
         if ($exception instanceof HttpException) {
             $status = $exception->getStatusCode();
+
             return $this->logLevels[$status] ?? null;
         }
+
         return LogLevel::ERROR;
     }
-
 
     private array $logLevels = [
         Response::HTTP_BAD_REQUEST => LogLevel::ERROR, // 400
@@ -107,6 +103,4 @@ class ExceptionLoggerSubscriber implements EventSubscriberInterface
         Response::HTTP_VERSION_NOT_SUPPORTED => LogLevel::NOTICE, // 505
         Response::HTTP_NETWORK_AUTHENTICATION_REQUIRED => LogLevel::NOTICE, // 511
     ];
-
-
 }

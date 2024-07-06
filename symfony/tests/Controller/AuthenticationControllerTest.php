@@ -14,7 +14,7 @@ class AuthenticationControllerTest extends WebTestCase
     use RefreshDatabaseTrait;
 
     /** @var KernelBrowserAlias */
-    private $client = null;
+    private $client;
 
     protected function setUp(): void
     {
@@ -27,7 +27,7 @@ class AuthenticationControllerTest extends WebTestCase
         $this->assertEquals(Response::HTTP_NOT_FOUND, $this->client->getResponse()->getStatusCode());
         $this->assertJson($this->client->getResponse()->getContent());
         $response = json_decode($this->client->getResponse()->getContent());
-        $this->assertEquals("Method GET not allowed.", $response->msg);
+        $this->assertEquals('Method GET not allowed.', $response->msg);
     }
 
     public function testMissingContentType()
@@ -36,7 +36,7 @@ class AuthenticationControllerTest extends WebTestCase
         $this->assertEquals(Response::HTTP_BAD_REQUEST, $this->client->getResponse()->getStatusCode());
         $this->assertJson($this->client->getResponse()->getContent());
         $response = json_decode($this->client->getResponse()->getContent());
-        $this->assertEquals("Missing content-type application/protobuf or application/json", $response->msg);
+        $this->assertEquals('Missing content-type application/protobuf or application/json', $response->msg);
     }
 
     public function testLoginEmptyCredentials()
@@ -45,7 +45,7 @@ class AuthenticationControllerTest extends WebTestCase
         $this->assertEquals(Response::HTTP_BAD_REQUEST, $this->client->getResponse()->getStatusCode());
         $this->assertJson($this->client->getResponse()->getContent());
         $response = json_decode($this->client->getResponse()->getContent());
-        $this->assertEquals("app.form.missing_parameters", $response->msg);
+        $this->assertEquals('app.form.missing_parameters', $response->msg);
     }
 
     public function testLoginWrongUsername()
@@ -60,7 +60,7 @@ class AuthenticationControllerTest extends WebTestCase
         $this->assertEquals(Response::HTTP_UNAUTHORIZED, $this->client->getResponse()->getStatusCode());
         $this->assertJson($this->client->getResponse()->getContent());
         $response = json_decode($this->client->getResponse()->getContent());
-        $this->assertEquals("app.auth.login.login_failed", $response->msg);
+        $this->assertEquals('app.auth.login.login_failed', $response->msg);
     }
 
     public function testLoginWrongPassword()
@@ -75,7 +75,7 @@ class AuthenticationControllerTest extends WebTestCase
         $this->assertEquals(Response::HTTP_UNAUTHORIZED, $this->client->getResponse()->getStatusCode());
         $this->assertJson($this->client->getResponse()->getContent());
         $response = json_decode($this->client->getResponse()->getContent());
-        $this->assertEquals("app.auth.login.login_failed", $response->msg);
+        $this->assertEquals('app.auth.login.login_failed', $response->msg);
     }
 
     public function testLoginSucess()

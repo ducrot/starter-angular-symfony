@@ -2,7 +2,6 @@
 
 namespace App\Services;
 
-
 use App\AuthenticationServiceInterface;
 use App\ChangePasswordRequest;
 use App\ChangePasswordResponse;
@@ -20,7 +19,6 @@ use SymfonyTwirpHandler\TwirpError;
 
 class AuthenticationService implements AuthenticationServiceInterface
 {
-
     private AuthenticationManager $manager;
     private Security $security;
     private EntityManagerInterface $em;
@@ -36,8 +34,7 @@ class AuthenticationService implements AuthenticationServiceInterface
         EntityManagerInterface $em,
         ValidatorInterface $validator,
         UserPasswordEncoderInterface $passwordEncoder
-    )
-    {
+    ) {
         $this->manager = $manager;
         $this->security = $security;
         $this->em = $em;
@@ -48,13 +45,13 @@ class AuthenticationService implements AuthenticationServiceInterface
     public function login(LoginRequest $request): LoginResponse
     {
         if (empty($request->getUsername())) {
-            throw new TwirpError("app.form.missing_parameters", TwirpError::INVALID_ARGUMENT);
+            throw new TwirpError('app.form.missing_parameters', TwirpError::INVALID_ARGUMENT);
         }
         if (empty($request->getPassword())) {
-            throw new TwirpError("app.form.missing_parameters", TwirpError::INVALID_ARGUMENT);
+            throw new TwirpError('app.form.missing_parameters', TwirpError::INVALID_ARGUMENT);
         }
 
-        # Validate login credentials
+        // Validate login credentials
         $credentials = new LoginCredentials(
             $request->getUsername(),
             $request->getPassword(),
@@ -63,7 +60,7 @@ class AuthenticationService implements AuthenticationServiceInterface
         );
         $success = $this->manager->validateLogin($credentials);
         if (!$success) {
-            throw new TwirpError("app.auth.login.login_failed", TwirpError::UNAUTHENTICATED);
+            throw new TwirpError('app.auth.login.login_failed', TwirpError::UNAUTHENTICATED);
         }
 
         // Set last login date
@@ -79,19 +76,20 @@ class AuthenticationService implements AuthenticationServiceInterface
             (new Timestamp())->setSeconds($success->getTokenExpiresAt()->getTimestamp())
         );
         $response->setUser($success->getUser()->toProtobuf());
+
         return $response;
     }
 
     public function changePassword(ChangePasswordRequest $request): ChangePasswordResponse
     {
         if (empty($request->getCurrentPassword())) {
-            throw new TwirpError("app.form.missing_parameters", TwirpError::INVALID_ARGUMENT);
+            throw new TwirpError('app.form.missing_parameters', TwirpError::INVALID_ARGUMENT);
         }
         if (empty($request->getNewPassword())) {
-            throw new TwirpError("app.form.missing_parameters", TwirpError::INVALID_ARGUMENT);
+            throw new TwirpError('app.form.missing_parameters', TwirpError::INVALID_ARGUMENT);
         }
         if (empty($request->getNewPasswordConfirm())) {
-            throw new TwirpError("app.form.missing_parameters", TwirpError::INVALID_ARGUMENT);
+            throw new TwirpError('app.form.missing_parameters', TwirpError::INVALID_ARGUMENT);
         }
 
         /** @var User $user */
@@ -99,17 +97,17 @@ class AuthenticationService implements AuthenticationServiceInterface
 
         // Check current password
         if (!$this->passwordEncoder->isPasswordValid($user, $request->getCurrentPassword())) {
-            throw new TwirpError("app.auth.account.current_password_not_valid", TwirpError::INVALID_ARGUMENT);
+            throw new TwirpError('app.auth.account.current_password_not_valid', TwirpError::INVALID_ARGUMENT);
         }
 
         // Check new password not old password
         if ($request->getNewPassword() == $request->getCurrentPassword()) {
-            throw new TwirpError("app.auth.account.new_password_is_equal_current", TwirpError::INVALID_ARGUMENT);
+            throw new TwirpError('app.auth.account.new_password_is_equal_current', TwirpError::INVALID_ARGUMENT);
         }
 
         // Check password confirmation
         if ($request->getNewPassword() != $request->getNewPasswordConfirm()) {
-            throw new TwirpError("app.auth.account.new_password_not_equal_confirm_password", TwirpError::INVALID_ARGUMENT);
+            throw new TwirpError('app.auth.account.new_password_not_equal_confirm_password', TwirpError::INVALID_ARGUMENT);
         }
 
         // Check password strength
@@ -123,7 +121,7 @@ class AuthenticationService implements AuthenticationServiceInterface
             $passwordStrength
         );
         if (count($errors) > 0) {
-            throw new TwirpError("app.auth.account.new_password_bad_password_strength", TwirpError::INVALID_ARGUMENT);
+            throw new TwirpError('app.auth.account.new_password_bad_password_strength', TwirpError::INVALID_ARGUMENT);
         }
 
         // save new password
@@ -135,6 +133,7 @@ class AuthenticationService implements AuthenticationServiceInterface
         // Build response
         $response = new ChangePasswordResponse();
         $response->setValid(true);
+
         return $response;
     }
 }

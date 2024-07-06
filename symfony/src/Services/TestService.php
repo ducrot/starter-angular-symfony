@@ -1,22 +1,18 @@
 <?php
 
-
 namespace App\Services;
-
 
 use App\LuckyNumberRequest;
 use App\LuckyNumberResponse;
-use SymfonyTwirpHandler\TwirpError;
 use App\TestCallRequest;
 use App\TestCallResponse;
 use App\TestServiceInterface;
 use Exception;
 use Google\Protobuf\GPBEmpty;
+use SymfonyTwirpHandler\TwirpError;
 
 class TestService implements TestServiceInterface
 {
-
-
     public function testCall(TestCallRequest $request): TestCallResponse
     {
         $amount = $request->getAmount();
@@ -24,9 +20,9 @@ class TestService implements TestServiceInterface
         $response = new TestCallResponse();
         $response->setOk(true);
         $response->setResult("You sent amount = {$amount} and search text = '{$searchText}'");
+
         return $response;
     }
-
 
     public function luckyNumber(LuckyNumberRequest $request): LuckyNumberResponse
     {
@@ -34,6 +30,7 @@ class TestService implements TestServiceInterface
         $response->setNumber(
             random_int(0, 100)
         );
+
         return $response;
     }
 
@@ -53,6 +50,6 @@ class TestService implements TestServiceInterface
     {
         // throwing any other exception will show a generic message to the user
 
-        throw new Exception("Something went really wrong, don't know what :/");
+        throw new \Exception("Something went really wrong, don't know what :/");
     }
 }

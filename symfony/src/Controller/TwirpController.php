@@ -1,8 +1,6 @@
 <?php
 
-
 namespace App\Controller;
-
 
 use App\AuthenticationServiceInterface;
 use App\Services\AuthenticationService;
@@ -20,7 +18,6 @@ use SymfonyTwirpHandler\TwirpHandler;
 
 class TwirpController implements ServiceSubscriberInterface
 {
-
     /**
      * All services defined in .proto files should be registered here.
      * Use the implementation as key and the generated service interface
@@ -32,10 +29,10 @@ class TwirpController implements ServiceSubscriberInterface
         UserManagementService::class => UserManagementServiceInterface::class,
     ];
 
-
     /**
      * We use the mappings to subscribe to the service implementations
      * from the container.
+     *
      * @return array
      */
     public static function getSubscribedServices()
@@ -43,21 +40,16 @@ class TwirpController implements ServiceSubscriberInterface
         return array_keys(self::MAPPINGS);
     }
 
-
     private TwirpHandler $handler;
-
 
     /**
      * PbController constructor.
      *
      * Sets up a handler that routes HTTP requests to the proper service.
-     *
-     * @param ContainerInterface $locator
      */
     public function __construct(
         ContainerInterface $locator
-    )
-    {
+    ) {
         $resolver = new ServiceResolver();
         foreach (self::MAPPINGS as $imp => $int) {
             $resolver->registerFactory($int, function () use ($locator, $imp) {
@@ -67,22 +59,14 @@ class TwirpController implements ServiceSubscriberInterface
         $this->handler = new TwirpHandler($resolver);
     }
 
-
     /**
      * @Route(
      *     path="/api/{serviceName}/{methodName}" ,
      *     name="api-execute"
      * )
-     *
-     * @param Request $request
-     * @param string $serviceName
-     * @param string $methodName
-     * @return Response
      */
     public function execute(Request $request, string $serviceName, string $methodName): Response
     {
         return $this->handler->handle($serviceName, $methodName, $request);
     }
-
-
 }

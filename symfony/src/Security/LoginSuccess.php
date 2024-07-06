@@ -1,21 +1,16 @@
 <?php
 
-
 namespace App\Security;
 
-
 use App\Entity\User;
-use DateTimeInterface;
 
 class LoginSuccess
 {
-
     private $token;
     private $tokenExpiresAt;
     private $user;
 
-
-    public function __construct(string $token, DateTimeInterface $tokenExpiresAt, User $user)
+    public function __construct(string $token, \DateTimeInterface $tokenExpiresAt, User $user)
     {
         $this->token = $token;
         $this->tokenExpiresAt = $tokenExpiresAt;
@@ -27,7 +22,7 @@ class LoginSuccess
         return $this->token;
     }
 
-    public function getTokenExpiresAt(): DateTimeInterface
+    public function getTokenExpiresAt(): \DateTimeInterface
     {
         return $this->tokenExpiresAt;
     }
@@ -36,6 +31,4 @@ class LoginSuccess
     {
         return $this->user;
     }
-
-
 }

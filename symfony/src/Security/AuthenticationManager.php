@@ -1,12 +1,8 @@
 <?php
 
-
 namespace App\Security;
 
-
 use App\Entity\User;
-use Exception;
-use LogicException;
 use Psr\Log\LoggerInterface;
 use Symfony\Component\Security\Core\Encoder\EncoderFactoryInterface;
 use Symfony\Component\Security\Core\Exception\UserNotFoundException;
@@ -14,7 +10,6 @@ use Symfony\Component\Security\Core\User\UserProviderInterface;
 
 class AuthenticationManager
 {
-
     /** @var UserProviderInterface */
     private $userProvider;
 
@@ -29,10 +24,6 @@ class AuthenticationManager
 
     /**
      * AuthenticationManager constructor.
-     * @param UserProviderInterface $userProvider
-     * @param UserTokenAuthenticator $authenticator
-     * @param EncoderFactoryInterface $encoderFactory
-     * @param LoggerInterface $logger
      */
     public function __construct(UserProviderInterface $userProvider, UserTokenAuthenticator $authenticator, EncoderFactoryInterface $encoderFactory, LoggerInterface $logger)
     {
@@ -41,7 +32,6 @@ class AuthenticationManager
         $this->encoderFactory = $encoderFactory;
         $this->logger = $logger;
     }
-
 
     public function validateLogin(LoginCredentials $credentials): ?LoginSuccess
     {
@@ -52,16 +42,15 @@ class AuthenticationManager
 
         try {
             $token = $this->authenticator->generateToken($user);
-        } catch (Exception $e) {
-            $this->logger->error('Failed to generate token: ' . $e->getMessage());
-            throw new LogicException('Failed to generate token');
+        } catch (\Exception $e) {
+            $this->logger->error('Failed to generate token: '.$e->getMessage());
+            throw new \LogicException('Failed to generate token');
         }
 
         $expiresAt = date_create_immutable()->add($this->authenticator->getTokenLifetime());
 
         return new LoginSuccess($token, $expiresAt, $user);
     }
-
 
     private function getUserByCredentials(LoginCredentials $credentials): ?User
     {
@@ -71,18 +60,18 @@ class AuthenticationManager
             $valid = $encoder->isPasswordValid($user->getPassword(), $credentials->getPassword(), $user->getSalt());
             if (!$valid) {
                 $this->logger->warning(sprintf('Failed login attempt with username "%s". Password incorrect.', $credentials->getUsername()));
+
                 return null;
             }
             if (!$user instanceof User) {
-                throw new LogicException();
+                throw new \LogicException();
             }
-            return $user;
 
+            return $user;
         } catch (UserNotFoundException $exception) {
             $this->logger->warning(sprintf('Failed login attempt with username "%s". No user with this name found.', $credentials->getUsername()));
+
             return null;
         }
     }
-
-
 }

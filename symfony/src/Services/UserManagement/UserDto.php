@@ -1,19 +1,17 @@
 <?php
+
 declare(strict_types=1);
 
 namespace App\Services\UserManagement;
 
-
 use App\Entity\User;
 use App\Repository\UserRepository;
-use DateTime;
 use Symfony\Component\Security\Core\Encoder\UserPasswordEncoderInterface;
 use Symfony\Component\Validator\ConstraintViolationListInterface;
 use Symfony\Component\Validator\Validator\ValidatorInterface;
 
 class UserDto
 {
-
     private UserRepository $userRepository;
     private ValidatorInterface $validator;
     private UserPasswordEncoderInterface $passwordEncoder;
@@ -38,8 +36,8 @@ class UserDto
 
     public function create(): void
     {
-        $this->user->setCreated(new DateTime());
-        $this->user->setUpdated(new DateTime());
+        $this->user->setCreated(new \DateTime());
+        $this->user->setUpdated(new \DateTime());
     }
 
     public function load(string $id): void
@@ -58,6 +56,7 @@ class UserDto
             }
             $this->userRepository->persist($this->user);
         }
+
         return $ok;
     }
 
@@ -101,7 +100,6 @@ class UserDto
     {
         return $this->user;
     }
-
 
     public function hasErrors(): bool
     {

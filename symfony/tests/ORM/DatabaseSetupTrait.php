@@ -11,7 +11,6 @@ use Doctrine\ORM\EntityManager;
 use Doctrine\ORM\Tools\SchemaTool;
 use Doctrine\ORM\Tools\ToolsException;
 use Hautelook\AliceBundle\Loader\DoctrineOrmLoader;
-use LogicException;
 use Symfony\Bundle\FrameworkBundle\Console\Application;
 use Symfony\Bundle\FrameworkBundle\Test\KernelTestCase;
 use Symfony\Component\Security\Core\Encoder\EncoderFactory;
@@ -48,7 +47,7 @@ trait DatabaseSetupTrait
     /** @var EntityManager */
     protected $em;
 
-    /** @var DoctrineOrmLoader  */
+    /** @var DoctrineOrmLoader */
     protected $aliceLoader;
 
     protected function setUpEntityManager()
@@ -65,7 +64,7 @@ trait DatabaseSetupTrait
     protected static function ensureKernelTestCase(): void
     {
         if (!is_a(static::class, KernelTestCase::class, true)) {
-            throw new LogicException(sprintf('The test class must extend "%s" to use "%s".', KernelTestCase::class, static::class));
+            throw new \LogicException(sprintf('The test class must extend "%s" to use "%s".', KernelTestCase::class, static::class));
         }
     }
 
@@ -88,7 +87,7 @@ trait DatabaseSetupTrait
     {
         $passwordEncoder = new UserPasswordEncoder(
             new EncoderFactory([
-                User::class => new PlaintextPasswordEncoder()
+                User::class => new PlaintextPasswordEncoder(),
             ])
         );
         $loader = new Loader();
@@ -120,5 +119,4 @@ trait DatabaseSetupTrait
         $this->em = null;
         parent::tearDown();
     }
-
 }

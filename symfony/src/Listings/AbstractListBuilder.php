@@ -1,22 +1,11 @@
 <?php
 
-
 namespace App\Listings;
-
 
 use Common\ListStatus;
 use Doctrine\ORM\EntityManagerInterface;
 use Doctrine\ORM\Query;
 use Doctrine\ORM\Tools\Pagination\Paginator;
-use Exception;
-use Generator;
-use InvalidArgumentException;
-use LogicException;
-use OutOfRangeException;
-use ReflectionClass;
-use ReflectionException;
-use ReflectionProperty;
-
 
 /**
  * Class AbstractListBuilder
@@ -72,13 +61,9 @@ use ReflectionProperty;
  *
  * Each time you yield, the list builder will query the count for
  * the current filters and then reset the filters again.
- *
- * @package App\Listings
  */
 abstract class AbstractListBuilder
 {
-
-
     public int $page = 1;
     public int $pageSize = -1;
 
@@ -95,7 +80,6 @@ abstract class AbstractListBuilder
     private array $resultSummary = [];
     private ?iterable $resultRows;
 
-
     public function __construct(EntityManagerInterface $entityManager)
     {
         $this->entityManager = $entityManager;
@@ -104,7 +88,6 @@ abstract class AbstractListBuilder
         $this->filterDefaults = $this->captureFilters();
         $this->constraintDefaults = $this->captureConstraints();
     }
-
 
     /**
      * Override this method to set max / default page size
@@ -119,42 +102,30 @@ abstract class AbstractListBuilder
         // $this->setPageSizeDefault(10);
     }
 
-
     /**
      * Override this method to convert the result rows to a different format,
      * expand the data with additional queries, etc.
-     *
-     * @param object $row
-     * @return object
      */
     protected function mapResultRow(object $row): object
     {
         return $row;
     }
 
-
     /**
      * Implement your query here. Use your filter properties as you like.
      *
      * This method might be invoked multiple times with different filter values
      * to calculate the summary and the empty status.
-     *
-     * @param EntityManagerInterface $entityManager
-     * @return Query
      */
     abstract protected function buildQuery(EntityManagerInterface $entityManager): Query;
 
-
     /**
      * Override this method to provide a summary.
-     *
-     * @return Generator
      */
-    protected function provideSummary(): Generator
+    protected function provideSummary(): \Generator
     {
         yield from [];
     }
-
 
     final public function getStatus(): ListStatus
     {
@@ -164,9 +135,9 @@ abstract class AbstractListBuilder
         $status->setCount($this->getResultCount());
         $status->setEmpty($this->isResultEmpty());
         $status->setSummary($this->getResultSummary());
+
         return $status;
     }
-
 
     final public function getPageSizeDefault(): int
     {
@@ -176,11 +147,10 @@ abstract class AbstractListBuilder
     final protected function setPageSizeDefault(int $size): void
     {
         if ($size < 0) {
-            throw new InvalidArgumentException(sprintf('Page size %s is too small, must be 0 or greater. ', $size));
+            throw new \InvalidArgumentException(sprintf('Page size %s is too small, must be 0 or greater. ', $size));
         }
         $this->pageSizeDefault = $size;
     }
-
 
     final public function getPageSizeMax(): int
     {
@@ -190,20 +160,19 @@ abstract class AbstractListBuilder
     final protected function setPageSizeMax(int $size): void
     {
         if ($size < 0) {
-            throw new InvalidArgumentException(sprintf('Max page size %s is too small, must be 0 or greater. ', $size));
+            throw new \InvalidArgumentException(sprintf('Max page size %s is too small, must be 0 or greater. ', $size));
         }
         $this->pageSizeMax = $size;
     }
-
 
     final public function getActualPageSize(): int
     {
         $m = $this->getPageSizeMax();
         $d = $this->getPageSizeDefault();
         $a = $this->pageSize;
+
         return min($a < 0 ? $d : $a, $m);
     }
-
 
     /**
      * Executes the query if necessary and returns the resulting rows.
@@ -212,61 +181,58 @@ abstract class AbstractListBuilder
      * but you can further manipulate the rows by passing the $map
      * argument. The map function takes one row item and can return
      * any object.
-     *
-     * @param callable|null $map
-     * @return iterable
      */
-    final public function getResult(callable $map = null): iterable
+    final public function getResult(?callable $map = null): iterable
     {
         $this->ensureExecuted();
         if ($map === null) {
             yield from $this->resultRows;
+
             return;
         }
         foreach ($this->resultRows as $row) {
             try {
                 yield $map($row);
-            } catch (Exception $exception) {
-                throw new LogicException('Result mapping function threw an exception: ' . $exception->getMessage(), 0, $exception);
+            } catch (\Exception $exception) {
+                throw new \LogicException('Result mapping function threw an exception: '.$exception->getMessage(), 0, $exception);
             }
         }
     }
 
     /**
      * Same as getResult(), but converts the rows to an array.
-     *
-     * @param callable|null $map
-     * @return array
      */
-    final public function getResultArray(callable $map = null): array
+    final public function getResultArray(?callable $map = null): array
     {
         $a = [];
         array_push($a, ...$this->getResult($map));
+
         return $a;
     }
 
     final public function getResultCount(): int
     {
         $this->ensureExecuted();
+
         return $this->resultCount;
     }
 
     final public function isResultEmpty(): bool
     {
         $this->ensureExecuted();
+
         return $this->resultEmpty;
     }
 
     final public function getResultSummary(): array
     {
         $this->ensureExecuted();
+
         return $this->resultSummary;
     }
 
-
     private function execute(): void
     {
-
         // backup filter we're executing now
         $filterBackup = $this->captureFilters();
 
@@ -275,10 +241,10 @@ abstract class AbstractListBuilder
 
         // apply pagination
         if ($this->page <= 0) {
-            throw new OutOfRangeException(sprintf('Provided page number %s is out of range. Page numbers start with 1.', $this->page));
+            throw new \OutOfRangeException(sprintf('Provided page number %s is out of range. Page numbers start with 1.', $this->page));
         }
         if ($filtered_query->getMaxResults() !== null) {
-            throw new LogicException('Max result is set on query provided by buildQuery(). Do not set max result, it will be overridden by pagination.');
+            throw new \LogicException('Max result is set on query provided by buildQuery(). Do not set max result, it will be overridden by pagination.');
         }
         $filtered_query
             ->setFirstResult($this->getActualPageSize() * ($this->page - 1))
@@ -287,7 +253,7 @@ abstract class AbstractListBuilder
         // execute
         $filtered_pag = new Paginator($filtered_query, false);
         $this->resultRows = $this->mapResultRows($filtered_pag);
-        $this->resultCount = (int)$filtered_pag->count();
+        $this->resultCount = (int) $filtered_pag->count();
 
         // calculate empty
         $this->resultEmpty = false;
@@ -313,7 +279,6 @@ abstract class AbstractListBuilder
         $this->filterLastExecuted = $filterBackup;
     }
 
-
     final public function reset()
     {
         $this->page = -1;
@@ -326,25 +291,28 @@ abstract class AbstractListBuilder
         $this->restoreConstraints($this->constraintDefaults);
     }
 
-
     final protected function ensureExecuted(): void
     {
         if ($this->filterLastExecuted === null) {
             $this->execute();
+
             return;
         }
         if ($this->constraintLastExecuted === null) {
             $this->execute();
+
             return;
         }
         $diff = array_diff($this->captureFilters(), $this->filterLastExecuted);
         if (!empty($diff)) {
             $this->execute();
+
             return;
         }
         $diff = array_diff($this->captureConstraints(), $this->constraintLastExecuted);
         if (!empty($diff)) {
             $this->execute();
+
             return;
         }
     }
@@ -356,27 +324,26 @@ abstract class AbstractListBuilder
         }
     }
 
-
     private function captureFilters(): array
     {
         $filters = [];
         try {
-            $ref = new ReflectionClass($this);
-            foreach ($ref->getProperties(ReflectionProperty::IS_PUBLIC) as $property) {
+            $ref = new \ReflectionClass($this);
+            foreach ($ref->getProperties(\ReflectionProperty::IS_PUBLIC) as $property) {
                 $name = $property->getName();
-                if (strpos(strtolower($name), 'constraint') === 0) {
+                if (str_starts_with(strtolower($name), 'constraint')) {
                     continue;
                 }
                 $value = $property->getValue($this);
-                if (!is_null($value) && !is_scalar($value)) {
-                    throw new LogicException(sprintf('Detected non-scalar public property "%s" on %s. All public properties of %s instances must be scalar.', $name, get_class($this), AbstractListBuilder::class));
+                if (null !== $value && !is_scalar($value)) {
+                    throw new \LogicException(sprintf('Detected non-scalar public property "%s" on %s. All public properties of %s instances must be scalar.', $name, static::class, self::class));
                 }
                 $filters[$name] = $value;
             }
-            return $filters;
 
-        } catch (ReflectionException $exception) {
-            throw new LogicException('Caught reflection exception while trying to capture filters: ' . $exception->getMessage(), 0, $exception);
+            return $filters;
+        } catch (\ReflectionException $exception) {
+            throw new \LogicException('Caught reflection exception while trying to capture filters: '.$exception->getMessage(), 0, $exception);
         }
     }
 
@@ -387,27 +354,26 @@ abstract class AbstractListBuilder
         }
     }
 
-
     private function captureConstraints(): array
     {
         $constraints = [];
         try {
-            $ref = new ReflectionClass($this);
-            foreach ($ref->getProperties(ReflectionProperty::IS_PUBLIC) as $property) {
+            $ref = new \ReflectionClass($this);
+            foreach ($ref->getProperties(\ReflectionProperty::IS_PUBLIC) as $property) {
                 $name = $property->getName();
-                if (strpos(strtolower($name), 'constraint') !== 0) {
+                if (!str_starts_with(strtolower($name), 'constraint')) {
                     continue;
                 }
                 $value = $property->getValue($this);
-                if (!is_null($value) && !is_scalar($value)) {
-                    throw new LogicException(sprintf('Detected non-scalar public property "%s" on %s. All public properties of %s instances must be scalar.', $name, get_class($this), AbstractListBuilder::class));
+                if (null !== $value && !is_scalar($value)) {
+                    throw new \LogicException(sprintf('Detected non-scalar public property "%s" on %s. All public properties of %s instances must be scalar.', $name, static::class, self::class));
                 }
                 $constraints[$name] = $value;
             }
-            return $constraints;
 
-        } catch (ReflectionException $exception) {
-            throw new LogicException('Caught reflection exception while trying to capture constraints: ' . $exception->getMessage(), 0, $exception);
+            return $constraints;
+        } catch (\ReflectionException $exception) {
+            throw new \LogicException('Caught reflection exception while trying to capture constraints: '.$exception->getMessage(), 0, $exception);
         }
     }
 
@@ -417,6 +383,4 @@ abstract class AbstractListBuilder
             $this->{$key} = $value;
         }
     }
-
-
 }

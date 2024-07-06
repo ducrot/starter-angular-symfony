@@ -1,37 +1,25 @@
 <?php
 
-
 namespace App\Security;
 
-
-use DateInterval;
-use Exception;
 use Firebase\JWT\JWT;
 
 class UserToken
 {
-
-    const TOKEN_NAME = 'User Token';
-    const JWT_ALG = 'HS256';
-    const SUBJECT_TYPE = 'standard_user';
-
+    public const TOKEN_NAME = 'User Token';
+    public const JWT_ALG = 'HS256';
+    public const SUBJECT_TYPE = 'standard_user';
 
     /**
      * Create a token to authenticate a user request from the frontend.
      *
-     * @param string $username
-     * @param string $issuer
-     * @param string $secret
-     * @param DateInterval $ttl
-     * @return string
-     * @throws Exception
+     * @throws \Exception
      */
-    public static function create(string $username, string $issuer, string $secret, DateInterval $ttl): string
+    public static function create(string $username, string $issuer, string $secret, \DateInterval $ttl): string
     {
         $now = date_create_immutable();
 
         $claims = [
-
             // Issuer Claim, RFC7519
             'iss' => $issuer,
 
@@ -47,8 +35,7 @@ class UserToken
             'iat' => $now->getTimestamp(),
 
             // Expiration Time Claim, RFC7519
-            'exp' => $now->add($ttl)->getTimestamp()
-
+            'exp' => $now->add($ttl)->getTimestamp(),
         ];
 
         return JWT::encode(
@@ -57,7 +44,6 @@ class UserToken
             self::JWT_ALG
         );
     }
-
 
     public static function supports(string $token): bool
     {
@@ -70,23 +56,21 @@ class UserToken
         }
         try {
             $payload = JWT::jsonDecode($body);
-        } catch (Exception $exception) {
+        } catch (\Exception $exception) {
             return false;
         }
         if ($payload === null || !isset($payload->sub_type)) {
             return false;
         }
+
         return $payload->sub_type === self::SUBJECT_TYPE;
     }
-
 
     /**
      * Validate a users token.
      *
-     * @param string $token
-     * @param string $issuer
-     * @param string $secret
      * @return string username
+     *
      * @throws TokenException
      */
     public static function validate(string $token, string $issuer, string $secret): string
@@ -94,8 +78,8 @@ class UserToken
         $payload = null;
 
         try {
-            $payload = (array)JWT::decode($token, $secret, [self::JWT_ALG]);
-        } catch (Exception $exception) {
+            $payload = (array) JWT::decode($token, $secret, [self::JWT_ALG]);
+        } catch (\Exception $exception) {
             throw TokenException::wrapJWTDecode($exception, self::TOKEN_NAME);
         }
 
@@ -113,6 +97,5 @@ class UserToken
         }
 
         return $subject;
-
     }
 }

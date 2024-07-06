@@ -20,7 +20,7 @@ class SmokeFunctionalTest extends WebTestCase
     use RefreshDatabaseTrait;
 
     /** @var KernelBrowserAlias */
-    private $client = null;
+    private $client;
 
     protected function setUp(): void
     {
@@ -62,6 +62,7 @@ class SmokeFunctionalTest extends WebTestCase
 
     /**
      * Smoke test at each endpoint
+     *
      * @return \Generator
      */
     public function urlApiProvider()
@@ -83,9 +84,10 @@ class SmokeFunctionalTest extends WebTestCase
 
     private function generateValidToken()
     {
-        $authenticator = self::$container->get(\App\Security\UserTokenAuthenticator::class);
+        $authenticator = self::$container->get(UserTokenAuthenticator::class);
         $user = new User();
         $user->setUsername('testuser@domain.tld');
+
         return $authenticator->generateToken($user);
     }
 
@@ -93,14 +95,14 @@ class SmokeFunctionalTest extends WebTestCase
     {
         if ($token) {
             return [
-                'HTTP_' . UserTokenAuthenticator::HEADER_AUTHORIZATION => UserTokenAuthenticator::BEARER_PREFIX . $token,
+                'HTTP_'.UserTokenAuthenticator::HEADER_AUTHORIZATION => UserTokenAuthenticator::BEARER_PREFIX.$token,
                 'CONTENT_TYPE' => 'application/protobuf',
-                'HTTP_ACCEPT' => 'application/protobuf,application/json'
+                'HTTP_ACCEPT' => 'application/protobuf,application/json',
             ];
         } else {
             return [
                 'CONTENT_TYPE' => 'application/protobuf',
-                'HTTP_ACCEPT' => 'application/protobuf,application/json'
+                'HTTP_ACCEPT' => 'application/protobuf,application/json',
             ];
         }
     }

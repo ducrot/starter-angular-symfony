@@ -1,48 +1,40 @@
 <?php
 
-
 namespace App\Services\UserManagement;
-
 
 use App\Entity\User;
 use App\Listings\AbstractListBuilder;
 use Doctrine\ORM\EntityManagerInterface;
 use Doctrine\ORM\Query;
-use Generator;
 
 class UserListBuilder extends AbstractListBuilder
 {
-
-    public string $search = "";
+    public string $search = '';
     public ?bool $disabled = null;
 
-
-// dont really need setup for this simple one
-//    protected function setup(): void
-//    {
-//        $this->disabled = false;
-//        $this->setPageSizeDefault(20);
-//        $this->setPageSizeMax(100);
-//    }
-
+    // dont really need setup for this simple one
+    //    protected function setup(): void
+    //    {
+    //        $this->disabled = false;
+    //        $this->setPageSizeDefault(20);
+    //        $this->setPageSizeMax(100);
+    //    }
 
     // at the moment, entity is mapped to proto in UserManagementService.php.
     // could also do this here:
-//    protected function mapResultRow(object $row): object
-//    {
-//        return $row instanceof User ? $row->toProtobuf() : $row;
-//    }
+    //    protected function mapResultRow(object $row): object
+    //    {
+    //        return $row instanceof User ? $row->toProtobuf() : $row;
+    //    }
 
-
-    protected function provideSummary(): Generator
+    protected function provideSummary(): \Generator
     {
         $this->disabled = false;
-        yield "enabledCount";
+        yield 'enabledCount';
 
         $this->disabled = true;
-        yield "disabledCount";
+        yield 'disabledCount';
     }
-
 
     protected function buildQuery(EntityManagerInterface $entityManager): Query
     {
@@ -57,10 +49,9 @@ class UserListBuilder extends AbstractListBuilder
                     $qb->expr()->like('user.username', ':search'),
                     $qb->expr()->like('user.firstName', ':search'),
                     $qb->expr()->like('user.lastName', ':search')
-
                 )
             );
-            $like = '%' . addcslashes($this->search, '%_') . '%';
+            $like = '%'.addcslashes($this->search, '%_').'%';
             $qb->setParameter('search', $like);
         }
 
@@ -72,6 +63,4 @@ class UserListBuilder extends AbstractListBuilder
 
         return $qb->getQuery();
     }
-
-
 }

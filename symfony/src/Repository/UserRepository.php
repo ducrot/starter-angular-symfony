@@ -1,13 +1,11 @@
 <?php
 
-
 namespace App\Repository;
 
 use App\Entity\User;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\ORM\NonUniqueResultException;
 use Doctrine\Persistence\ManagerRegistry;
-use LogicException;
 use Symfony\Bridge\Doctrine\Security\User\UserLoaderInterface;
 use Symfony\Component\Security\Core\User\UserInterface;
 
@@ -44,8 +42,7 @@ class UserRepository extends ServiceEntityRepository implements UserLoaderInterf
     /**
      * Loads the user for the given user identifier (e.g. username or email).
      * This method must return null if the user is not found.
-     * @param string $identifier
-     * @return UserInterface|null
+     *
      * @throws NonUniqueResultException
      */
     public function loadUserByIdentifier(string $identifier): ?UserInterface
@@ -70,7 +67,7 @@ class UserRepository extends ServiceEntityRepository implements UserLoaderInterf
 
     public function refreshUser(UserInterface $user)
     {
-        throw new LogicException('Not supported');
+        throw new \LogicException('Not supported');
     }
 
     public function supportsClass(string $class): bool

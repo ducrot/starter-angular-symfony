@@ -1,4 +1,5 @@
 <?php
+
 declare(strict_types=1);
 
 namespace App\DataFixtures\Faker\Provider;
@@ -11,10 +12,6 @@ final class UserProvider extends Base
 {
     private EncoderFactoryInterface $encoderFactory;
 
-    /**
-     * {@inheritdoc}
-     * @param EncoderFactoryInterface $encoderFactory
-     */
     public function __construct(Generator $generator, EncoderFactoryInterface $encoderFactory)
     {
         parent::__construct($generator);
@@ -24,14 +21,8 @@ final class UserProvider extends Base
 
     /**
      * Generate Symfony encoded password using UserPasswordEncoderInterface
-     *
-     * @param string $userClass
-     * @param string $plainPassword
-     * @param string|null $salt
-     *
-     * @return string
      */
-    public function symfonyPassword(string $userClass, string $plainPassword, string $salt = null): string
+    public function symfonyPassword(string $userClass, string $plainPassword, ?string $salt = null): string
     {
         $password = $this->encoderFactory->getEncoder($userClass)->encodePassword($plainPassword, $salt);
 
@@ -40,7 +31,6 @@ final class UserProvider extends Base
 
     /**
      * Admin role
-     * @return array
      */
     public function roleAdmin(): array
     {
@@ -49,7 +39,6 @@ final class UserProvider extends Base
 
     /**
      * User Role
-     * @return array
      */
     public function roleUser(): array
     {
