@@ -106,13 +106,39 @@ ddev symfony console hautelook:fixtures:load
 ### PHPUnit Tests
 
 ```shell script
-ddev symfony php bin/phpunit
+# Run all tests
+ddev composer test
+
+# With testdox
+ddev composer test-testdox
+
+# With coverage
+ddev composer test-coverage
 ```
+
+
+### PHPStan
+
+```shell script
+ddev composer phpstan
+```
+
+
+### Rector
+
+```shell script
+# Dry-run
+ddev composer rector-check
+
+# Fix
+ddev composer rector-fix
+```
+
 
 ### PHP CS Fixer
 
 ```shell script
-# Show short summary
+# Dry-run with short summary
 ddev composer phpcs-check
 
 # Fix

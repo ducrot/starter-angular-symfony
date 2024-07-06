@@ -36,6 +36,10 @@
         "doctrine/doctrine-fixtures-bundle": "^3.3",
         "friendsofphp/php-cs-fixer": "^3.59",
         "hautelook/alice-bundle": "^2.9",
+        "phpstan/extension-installer": "^1.4",
+        "phpstan/phpstan-doctrine": "^1.4",
+        "phpstan/phpstan-phpunit": "^1.4",
+        "rector/rector": "^1.2",
         "symfony/browser-kit": "^5.4",
         "symfony/css-selector": "^5.4",
         "symfony/maker-bundle": "^1.14",
@@ -49,7 +53,8 @@
         "sort-packages": true,
         "allow-plugins": {
             "symfony/flex": true,
-            "symfony/runtime": true
+            "symfony/runtime": true,
+            "phpstan/extension-installer": true
         }
     },
     "autoload": {
@@ -85,8 +90,14 @@
         "post-update-cmd": [
             "@auto-scripts"
         ],
+        "phpstan": "symfony php vendor/bin/phpstan analyse",
         "phpcs-check": "symfony php vendor/bin/php-cs-fixer fix --dry-run --diff --using-cache=yes -v",
-        "phpcs-fix": "symfony php vendor/bin/php-cs-fixer fix --using-cache=yes -v"
+        "phpcs-fix": "symfony php vendor/bin/php-cs-fixer fix --using-cache=yes -v",
+        "rector-check": "symfony php vendor/bin/rector process --dry-run",
+        "rector-fix": "symfony php vendor/bin/rector process",
+        "test": "SYMFONY_DEPRECATIONS_HELPER=disabled symfony php bin/phpunit",
+        "test-testdox": "SYMFONY_DEPRECATIONS_HELPER=disabled symfony php bin/phpunit --testdox",
+        "test-coverage" : "SYMFONY_DEPRECATIONS_HELPER=disabled XDEBUG_MODE=coverage symfony php bin/phpunit --coverage-text"
     },
     "conflict": {
         "symfony/symfony": "*"

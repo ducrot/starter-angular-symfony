@@ -41,7 +41,7 @@ class SchemaTest extends KernelTestCase
         $this->assertInstanceOf(AbstractPlatform::class, $platform);
 
         // Skip check if Platform == Sqlite
-        if (!in_array(get_class($platform), [
+        if (!in_array($platform::class, [
             SqlitePlatform::class,
         ])) {
             $validator = new SchemaValidator($this->em);
