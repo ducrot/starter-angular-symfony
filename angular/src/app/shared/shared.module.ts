@@ -21,6 +21,7 @@ import { LocalizedDatePipe } from '@shared/pipe/localized-date.pipe';
     FormsModule,
     ReactiveFormsModule,
     RouterModule,
+    MaterialModule,
     TranslateModule,
   ],
   declarations: [

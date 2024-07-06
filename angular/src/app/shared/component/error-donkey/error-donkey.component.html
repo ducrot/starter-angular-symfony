@@ -1,11 +1,15 @@
 <h4>&lt;app-error-donkey&gt;</h4>
 
-<button (click)="badRequest()">bad request</button>
+<div class="flex space-x-4">
 
-<button (click)="processingError()">processing error</button>
+  <button (click)="badRequest()" color="error" mat-raised-button>bad request</button>
 
-<button (click)="unexpectedError()">unexpected error</button>
+  <button (click)="processingError()" color="error" mat-raised-button>processing error</button>
 
-<pre *ngIf="error$ | async as err">
+  <button (click)="unexpectedError()" color="error" mat-raised-button>unexpected error</button>
+
+</div>
+
+<pre *ngIf="error$ | async as err" class="mt-4">
 {{err}}
 </pre>

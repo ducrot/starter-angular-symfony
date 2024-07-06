@@ -1,8 +1,8 @@
 <h4>&lt;app-lucky-number&gt;</h4>
 
-<button (click)="drawNumber()">Draw lucky number</button>
+<button (click)="drawNumber()" color="accent" mat-raised-button>Draw lucky number</button>
 
-<ng-container *ngIf="draw$ | async as draw">
+<div *ngIf="draw$ | async as draw" class="mt-4">
 
   <p *ngIf="draw.loading">
     loading...
@@ -19,4 +19,4 @@
     <pre>{{draw.error | json}}</pre>
   </ng-container>
 
-</ng-container>
+</div>
