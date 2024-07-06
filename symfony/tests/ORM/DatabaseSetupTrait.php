@@ -35,9 +35,9 @@ trait DatabaseSetupTrait
     protected static $purgeWithTruncate = true;
 
     /**
-     * @var string|null The name of the Doctrine shard to use
+     * @var bool Resolve fixtures without bundles
      */
-    protected static $shard;
+    protected static $noBundles = false;
 
     /**
      * @var array|null Contain loaded fixture from alice
@@ -109,7 +109,7 @@ trait DatabaseSetupTrait
             static::$kernel->getEnvironment(),
             static::$append,
             static::$purgeWithTruncate,
-            static::$shard
+            static::$noBundles
         );
     }
 
