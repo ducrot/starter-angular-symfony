@@ -14,8 +14,8 @@ use LogicException;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 use Symfony\Component\HttpKernel\Event\FinishRequestEvent;
 use Symfony\Component\HttpKernel\Event\RequestEvent;
+use Symfony\Component\HttpKernel\HttpKernelInterface;
 use Symfony\Component\HttpKernel\KernelEvents;
-use Symfony\Component\HttpKernel\KernelInterface;
 
 
 /**
@@ -26,7 +26,6 @@ use Symfony\Component\HttpKernel\KernelInterface;
  *
  * This makes it possible to show the id in user-facing error
  * messages, and look up details in the log.
- *
  */
 class RequestTagger implements EventSubscriberInterface
 {
@@ -34,25 +33,22 @@ class RequestTagger implements EventSubscriberInterface
     public const REQUEST_ATTRIBUTE_NAME = '_request_id';
     private const LISTENER_PRIORITY = 100;
 
-    public static function getSubscribedEvents()
+    public static function getSubscribedEvents(): array
     {
         // return the subscribed events, their methods and priorities
-        return array(
+        return [
             KernelEvents::REQUEST => [
-                ['tagRequest', self::LISTENER_PRIORITY]
+                ['tagRequest', self::LISTENER_PRIORITY],
             ],
             KernelEvents::FINISH_REQUEST => [
-                ['popRequest', self::LISTENER_PRIORITY]
-            ]
-        );
+                ['popRequest', self::LISTENER_PRIORITY],
+            ],
+        ];
     }
 
 
     /**
      * This is a monolog record processor.
-     *
-     * @param array $record
-     * @return array
      */
     public function __invoke(array $record): array
     {
@@ -63,32 +59,28 @@ class RequestTagger implements EventSubscriberInterface
         return $record;
     }
 
-
-    public function tagRequest(RequestEvent $event)
+    public function tagRequest(RequestEvent $event): void
     {
-        $isSubRequest = $event->getRequestType() == KernelInterface::SUB_REQUEST;
+        $isSubRequest = $event->getRequestType() == HttpKernelInterface::SUB_REQUEST;
         $this->currentRequestTag[] = $this->generateTag($isSubRequest);
         $tag = $this->joinTag();
         $request = $event->getRequest();
         $request->attributes->set(self::REQUEST_ATTRIBUTE_NAME, $tag);
     }
 
-    public function popRequest(FinishRequestEvent $event)
+    public function popRequest(FinishRequestEvent $event): void
     {
         array_pop($this->currentRequestTag);
     }
 
 
-    /**
-     * @var array
-     */
-    private $currentRequestTag = [];
+    private array $currentRequestTag = [];
 
 
     protected function generateTag(bool $forSubRequest): string
     {
         if ($forSubRequest) {
-            return strval(count($this->currentRequestTag));
+            return (string) count($this->currentRequestTag);
         }
         $length = 10;
         $chars = '0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ';
@@ -107,7 +99,7 @@ class RequestTagger implements EventSubscriberInterface
 
     protected function joinTag(): string
     {
-        return join('.', $this->currentRequestTag);
+        return implode('.', $this->currentRequestTag);
     }
 
 

@@ -5,6 +5,7 @@ namespace App\Repository;
 
 use App\Entity\User;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
+use Doctrine\ORM\NonUniqueResultException;
 use Doctrine\Persistence\ManagerRegistry;
 use LogicException;
 use Symfony\Bridge\Doctrine\Security\User\UserLoaderInterface;
@@ -43,16 +44,12 @@ class UserRepository extends ServiceEntityRepository implements UserLoaderInterf
     /**
      * Loads the user for the given user identifier (e.g. username or email).
      * This method must return null if the user is not found.
-     * @param string $username
+     * @param string $identifier
      * @return UserInterface|null
-     * @throws \Doctrine\ORM\NonUniqueResultException
+     * @throws NonUniqueResultException
      */
     public function loadUserByIdentifier(string $identifier): ?UserInterface
     {
-        if (!is_string($identifier)) {
-            throw new \LogicException();
-        }
-
         return $this->createQueryBuilder('u')
             ->where('u.username = :username')
             ->andWhere('u.deleted = :deleted')
@@ -64,7 +61,7 @@ class UserRepository extends ServiceEntityRepository implements UserLoaderInterf
             ->getOneOrNullResult();
     }
 
-    public function loadUserByUsername(string $username)
+    public function loadUserByUsername(string $username): ?UserInterface
     {
         trigger_deprecation('symfony/doctrine-bridge', '5.3', 'Method "%s()" is deprecated, use loadUserByIdentifier() instead.', __METHOD__);
 
@@ -76,7 +73,7 @@ class UserRepository extends ServiceEntityRepository implements UserLoaderInterf
         throw new LogicException('Not supported');
     }
 
-    public function supportsClass(string $class)
+    public function supportsClass(string $class): bool
     {
         return is_subclass_of($class, User::class, true);
     }

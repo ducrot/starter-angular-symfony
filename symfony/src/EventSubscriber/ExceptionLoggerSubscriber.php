@@ -8,7 +8,6 @@
 
 namespace App\EventSubscriber;
 
-
 use Psr\Log\LoggerInterface;
 use Psr\Log\LogLevel;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
@@ -23,29 +22,26 @@ use Throwable;
  * Class ExceptionLoggerSubscriber
  *
  * Logs all exceptions thrown during a request.
- *
- * @package App\EventSubscriber
  */
 class ExceptionLoggerSubscriber implements EventSubscriberInterface
 {
+    public const LISTENER_PRIORITY = 10;
 
-    const LISTENER_PRIORITY = 10;
-
-    public static function getSubscribedEvents()
+    public static function getSubscribedEvents(): array
     {
         // return the subscribed events, their methods and priorities
-        return array(
-            KernelEvents::EXCEPTION => array(
-                array(
+        return [
+            KernelEvents::EXCEPTION => [
+                [
                     'processException',
-                    self::LISTENER_PRIORITY
-                )
-            )
-        );
+                    self::LISTENER_PRIORITY,
+                ],
+            ],
+        ];
     }
 
 
-    private $logger;
+    private LoggerInterface $logger;
 
 
     public function __construct(LoggerInterface $logger)
@@ -54,24 +50,21 @@ class ExceptionLoggerSubscriber implements EventSubscriberInterface
     }
 
 
-    public function processException(ExceptionEvent $event)
+    public function processException(ExceptionEvent $event): void
     {
         $exception = $event->getThrowable();
         $level = $this->getLogLevelForException($exception);
-        if (is_null($level)) {
+        if (null === $level) {
             return;
         }
         $context = [
-            'exception' => $exception
+            'exception' => $exception,
         ];
         $this->logger->log($level, $exception->getMessage(), $context);
     }
 
     /**
      * Return NULL to ignore this exception and not log it.
-     *
-     * @param Throwable $exception
-     * @return null|string
      */
     protected function getLogLevelForException(Throwable $exception): ?string
     {
@@ -83,7 +76,7 @@ class ExceptionLoggerSubscriber implements EventSubscriberInterface
     }
 
 
-    private $logLevels = [
+    private array $logLevels = [
         Response::HTTP_BAD_REQUEST => LogLevel::ERROR, // 400
         Response::HTTP_UNAUTHORIZED => LogLevel::NOTICE,  // 401
         Response::HTTP_FORBIDDEN => LogLevel::NOTICE,  // 403

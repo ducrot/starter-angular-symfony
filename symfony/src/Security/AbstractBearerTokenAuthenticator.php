@@ -47,7 +47,7 @@ abstract class AbstractBearerTokenAuthenticator extends AbstractGuardAuthenticat
      *
      * If the validation fails, throw a TokenException.
      *
-     * @param $token
+     * @param string $token
      * @param Request $request
      * @return string username
      * @throws TokenException
@@ -100,7 +100,7 @@ abstract class AbstractBearerTokenAuthenticator extends AbstractGuardAuthenticat
     }
 
 
-    final public function supports(Request $request)
+    final public function supports(Request $request): bool
     {
         if (!$request->headers->has(self::HEADER_AUTHORIZATION)) {
             return false;
@@ -114,7 +114,7 @@ abstract class AbstractBearerTokenAuthenticator extends AbstractGuardAuthenticat
     }
 
 
-    final public function getCredentials(Request $request)
+    final public function getCredentials(Request $request): array
     {
         $auth_header = $request->headers->get(self::HEADER_AUTHORIZATION);
         $token = substr($auth_header, strlen(self::BEARER_PREFIX));
@@ -133,7 +133,7 @@ abstract class AbstractBearerTokenAuthenticator extends AbstractGuardAuthenticat
      * @param UserProviderInterface $userProvider
      * @return null|UserInterface
      */
-    final public function getUser($credentials, UserProviderInterface $userProvider)
+    final public function getUser($credentials, UserProviderInterface $userProvider): ?UserInterface
     {
         try {
 
@@ -155,8 +155,6 @@ abstract class AbstractBearerTokenAuthenticator extends AbstractGuardAuthenticat
         } catch (UserNotFoundException $exception) {
             $this->start(null, $exception);
         }
-
-        return null;
     }
 
 
@@ -174,28 +172,28 @@ abstract class AbstractBearerTokenAuthenticator extends AbstractGuardAuthenticat
     }
 
 
-    final public function checkCredentials($credentials, UserInterface $user)
+    final public function checkCredentials($credentials, UserInterface $user): bool
     {
         // token is validated in getUser(), no need to check credentials
         return true;
     }
 
 
-    final public function onAuthenticationFailure(Request $request, AuthenticationException $exception)
+    final public function onAuthenticationFailure(Request $request, AuthenticationException $exception): ?Response
     {
         // this case is handled
         return null;
     }
 
 
-    final public function onAuthenticationSuccess(Request $request, TokenInterface $token, $providerKey)
+    final public function onAuthenticationSuccess(Request $request, TokenInterface $token, $providerKey): ?Response
     {
         // let the request continue
         return null;
     }
 
 
-    final public function supportsRememberMe()
+    final public function supportsRememberMe(): bool
     {
         return false;
     }
