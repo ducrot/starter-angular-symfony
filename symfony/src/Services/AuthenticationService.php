@@ -12,6 +12,7 @@ use App\Security\AuthenticationManager;
 use App\Security\LoginCredentials;
 use Doctrine\ORM\EntityManagerInterface;
 use Google\Protobuf\Timestamp;
+use Symfony\Component\PasswordHasher\Hasher\UserPasswordHasherInterface;
 use Symfony\Component\Security\Core\Security;
 use Symfony\Component\Validator\Validator\ValidatorInterface;
 use SymfonyTwirpHandler\TwirpError;
@@ -22,7 +23,7 @@ class AuthenticationService implements AuthenticationServiceInterface
     private Security $security;
     private EntityManagerInterface $em;
     private ValidatorInterface $validator;
-    private \Symfony\Component\PasswordHasher\Hasher\UserPasswordHasherInterface $passwordEncoder;
+    private UserPasswordHasherInterface $passwordHasher;
 
     /**
      * AuthenticationService constructor.
@@ -32,13 +33,13 @@ class AuthenticationService implements AuthenticationServiceInterface
         Security $security,
         EntityManagerInterface $em,
         ValidatorInterface $validator,
-        \Symfony\Component\PasswordHasher\Hasher\UserPasswordHasherInterface $passwordEncoder
+        UserPasswordHasherInterface $passwordHasher
     ) {
         $this->manager = $manager;
         $this->security = $security;
         $this->em = $em;
         $this->validator = $validator;
-        $this->passwordEncoder = $passwordEncoder;
+        $this->passwordHasher = $passwordHasher;
     }
 
     public function login(LoginRequest $request): LoginResponse
@@ -51,12 +52,7 @@ class AuthenticationService implements AuthenticationServiceInterface
         }
 
         // Validate login credentials
-        $credentials = new LoginCredentials(
-            $request->getUsername(),
-            $request->getPassword(),
-            'local',
-            null
-        );
+        $credentials = new LoginCredentials($request->getUsername(), $request->getPassword());
         $success = $this->manager->validateLogin($credentials);
         if (!$success) {
             throw new TwirpError('app.auth.login.login_failed', TwirpError::UNAUTHENTICATED);
@@ -95,7 +91,7 @@ class AuthenticationService implements AuthenticationServiceInterface
         $user = $this->security->getUser();
 
         // Check current password
-        if (!$this->passwordEncoder->isPasswordValid($user, $request->getCurrentPassword())) {
+        if (!$this->passwordHasher->isPasswordValid($user, $request->getCurrentPassword())) {
             throw new TwirpError('app.auth.account.current_password_not_valid', TwirpError::INVALID_ARGUMENT);
         }
 
@@ -124,7 +120,7 @@ class AuthenticationService implements AuthenticationServiceInterface
         }
 
         // save new password
-        $pw = $this->passwordEncoder->encodePassword($user, $request->getNewPassword());
+        $pw = $this->passwordHasher->hashPassword($user, $request->getNewPassword());
         $user->setPassword($pw);
         $this->em->persist($user);
         $this->em->flush();

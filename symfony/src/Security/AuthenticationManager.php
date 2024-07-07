@@ -56,8 +56,8 @@ class AuthenticationManager
     {
         try {
             $user = $this->userProvider->loadUserByIdentifier($credentials->getUsername());
-            $encoder = $this->hasherFactory->getPasswordHasher($user);
-            $valid = $encoder->verify($user->getPassword(), $credentials->getPassword());
+            $hasher = $this->hasherFactory->getPasswordHasher($user);
+            $valid = $hasher->verify($user->getPassword(), $credentials->getPassword());
             if (!$valid) {
                 $this->logger->warning(sprintf('Failed login attempt with username "%s". Password incorrect.', $credentials->getUsername()));
 
