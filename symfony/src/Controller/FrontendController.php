@@ -39,14 +39,8 @@ class FrontendController
      * frontend directory, it will be delivered.
      *
      * If no file was found, the index.html will be delivered.
-     *
-     * @Route(
-     *     path="/{path}",
-     *     requirements={"path" = "^(?!api|_profiler).*$"},
-     *     methods={"GET"},
-     *     name="frontend-asset"
-     * )
      */
+    #[Route(path: '/{path}', name: 'frontend-asset', requirements: ['path' => '^(?!api|_profiler).*$'], methods: ['GET'])]
     public function action(string $path): Response
     {
         if ($path === '') {

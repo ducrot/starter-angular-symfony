@@ -13,128 +13,67 @@ use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 use Symfony\Component\Security\Core\User\UserInterface;
 use Symfony\Component\Validator\Constraints as Assert;
 
-/**
- * @ORM\Entity(repositoryClass="App\Repository\UserRepository")
- *
- * @UniqueEntity("username", message="invalid_unique_entity_username")
- *
- * @ORM\HasLifecycleCallbacks()
- */
+#[ORM\Entity(repositoryClass: \App\Repository\UserRepository::class)]
+#[ORM\HasLifecycleCallbacks]
+#[UniqueEntity('username', message: 'invalid_unique_entity_username')]
 class User implements UserInterface
 {
-    /**
-     * @var int|null
-     *
-     * @ORM\Id
-     * @ORM\GeneratedValue()
-     * @ORM\Column(type="integer")
-     */
-    private $id;
+    #[ORM\Id]
+    #[ORM\GeneratedValue]
+    #[ORM\Column(type: 'integer')]
+    private ?int $id;
+
+    #[ORM\Column(type: 'string', length: 255, unique: true)]
+    #[Assert\NotBlank(message: 'invalid_assert_not_blank_username')]
+    #[Assert\Email(message: 'invalid_assert_email_username')]
+    private string $username;
+
+    #[ORM\Column(type: 'simple_array')]
+    private array $roles = ['ROLE_USER'];
 
     /**
-     * @var string
-     *
-     * @ORM\Column(type="string", length=255, unique=true)
-     * @Assert\NotBlank(message="invalid_assert_not_blank_username")
-     * @Assert\Email(message="invalid_assert_email_username")
-     */
-    private $username;
-
-    /**
-     * @var array
-     *
-     * @ORM\Column(type="array")
-     */
-    private $roles = ['ROLE_USER'];
-
-    /**
-     * @var string
-     *
-     * @ORM\Column(type="string", length=100)
-     * @Assert\Length(max=4096)
-     *
      * @RollerworksPassword\PasswordRequirements(minLength=8, requireLetters=true, requireNumbers=true, requireSpecialCharacter=true)
      */
-    private $password;
+    #[ORM\Column(type: 'string', length: 100)]
+    #[Assert\Length(max: 4096)]
+    private string $password;
 
-    /**
-     * @var string|null
-     *
-     * @ORM\Column(type="string", length=50, nullable=true)
-     * @Assert\Length(max=50)
-     */
-    private $firstName;
+    #[ORM\Column(type: 'string', length: 50, nullable: true)]
+    #[Assert\Length(max: 50)]
+    private ?string $firstName;
 
-    /**
-     * @var string
-     *
-     * @ORM\Column(type="string", length=50)
-     * @Assert\NotBlank(message="invalid_assert_not_blank_last_name")
-     * @Assert\Length(max=50)
-     */
-    private $lastName;
+    #[ORM\Column(type: 'string', length: 50)]
+    #[Assert\NotBlank(message: 'invalid_assert_not_blank_last_name')]
+    #[Assert\Length(max: 50)]
+    private string $lastName;
 
-    /**
-     * @var int
-     *
-     * @ORM\Column(type="smallint", options={"unsigned"=true, "default"=0})
-     * @Assert\Choice(callback={"App\Entity\User", "getGenders"}, message="invalid_assert_choice_gender")
-     *
-     * 0: GENDER_NONE
-     * 1: GENDER_MALE
-     * 2: GENDER_FEMALE
-     * 3: GENDER_MISC
-     */
-    private $gender = Gender::GENDER_NONE;
+    #[ORM\Column(type: 'smallint', options: ['unsigned' => true, 'default' => 0])]
+    #[Assert\Choice(callback: ['App\Entity\User', 'getGenders'], message: 'invalid_assert_choice_gender')] // 0: GENDER_NONE
+    private int $gender = Gender::GENDER_NONE;
 
-    /**
-     * @var bool
-     *
-     * @ORM\Column(type="boolean")
-     */
-    private $disabled = false;
+    #[ORM\Column(type: 'boolean')]
+    private bool $disabled = false;
 
-    /**
-     * @var bool
-     *
-     * @ORM\Column(type="boolean")
-     */
-    private $deleted = false;
+    #[ORM\Column(type: 'boolean')]
+    private bool $deleted = false;
 
-    /**
-     * @var \DateTime
-     *
-     * @ORM\Column(type="datetime")
-     */
-    private $created;
+    #[ORM\Column(type: 'datetime')]
+    private \DateTime $created;
 
-    /**
-     * @var \DateTime
-     *
-     * @ORM\Column(type="datetime")
-     */
-    private $updated;
+    #[ORM\Column(type: 'datetime')]
+    private \DateTime $updated;
 
-    /**
-     * @var \DateTime|null
-     *
-     * @ORM\Column(type="datetime", nullable=true)
-     */
-    private $passwordChanged;
+    #[ORM\Column(type: 'datetime', nullable: true)]
+    private ?\DateTime $passwordChanged;
 
-    /**
-     * @var \DateTime|null
-     *
-     * @ORM\Column(type="datetime", nullable=true)
-     */
-    private $lastLogin;
+    #[ORM\Column(type: 'datetime', nullable: true)]
+    private ?\DateTime $lastLogin;
 
     /**
      * Update record (UPDATE)
-     *
-     * @ORM\PreUpdate
      */
-    public function onPreUpdate(PreUpdateEventArgs $event)
+    #[ORM\PreUpdate]
+    public function onPreUpdate(PreUpdateEventArgs $event): void
     {
         if (!$event->hasChangedField('lastlogin')) {
             $this->updated = new \DateTime();
@@ -178,11 +117,11 @@ class User implements UserInterface
     {
         $pb = new \App\User();
         $pb->setId($this->getId() ?? '');
-        $pb->setUsername($this->getUsername() ?? '');
+        $pb->setUsername($this->getUsername());
         $pb->setRoles($this->getRoles());
         $pb->setFirstName($this->getFirstName() ?? '');
-        $pb->setLastName($this->getLastName() ?? '');
-        $pb->setGender($this->getGender() ?? Gender::GENDER_NONE);
+        $pb->setLastName($this->getLastName());
+        $pb->setGender($this->getGender());
         $pb->setIsAdmin($this->isAdmin());
         if ($this->getLastLogin()) {
             $lastLogin = new Timestamp();

@@ -59,12 +59,7 @@ class TwirpController implements ServiceSubscriberInterface
         $this->handler = new TwirpHandler($resolver);
     }
 
-    /**
-     * @Route(
-     *     path="/api/{serviceName}/{methodName}" ,
-     *     name="api-execute"
-     * )
-     */
+    #[Route(path: '/api/{serviceName}/{methodName}', name: 'api-execute')]
     public function execute(Request $request, string $serviceName, string $methodName): Response
     {
         return $this->handler->handle($serviceName, $methodName, $request);
