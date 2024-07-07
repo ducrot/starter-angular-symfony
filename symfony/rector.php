@@ -4,7 +4,6 @@ declare(strict_types=1);
 
 use Rector\CodeQuality\Rector\Class_\InlineConstructorDefaultToPropertyRector;
 use Rector\Config\RectorConfig;
-use Rector\Doctrine\Set\DoctrineSetList;
 use Rector\Set\ValueObject\LevelSetList;
 use Rector\Set\ValueObject\SetList;
 use Rector\Symfony\Set\SymfonySetList;
@@ -25,6 +24,7 @@ return RectorConfig::configure()
         __DIR__.'/src',
         __DIR__.'/tests',
     ])
+    ->withSymfonyContainerXml(__DIR__.'/var/cache/dev/App_KernelDevDebugContainer.xml')
     ->withRules([
         // InlineConstructorDefaultToPropertyRector::class,
         // AddVoidReturnTypeWhereNoReturnRector::class,
@@ -33,11 +33,11 @@ return RectorConfig::configure()
     ->withPhpVersion(PhpVersion::PHP_82)
     // ->withPhpSets(php82: true)
     ->withSets([
-        DoctrineSetList::ANNOTATIONS_TO_ATTRIBUTES,
-        SymfonySetList::ANNOTATIONS_TO_ATTRIBUTES,
+        SymfonySetList::SYMFONY_54,
+        SymfonySetList::SYMFONY_CODE_QUALITY,
+        SymfonySetList::SYMFONY_CONSTRUCTOR_INJECTION,
         // LevelSetList::UP_TO_PHP_82,
         // SetList::CODE_QUALITY,
         // SetList::CODING_STYLE,
         // SetList::DEAD_CODE,
-    ])
-;
+    ]);
