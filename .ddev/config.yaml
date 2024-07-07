@@ -1,7 +1,7 @@
 name: starter-angular-symfony
 type: php
 docroot: symfony/public
-php_version: "7.4"
+php_version: "8.2"
 webserver_type: apache-fpm
 xdebug_enabled: false
 additional_hostnames: []
@@ -9,7 +9,7 @@ additional_fqdns: []
 database:
     type: mariadb
     version: "10.11"
-webimage_extra_packages: [php7.4-yaml]
+webimage_extra_packages: [php8.2-yaml]
 use_dns_when_possible: true
 composer_root: symfony
 composer_version: "2"
