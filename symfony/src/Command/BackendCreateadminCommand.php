@@ -34,7 +34,7 @@ class BackendCreateadminCommand extends Command
         $this->validator = $validator;
     }
 
-    protected function configure()
+    protected function configure(): void
     {
         $this
             ->setDescription('Create admin user')
@@ -60,7 +60,7 @@ class BackendCreateadminCommand extends Command
         if (strlen($username) < 5) {
             $io->error('Username must have at least 5 character.');
 
-            return 1;
+            return Command::FAILURE;
         }
 
         $emailConstraint = new Assert\Email();
@@ -74,20 +74,20 @@ class BackendCreateadminCommand extends Command
                 $io->error($error->getMessage());
             }
 
-            return 1;
+            return Command::FAILURE;
         }
 
         if (strlen($password) < 8) {
             $io->error('Password must have at least 8 characters.');
 
-            return 1;
+            return Command::FAILURE;
         }
 
         $userExists = $this->userRepository->loadUserByIdentifier($username);
         if ($userExists) {
             $io->error(sprintf('A user with username "%s" already exists.', $username));
 
-            return 1;
+            return Command::FAILURE;
         }
 
         $user = new User();
@@ -102,6 +102,6 @@ class BackendCreateadminCommand extends Command
 
         $io->success(sprintf('Created admin user with username "%s".', $username));
 
-        return 0;
+        return Command::SUCCESS;
     }
 }
