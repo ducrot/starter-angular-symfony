@@ -8,7 +8,7 @@ use Symfony\Bundle\FrameworkBundle\Test\KernelTestCase;
 use Symfony\Component\Console\Command\Command;
 use Symfony\Component\Console\Tester\CommandTester;
 
-class BackendCreateadminCommandTest extends KernelTestCase
+class CreateAdminUserCommandTest extends KernelTestCase
 {
     use RefreshDatabaseTrait;
 
@@ -21,7 +21,7 @@ class BackendCreateadminCommandTest extends KernelTestCase
     {
         $application = new Application(self::$kernel);
 
-        $command = $application->find('backend:createadmin');
+        $command = $application->find('app:create-admin-user');
         $commandTester = new CommandTester($command);
         $commandTester->execute([
             'username' => 'test@test.com',
@@ -38,7 +38,7 @@ class BackendCreateadminCommandTest extends KernelTestCase
     {
         $application = new Application(self::$kernel);
 
-        $command = $application->find('backend:createadmin');
+        $command = $application->find('app:create-admin-user');
         $commandTester = new CommandTester($command);
         $commandTester->execute([
             'username' => '',
@@ -55,7 +55,7 @@ class BackendCreateadminCommandTest extends KernelTestCase
     {
         $application = new Application(self::$kernel);
 
-        $command = $application->find('backend:createadmin');
+        $command = $application->find('app:create-admin-user');
         $commandTester = new CommandTester($command);
         $commandTester->execute([
             'username' => 'test@test.com',
@@ -72,7 +72,7 @@ class BackendCreateadminCommandTest extends KernelTestCase
     {
         $application = new Application(self::$kernel);
 
-        $command = $application->find('backend:createadmin');
+        $command = $application->find('app:create-admin-user');
         $commandTester = new CommandTester($command);
         $commandTester->execute([
             'username' => 'test test test',
@@ -89,7 +89,7 @@ class BackendCreateadminCommandTest extends KernelTestCase
     {
         $application = new Application(self::$kernel);
 
-        $command = $application->find('backend:createadmin');
+        $command = $application->find('app:create-admin-user');
         $commandTester = new CommandTester($command);
         $commandTester->execute([
             'username' => 'test@test.com',
@@ -106,7 +106,7 @@ class BackendCreateadminCommandTest extends KernelTestCase
     {
         $application = new Application(self::$kernel);
 
-        $command = $application->find('backend:createadmin');
+        $command = $application->find('app:create-admin-user');
         $commandTester = new CommandTester($command);
         $commandTester->execute([
             'username' => 'test@test.com',
@@ -115,7 +115,7 @@ class BackendCreateadminCommandTest extends KernelTestCase
 
         $commandTester->assertCommandIsSuccessful('Created admin user with username "test@test.com".');
 
-        $command = $application->find('backend:createadmin');
+        $command = $application->find('app:create-admin-user');
         $commandTester = new CommandTester($command);
         $commandTester->execute([
             'username' => 'test@test.com',

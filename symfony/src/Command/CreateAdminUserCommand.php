@@ -13,9 +13,9 @@ use Symfony\Component\PasswordHasher\Hasher\UserPasswordHasherInterface;
 use Symfony\Component\Validator\Constraints as Assert;
 use Symfony\Component\Validator\Validator\ValidatorInterface;
 
-class BackendCreateadminCommand extends Command
+class CreateAdminUserCommand extends Command
 {
-    protected static $defaultName = 'backend:createadmin';
+    protected static $defaultName = 'app:create-admin-user';
 
     /** @var UserRepository */
     private $userRepository;
