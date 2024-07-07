@@ -13,9 +13,9 @@ use Doctrine\ORM\Tools\ToolsException;
 use Hautelook\AliceBundle\Loader\DoctrineOrmLoader;
 use Symfony\Bundle\FrameworkBundle\Console\Application;
 use Symfony\Bundle\FrameworkBundle\Test\KernelTestCase;
-use Symfony\Component\Security\Core\Encoder\EncoderFactory;
-use Symfony\Component\Security\Core\Encoder\PlaintextPasswordEncoder;
-use Symfony\Component\Security\Core\Encoder\UserPasswordEncoder;
+use Symfony\Component\PasswordHasher\Hasher\PasswordHasherFactory;
+use Symfony\Component\PasswordHasher\Hasher\PlaintextPasswordHasher;
+use Symfony\Component\PasswordHasher\Hasher\UserPasswordHasher;
 
 trait DatabaseSetupTrait
 {
@@ -85,15 +85,15 @@ trait DatabaseSetupTrait
 
     protected function loadFixtures()
     {
-        $passwordEncoder = new UserPasswordEncoder(
-            new EncoderFactory([
-                User::class => new PlaintextPasswordEncoder(),
+        $passwordHasher = new UserPasswordHasher(
+            new PasswordHasherFactory([
+                User::class => new PlaintextPasswordHasher(),
             ])
         );
         $loader = new Loader();
 
         // Add more fixtures if needed:
-        $loader->addFixture(new AppFixtures($passwordEncoder));
+        $loader->addFixture(new AppFixtures($passwordHasher));
 
         $purger = new ORMPurger($this->em);
         $executor = new ORMExecutor($this->em, $purger);

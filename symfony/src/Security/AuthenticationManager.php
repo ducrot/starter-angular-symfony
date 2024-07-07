@@ -4,7 +4,7 @@ namespace App\Security;
 
 use App\Entity\User;
 use Psr\Log\LoggerInterface;
-use Symfony\Component\Security\Core\Encoder\EncoderFactoryInterface;
+use Symfony\Component\PasswordHasher\Hasher\PasswordHasherFactoryInterface;
 use Symfony\Component\Security\Core\Exception\UserNotFoundException;
 use Symfony\Component\Security\Core\User\UserProviderInterface;
 
@@ -16,8 +16,8 @@ class AuthenticationManager
     /** @var UserTokenAuthenticator */
     private $authenticator;
 
-    /** @var EncoderFactoryInterface */
-    private $encoderFactory;
+    /** @var PasswordHasherFactoryInterface */
+    private $hasherFactory;
 
     /** @var LoggerInterface */
     private $logger;
@@ -25,11 +25,11 @@ class AuthenticationManager
     /**
      * AuthenticationManager constructor.
      */
-    public function __construct(UserProviderInterface $userProvider, UserTokenAuthenticator $authenticator, EncoderFactoryInterface $encoderFactory, LoggerInterface $logger)
+    public function __construct(UserProviderInterface $userProvider, UserTokenAuthenticator $authenticator, PasswordHasherFactoryInterface $hasherFactory, LoggerInterface $logger)
     {
         $this->userProvider = $userProvider;
         $this->authenticator = $authenticator;
-        $this->encoderFactory = $encoderFactory;
+        $this->hasherFactory = $hasherFactory;
         $this->logger = $logger;
     }
 
@@ -56,8 +56,8 @@ class AuthenticationManager
     {
         try {
             $user = $this->userProvider->loadUserByIdentifier($credentials->getUsername());
-            $encoder = $this->encoderFactory->getEncoder($user);
-            $valid = $encoder->isPasswordValid($user->getPassword(), $credentials->getPassword(), $user->getSalt());
+            $encoder = $this->hasherFactory->getPasswordHasher($user);
+            $valid = $encoder->verify($user->getPassword(), $credentials->getPassword());
             if (!$valid) {
                 $this->logger->warning(sprintf('Failed login attempt with username "%s". Password incorrect.', $credentials->getUsername()));
 

@@ -10,13 +10,15 @@ use Doctrine\ORM\Mapping as ORM;
 use Google\Protobuf\Timestamp;
 use Rollerworks\Component\PasswordStrength\Validator\Constraints as RollerworksPassword;
 use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
+use Symfony\Component\PasswordHasher\Hasher\PasswordHasherAwareInterface;
+use Symfony\Component\Security\Core\User\PasswordAuthenticatedUserInterface;
 use Symfony\Component\Security\Core\User\UserInterface;
 use Symfony\Component\Validator\Constraints as Assert;
 
 #[ORM\Entity(repositoryClass: \App\Repository\UserRepository::class)]
 #[ORM\HasLifecycleCallbacks]
 #[UniqueEntity('username', message: 'invalid_unique_entity_username')]
-class User implements UserInterface
+class User implements UserInterface, PasswordAuthenticatedUserInterface, PasswordHasherAwareInterface
 {
     #[ORM\Id]
     #[ORM\GeneratedValue]
@@ -102,7 +104,7 @@ class User implements UserInterface
     /** @see UserInterface */
     public function getSalt(): ?string
     {
-        // not needed when using the "bcrypt" algorithm in security.yaml
+        // not needed when using a modern hashing algorithm (e.g. bcrypt or sodium) in security.yaml
         return null;
     }
 
@@ -111,6 +113,12 @@ class User implements UserInterface
     {
         // If you store any temporary, sensitive data on the user, clear it here
         // $this->plainPassword = null;
+    }
+
+    public function getPasswordHasherName(): ?string
+    {
+        // use the default passwordHasher
+        return null;
     }
 
     public function toProtobuf(): \App\User

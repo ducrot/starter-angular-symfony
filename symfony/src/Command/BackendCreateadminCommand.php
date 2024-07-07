@@ -9,7 +9,7 @@ use Symfony\Component\Console\Input\InputArgument;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Output\OutputInterface;
 use Symfony\Component\Console\Style\SymfonyStyle;
-use Symfony\Component\Security\Core\Encoder\UserPasswordEncoderInterface;
+use Symfony\Component\PasswordHasher\Hasher\UserPasswordHasherInterface;
 use Symfony\Component\Validator\Constraints as Assert;
 use Symfony\Component\Validator\Validator\ValidatorInterface;
 
@@ -20,17 +20,17 @@ class BackendCreateadminCommand extends Command
     /** @var UserRepository */
     private $userRepository;
 
-    /** @var UserPasswordEncoderInterface */
-    private $passwordEncoder;
+    /** @var UserPasswordHasherInterface */
+    private $passwordHasher;
 
     /** @var ValidatorInterface */
     private $validator;
 
-    public function __construct(UserRepository $userRepository, UserPasswordEncoderInterface $passwordEncoder, ValidatorInterface $validator)
+    public function __construct(UserRepository $userRepository, UserPasswordHasherInterface $passwordHasher, ValidatorInterface $validator)
     {
         parent::__construct();
         $this->userRepository = $userRepository;
-        $this->passwordEncoder = $passwordEncoder;
+        $this->passwordHasher = $passwordHasher;
         $this->validator = $validator;
     }
 
@@ -93,7 +93,8 @@ class BackendCreateadminCommand extends Command
         $user = new User();
         $user
             ->setUsername($username)
-            ->setPassword($this->passwordEncoder->encodePassword($user, $password))
+            ->setPassword($this->passwordHasher->hashPassword($user, $password))
+            ->setLastName('Admin')
             ->setRoles(['ROLE_ADMIN'])
             ->setCreated(new \DateTime())
             ->setUpdated(new \DateTime());

@@ -6,8 +6,8 @@ security:
         allow_if_all_abstain: false
 
 
-    # set the password encoder for our user type
-    encoders:
+    # set the password hasher for our user type
+    password_hashers:
         App\Entity\User:
             algorithm: 'auto'
 
@@ -52,7 +52,7 @@ when@test:
                 time_cost: 3 # Lowest possible value for argon
                 memory_cost: 10 # Lowest possible value for argon
 
-        # set the password encoder for our user type
+        # set the password passwordHasher for our user type
         encoders:
             App\Entity\User:
                 algorithm: 'bcrypt'

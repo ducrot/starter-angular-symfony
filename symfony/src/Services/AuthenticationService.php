@@ -12,7 +12,6 @@ use App\Security\AuthenticationManager;
 use App\Security\LoginCredentials;
 use Doctrine\ORM\EntityManagerInterface;
 use Google\Protobuf\Timestamp;
-use Symfony\Component\Security\Core\Encoder\UserPasswordEncoderInterface;
 use Symfony\Component\Security\Core\Security;
 use Symfony\Component\Validator\Validator\ValidatorInterface;
 use SymfonyTwirpHandler\TwirpError;
@@ -23,7 +22,7 @@ class AuthenticationService implements AuthenticationServiceInterface
     private Security $security;
     private EntityManagerInterface $em;
     private ValidatorInterface $validator;
-    private UserPasswordEncoderInterface $passwordEncoder;
+    private \Symfony\Component\PasswordHasher\Hasher\UserPasswordHasherInterface $passwordEncoder;
 
     /**
      * AuthenticationService constructor.
@@ -33,7 +32,7 @@ class AuthenticationService implements AuthenticationServiceInterface
         Security $security,
         EntityManagerInterface $em,
         ValidatorInterface $validator,
-        UserPasswordEncoderInterface $passwordEncoder
+        \Symfony\Component\PasswordHasher\Hasher\UserPasswordHasherInterface $passwordEncoder
     ) {
         $this->manager = $manager;
         $this->security = $security;

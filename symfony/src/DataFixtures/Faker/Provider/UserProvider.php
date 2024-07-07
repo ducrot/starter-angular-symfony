@@ -6,25 +6,25 @@ namespace App\DataFixtures\Faker\Provider;
 
 use Faker\Generator;
 use Faker\Provider\Base;
-use Symfony\Component\Security\Core\Encoder\EncoderFactoryInterface;
+use Symfony\Component\PasswordHasher\Hasher\PasswordHasherFactoryInterface;
 
 final class UserProvider extends Base
 {
-    private EncoderFactoryInterface $encoderFactory;
+    private PasswordHasherFactoryInterface $hasherFactory;
 
-    public function __construct(Generator $generator, EncoderFactoryInterface $encoderFactory)
+    public function __construct(Generator $generator, PasswordHasherFactoryInterface $hasherFactory)
     {
         parent::__construct($generator);
 
-        $this->encoderFactory = $encoderFactory;
+        $this->hasherFactory = $hasherFactory;
     }
 
     /**
-     * Generate Symfony encoded password using UserPasswordEncoderInterface
+     * Generate Symfony hashed password using UserPasswordHasherInterface
      */
-    public function symfonyPassword(string $userClass, string $plainPassword, ?string $salt = null): string
+    public function symfonyPassword(string $userClass, string $plainPassword): string
     {
-        $password = $this->encoderFactory->getEncoder($userClass)->encodePassword($plainPassword, $salt);
+        $password = $this->hasherFactory->getPasswordHasher($userClass)->hash($plainPassword);
 
         return $this->generator->parse($password);
     }

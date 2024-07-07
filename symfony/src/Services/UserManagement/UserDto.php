@@ -6,7 +6,7 @@ namespace App\Services\UserManagement;
 
 use App\Entity\User;
 use App\Repository\UserRepository;
-use Symfony\Component\Security\Core\Encoder\UserPasswordEncoderInterface;
+use Symfony\Component\PasswordHasher\Hasher\UserPasswordHasherInterface;
 use Symfony\Component\Validator\ConstraintViolationListInterface;
 use Symfony\Component\Validator\Validator\ValidatorInterface;
 
@@ -14,14 +14,14 @@ class UserDto
 {
     private UserRepository $userRepository;
     private ValidatorInterface $validator;
-    private UserPasswordEncoderInterface $passwordEncoder;
+    private UserPasswordHasherInterface $passwordHasher;
     private ?ConstraintViolationListInterface $errors;
     private User $user;
-    private bool $mustEncodePassword;
+    private bool $mustHashPassword;
 
-    public function __construct(UserPasswordEncoderInterface $passwordEncoder, UserRepository $userRepository, ValidatorInterface $validator)
+    public function __construct(UserPasswordHasherInterface $passwordHasher, UserRepository $userRepository, ValidatorInterface $validator)
     {
-        $this->passwordEncoder = $passwordEncoder;
+        $this->passwordHasher = $passwordHasher;
         $this->userRepository = $userRepository;
         $this->validator = $validator;
         $this->reset();
@@ -31,7 +31,7 @@ class UserDto
     {
         $this->user = new User();
         $this->errors = null;
-        $this->mustEncodePassword = false;
+        $this->mustHashPassword = false;
     }
 
     public function create(): void
@@ -50,8 +50,8 @@ class UserDto
         $this->errors = $this->validator->validate($this->user);
         $ok = !$this->hasErrors();
         if ($ok) {
-            if ($this->mustEncodePassword) {
-                $pw = $this->passwordEncoder->encodePassword($this->user, $this->user->getPassword());
+            if ($this->mustHashPassword) {
+                $pw = $this->passwordHasher->hashPassword($this->user, $this->user->getPassword());
                 $this->user->setPassword($pw);
             }
             $this->userRepository->persist($this->user);
@@ -67,8 +67,8 @@ class UserDto
 
     public function setPassword(string $value)
     {
-        // Dont't encode password here because validation is only possibly with plain password.
-        $this->mustEncodePassword = true;
+        // Don't hash password here because validation is only possibly with plain password.
+        $this->mustHashPassword = true;
         $this->user->setPassword($value);
     }
 
