@@ -57,9 +57,9 @@ class UserTokenAuthenticator extends AbstractBearerTokenAuthenticator
         return UserToken::TOKEN_NAME;
     }
 
-    protected function supportsToken(array $credentials): bool
+    protected function supportsToken(string $token): bool
     {
-        return UserToken::supports($credentials['token']);
+        return UserToken::supports($token);
     }
 
     protected function validateToken(string $token, Request $request): string

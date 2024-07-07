@@ -1,16 +1,14 @@
 security:
+    enable_authenticator_manager: true
 
     # make sure access decision manager is configured in a sane way
     access_decision_manager:
         strategy: unanimous
         allow_if_all_abstain: false
 
-
-    # set the password hasher for our user type
+    # https://symfony.com/doc/current/security.html#registering-the-user-hashing-passwords
     password_hashers:
-        App\Entity\User:
-            algorithm: 'auto'
-
+        Symfony\Component\Security\Core\User\PasswordAuthenticatedUserInterface: 'auto'
 
     # https://symfony.com/doc/current/security.html#where-do-users-come-from-user-providers
     providers:
@@ -26,10 +24,8 @@ security:
             pattern: ^/api/
             stateless: true
             remember_me: false
-            anonymous: true
-            guard:
-                authenticators:
-                    - App\Security\UserTokenAuthenticator
+            custom_authenticators:
+                - App\Security\UserTokenAuthenticator
 
     # Easy way to control access for large sections of your site
     # Note: Only the *first* access control that matches will be used
@@ -51,9 +47,3 @@ when@test:
                 cost: 4 # Lowest possible value for bcrypt
                 time_cost: 3 # Lowest possible value for argon
                 memory_cost: 10 # Lowest possible value for argon
-
-        # set the password passwordHasher for our user type
-        encoders:
-            App\Entity\User:
-                algorithm: 'bcrypt'
-                cost: 4

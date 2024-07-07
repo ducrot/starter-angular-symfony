@@ -7,12 +7,13 @@ use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpKernel\Exception\UnauthorizedHttpException;
 use Symfony\Component\Security\Core\Authentication\Token\TokenInterface;
 use Symfony\Component\Security\Core\Exception\AuthenticationException;
-use Symfony\Component\Security\Core\Exception\UserNotFoundException;
 use Symfony\Component\Security\Core\User\UserInterface;
-use Symfony\Component\Security\Core\User\UserProviderInterface;
-use Symfony\Component\Security\Guard\AbstractGuardAuthenticator;
+use Symfony\Component\Security\Http\Authenticator\AbstractAuthenticator;
+use Symfony\Component\Security\Http\Authenticator\Passport\Badge\UserBadge;
+use Symfony\Component\Security\Http\Authenticator\Passport\Passport;
+use Symfony\Component\Security\Http\Authenticator\Passport\SelfValidatingPassport;
 
-abstract class AbstractBearerTokenAuthenticator extends AbstractGuardAuthenticator
+abstract class AbstractBearerTokenAuthenticator extends AbstractAuthenticator
 {
     public const HEADER_AUTHORIZATION = 'Authorization';
     public const BEARER_PREFIX = 'Bearer ';
@@ -26,7 +27,7 @@ abstract class AbstractBearerTokenAuthenticator extends AbstractGuardAuthenticat
      * implementations you need to determine which one to use
      * here.
      */
-    protected function supportsToken(array $credentials): bool
+    protected function supportsToken(string $token): bool
     {
         return true;
     }
@@ -51,70 +52,29 @@ abstract class AbstractBearerTokenAuthenticator extends AbstractGuardAuthenticat
      */
     abstract protected function getTokenUser(string $username): ?UserInterface;
 
-    /**
-     * If no Authorization header was provided, throw a UnauthorizedHttpException
-     * that provides the correct WWW-Authenticate header.
-     *
-     * The default behaviour of the security component is to call this method
-     * when the UserProviderInterface threw a UserNotFoundException. The
-     * original UserNotFoundException will be lost.
-     *
-     * For bearer token based authentication, it should be okay to present
-     * some information about why the authentication failed (other than username
-     * password authentication).
-     *
-     * The AbstractBearerTokenAuthenticator will catch UserNotFoundException
-     * in getUser() and call this method. The default behaviour is to prepare
-     * a HTTP 401 Unauthorized response with the message of the
-     * UserNotFoundException included in the body.
-     *
-     * @param Request|null                 $request       The request that resulted in an AuthenticationException
-     * @param AuthenticationException|null $authException The exception that started the authentication process
-     *
-     * @return Response|void
-     */
-    public function start(?Request $request = null, ?AuthenticationException $authException = null)
-    {
-        $msg = $authException ? $this->provideMessageForAuthenticationException($authException) : 'Authentication Required';
-        $wwwAuthenticate = sprintf('Bearer scope="%s"', $this->getTokenName());
-        throw new UnauthorizedHttpException($wwwAuthenticate, $msg);
-    }
-
     final public function supports(Request $request): bool
     {
         if (!$request->headers->has(self::HEADER_AUTHORIZATION)) {
             return false;
         }
+
         $auth_header = $request->headers->get(self::HEADER_AUTHORIZATION);
         if (!str_starts_with($auth_header, self::BEARER_PREFIX)) {
             return false;
         }
-        $credentials = $this->getCredentials($request);
 
-        return $this->supportsToken($credentials);
+        $token = substr($auth_header, strlen(self::BEARER_PREFIX));
+
+        return $this->supportsToken($token);
     }
 
-    final public function getCredentials(Request $request): array
+    public function authenticate(Request $request): Passport
     {
         $auth_header = $request->headers->get(self::HEADER_AUTHORIZATION);
         $token = substr($auth_header, strlen(self::BEARER_PREFIX));
 
-        return [
-            'token' => $token,
-            'request' => $request,
-        ];
-    }
-
-    /**
-     * If token is invalid or malformed, throw a UnauthorizedHttpException
-     * that provides the correct WWW-Authenticate header.
-     *
-     * @param array $credentials
-     */
-    final public function getUser($credentials, UserProviderInterface $userProvider): ?UserInterface
-    {
         try {
-            $username = $this->validateToken($credentials['token'], $credentials['request']);
+            $username = $this->validateToken($token, $request);
         } catch (TokenException $exception) {
             $scope = $exception->getTokenName();
             $error = $exception->getTokenErrorCode();
@@ -124,31 +84,12 @@ abstract class AbstractBearerTokenAuthenticator extends AbstractGuardAuthenticat
             throw new UnauthorizedHttpException($wwwAuthenticate, $msg, $exception);
         }
 
-        try {
-            return $this->getTokenUser($username);
-        } catch (UserNotFoundException $exception) {
-            $this->start(null, $exception);
-        }
+        return new SelfValidatingPassport(new UserBadge($username));
     }
 
     protected function provideMessageForTokenException(TokenException $exception): string
     {
         return 'Authentication failed: '.$exception->getMessage();
-    }
-
-    protected function provideMessageForAuthenticationException(AuthenticationException $exception): string
-    {
-        if ($exception instanceof UserNotFoundException) {
-            return 'Authentication failed: '.$exception->getMessage();
-        }
-
-        return $exception->getMessage();
-    }
-
-    final public function checkCredentials($credentials, UserInterface $user): bool
-    {
-        // token is validated in getUser(), no need to check credentials
-        return true;
     }
 
     final public function onAuthenticationFailure(Request $request, AuthenticationException $exception): ?Response
@@ -157,14 +98,9 @@ abstract class AbstractBearerTokenAuthenticator extends AbstractGuardAuthenticat
         return null;
     }
 
-    final public function onAuthenticationSuccess(Request $request, TokenInterface $token, $providerKey): ?Response
+    final public function onAuthenticationSuccess(Request $request, TokenInterface $token, string $firewallName): ?Response
     {
         // let the request continue
         return null;
-    }
-
-    final public function supportsRememberMe(): bool
-    {
-        return false;
     }
 }
