@@ -31,7 +31,7 @@ security:
     # Note: Only the *first* access control that matches will be used
     access_control:
         - { path: ^/api/app.UserManagementService/, roles: ROLE_ADMIN }
-        - { path: ^/api/app.AuthenticationService/[lL]ogin$, roles: IS_AUTHENTICATED_ANONYMOUSLY }
+        - { path: ^/api/app.AuthenticationService/[lL]ogin$, roles: PUBLIC_ACCESS }
         - { path: ^/, roles: IS_AUTHENTICATED_FULLY }
 
 
