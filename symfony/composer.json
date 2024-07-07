@@ -13,7 +13,7 @@
         "doctrine/doctrine-bundle": "^2.4",
         "doctrine/doctrine-migrations-bundle": "^3.1",
         "doctrine/orm": "^2.9",
-        "firebase/php-jwt": "^5.0",
+        "firebase/php-jwt": "^6.0",
         "nelmio/cors-bundle": "^2.0",
         "rollerworks/password-strength-bundle": "^2.2",
         "symfony/apache-pack": "^1.0",

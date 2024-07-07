@@ -3,6 +3,7 @@
 namespace App\Security;
 
 use Firebase\JWT\JWT;
+use Firebase\JWT\Key;
 
 class UserToken
 {
@@ -78,7 +79,7 @@ class UserToken
         $payload = null;
 
         try {
-            $payload = (array) JWT::decode($token, $secret, [self::JWT_ALG]);
+            $payload = (array) JWT::decode($token, new Key($secret, self::JWT_ALG));
         } catch (\Exception $exception) {
             throw TokenException::wrapJWTDecode($exception, self::TOKEN_NAME);
         }
