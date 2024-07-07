@@ -84,7 +84,7 @@ class SmokeFunctionalTest extends WebTestCase
 
     private function generateValidToken()
     {
-        $authenticator = self::$container->get(UserTokenAuthenticator::class);
+        $authenticator = self::getContainer()->get(UserTokenAuthenticator::class);
         $user = new User();
         $user->setUsername('testuser@domain.tld');
 
